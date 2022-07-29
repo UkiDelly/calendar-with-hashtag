@@ -4,6 +4,6 @@ class CalendarEvent {
   final String description;
 
   CalendarEvent(this.title, this.date, this.description);
-
+  
 
 }
