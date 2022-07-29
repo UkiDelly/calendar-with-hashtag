@@ -14,16 +14,18 @@ class _BackToNowState extends State<BackToNow> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _animationController =
-        AnimationController(duration: const Duration(seconds: 1), vsync: this)
-          ..forward();
+    _animationController = AnimationController(
+        duration: const Duration(milliseconds: 500), vsync: this)
+      ..forward()
+      ..addListener(() {
+        setState(() {});
+      });
     _opacityController =
         Tween<double>(begin: 0, end: 1).animate(_animationController);
   }
 
   @override
   void dispose() {
-    _animationController.reverse();
     _animationController.dispose();
 
     super.dispose();

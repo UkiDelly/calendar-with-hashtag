@@ -42,7 +42,8 @@ class MainView extends StatelessWidget {
           // go back to today if the calendar is not on the current month
           Consumer(
             builder: (ctx, ref, child) {
-              return SizedBox(
+              return AnimatedContainer(
+                duration: const Duration(milliseconds: 500),
                 child: ref.watch(currentMonthProvider) != DateTime.now().month
                     ? const BackToNow()
                     : null,

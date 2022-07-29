@@ -1,5 +1,6 @@
 import 'package:care_square_assignment/provider/current_month.dart';
 import 'package:care_square_assignment/view/widget/cells/default.dart';
+import 'package:care_square_assignment/view/widget/cells/holiday.dart';
 import 'package:care_square_assignment/view/widget/cells/outside.dart';
 import 'package:care_square_assignment/view/widget/cells/selected.dart';
 import 'package:care_square_assignment/view/widget/cells/today.dart';
@@ -58,12 +59,12 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
 
           // Page change
           onPageChanged: (focusedDay) {
+            // change the Month
+            ref
+                .watch(currentMonthProvider.notifier)
+                .update((state) => focusedDay.month);
             setState(() {
-              // change the Month
-              ref
-                  .watch(currentMonthProvider.notifier)
-                  .update((state) => focusedDay.month);
-
+              _focusedDay = focusedDay;
               // auto select the first day of the month
               _selectedDate = DateTime(focusedDay.year, focusedDay.month, 1);
             });
@@ -80,48 +81,50 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
 
           // calendar builder
           calendarBuilders: CalendarBuilders(
-            // cells size
+              // weekday name builder
+              dowBuilder: (context, day) {
+                switch (day.weekday) {
+                  case 1:
+                    return const WeekdayCell(weekDayName: "월");
+                  case 2:
+                    return const WeekdayCell(weekDayName: "화");
+                  case 3:
+                    return const WeekdayCell(weekDayName: "수");
+                  case 4:
+                    return const WeekdayCell(weekDayName: "목");
+                  case 5:
+                    return const WeekdayCell(weekDayName: "금");
+                  case 6:
+                    return const WeekdayCell(
+                      weekDayName: "토",
+                      color: Colors.red,
+                    );
+                  case 7:
+                    return const WeekdayCell(
+                        weekDayName: "일", color: Colors.grey);
+                }
+                return null;
+              },
 
-            // weekday name builder
-            dowBuilder: (context, day) {
-              switch (day.weekday) {
-                case 1:
-                  return const WeekdayCell(weekDayName: "월");
-                case 2:
-                  return const WeekdayCell(weekDayName: "화");
-                case 3:
-                  return const WeekdayCell(weekDayName: "수");
-                case 4:
-                  return const WeekdayCell(weekDayName: "목");
-                case 5:
-                  return const WeekdayCell(weekDayName: "금");
-                case 6:
-                  return const WeekdayCell(
-                    weekDayName: "토",
-                    color: Colors.red,
-                  );
-                case 7:
-                  return const WeekdayCell(
-                      weekDayName: "일", color: Colors.grey);
-              }
-              return null;
-            },
+              // default day
+              defaultBuilder: (context, day, focusedDay) =>
+                  DefaultCell(day: day),
 
-            // default day
-            defaultBuilder: (context, day, focusedDay) => DefaultCell(day: day),
+              // select builder
+              selectedBuilder: (context, day, focusedDay) =>
+                  SelectedCell(day: day),
 
-            // select builder
-            selectedBuilder: (context, day, focusedDay) =>
-                SelectedCell(day: day),
+              // today builder
+              todayBuilder: (context, day, focusedDay) => TodayCell(day: day),
 
-            // today builder
-            todayBuilder: (context, day, focusedDay) => TodayCell(day: day),
+              // outside builder
+              outsideBuilder: (context, day, focusedDay) =>
+                  OutSideCell(day: day),
 
-            //
-            outsideBuilder: (context, day, focusedDay) => OutSideCell(day: day),
-          ),
-
-          //
+              // holiday builder
+              holidayBuilder: (context, day, focusedDay) => HolidayCell(
+                    day: day,
+                  )),
         ),
       ],
     );
