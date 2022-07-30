@@ -1,3 +1,4 @@
+import 'package:care_square_assignment/model/calendar_event.dart';
 import 'package:care_square_assignment/provider/current_month.dart';
 import 'package:care_square_assignment/view/widget/cells/default.dart';
 import 'package:care_square_assignment/view/widget/cells/holiday.dart';
@@ -30,22 +31,24 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
     _lastDay = DateTime.utc(2030);
   }
 
-  // Calendar format
-  final CalendarFormat _format = CalendarFormat.month;
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         // calendar
         TableCalendar(
-          // Date range
+          // Calendar date range
           focusedDay: _focusedDay,
           firstDay: _firstDay,
           lastDay: _lastDay,
 
-          // Calendar format
-          calendarFormat: _format,
+          // Calendar settings
+          calendarFormat: CalendarFormat.month,
+          calendarStyle: const CalendarStyle(),
+          headerVisible: false,
+          // height of the cells
+          rowHeight: 60,
+          availableGestures: AvailableGestures.horizontalSwipe,
 
           // Day select
           selectedDayPredicate: (day) => isSameDay(_selectedDate, day),
@@ -53,9 +56,6 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
             _selectedDate = selectedDay;
             _focusedDay = selectedDay;
           }),
-
-          // style
-          calendarStyle: const CalendarStyle(),
 
           // Page change
           onPageChanged: (focusedDay) {
@@ -69,15 +69,6 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
               _selectedDate = DateTime(focusedDay.year, focusedDay.month, 1);
             });
           },
-
-          // header
-          headerVisible: false,
-
-          // height of the cells
-          rowHeight: 60,
-
-          // only horizontal swipe is able
-          availableGestures: AvailableGestures.horizontalSwipe,
 
           // calendar builder
           calendarBuilders: CalendarBuilders(
@@ -107,12 +98,18 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
               },
 
               // default day
-              defaultBuilder: (context, day, focusedDay) =>
-                  DefaultCell(day: day),
+              defaultBuilder: (context, day, focusedDay) {
+                return DefaultCell(
+                  day: day,
+                  events: getEventsforDay(day),
+                );
+              },
 
               // select builder
-              selectedBuilder: (context, day, focusedDay) =>
-                  SelectedCell(day: day),
+              selectedBuilder: (context, day, focusedDay) => SelectedCell(
+                    day: day,
+                    events: getEventsforDay(day),
+                  ),
 
               // today builder
               todayBuilder: (context, day, focusedDay) => TodayCell(day: day),

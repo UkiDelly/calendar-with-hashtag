@@ -1,8 +1,12 @@
+import 'package:care_square_assignment/model/calendar_event.dart';
+import 'package:care_square_assignment/view/widget/event_widget.dart';
 import 'package:flutter/material.dart';
 
 class DefaultCell extends StatelessWidget {
   final DateTime day;
-  const DefaultCell({Key? key, required this.day}) : super(key: key);
+  final List<CalendarEvent>? events;
+  const DefaultCell({Key? key, required this.day, this.events})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +29,13 @@ class DefaultCell extends StatelessWidget {
                     ? Colors.red
                     : const Color(0xff313131)),
           ),
+
+          // events
+          events != null
+              ? EventCard(
+                  events: events!,
+                )
+              : const SizedBox(),
 
           const Spacer()
         ],
