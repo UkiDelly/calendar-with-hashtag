@@ -1,5 +1,6 @@
 import 'package:care_square_assignment/provider/current_month.dart';
 import 'package:care_square_assignment/view/widget/calendar.dart';
+import 'package:care_square_assignment/view/widget/event_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,8 +18,6 @@ class MainView extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 75,
-
-        // theme
 
         //* month
         leading: Consumer(
@@ -39,7 +38,7 @@ class MainView extends StatelessWidget {
 
         //* buttons
         actions: [
-          // go back to today if the calendar is not on the current month
+          //* go back to today if the calendar is not on the current month
           Consumer(
             builder: (ctx, ref, child) {
               return AnimatedContainer(
@@ -51,7 +50,7 @@ class MainView extends StatelessWidget {
             },
           ),
 
-          // search button
+          //* search button
           IconButton(
               onPressed: () {},
               icon: const Icon(
@@ -59,26 +58,35 @@ class MainView extends StatelessWidget {
                 color: Color(0xff313131),
               )),
 
-          // calendar accounts button
+          //* calendar accounts button
           IconButton(
               onPressed: () {},
               icon: const Icon(Icons.calendar_month, color: Color(0xff313131))),
 
-          // setting button
+          //* setting button
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.settings, color: Color(0xff313131)),
           )
         ],
       ),
+
+      //
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
-              //
+              //* Calendar
               SizedBox(child: CalendarWidget()),
 
               //
+              SizedBox(
+                height: 20,
+              ),
+
+              //* Event List
+              EventList()
             ],
           ),
         ),

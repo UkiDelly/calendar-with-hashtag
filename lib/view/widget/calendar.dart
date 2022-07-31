@@ -1,5 +1,6 @@
 import 'package:care_square_assignment/model/calendar_event.dart';
 import 'package:care_square_assignment/provider/current_month.dart';
+import 'package:care_square_assignment/provider/selected_date.dart';
 import 'package:care_square_assignment/view/widget/cells/default.dart';
 import 'package:care_square_assignment/view/widget/cells/holiday.dart';
 import 'package:care_square_assignment/view/widget/cells/outside.dart';
@@ -53,20 +54,40 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
           // Day select
           selectedDayPredicate: (day) => isSameDay(_selectedDate, day),
           onDaySelected: (selectedDay, focusedDay) => setState(() {
+            ref
+                .watch(selectedDateProvider.notifier)
+                .update((state) => selectedDay);
             _selectedDate = selectedDay;
             _focusedDay = selectedDay;
           }),
 
           // Page change
           onPageChanged: (focusedDay) {
-            // change the Month
+            // change the month
             ref
                 .watch(currentMonthProvider.notifier)
                 .update((state) => focusedDay.month);
+            // change the selected day to focusedDay
+            ref
+                .watch(selectedDateProvider.notifier)
+                .update((state) => focusedDay);
+
+            //
             setState(() {
+              // change the focuse
               _focusedDay = focusedDay;
-              // auto select the first day of the month
-              _selectedDate = DateTime(focusedDay.year, focusedDay.month, 1);
+
+              // if the month is current month
+              if (focusedDay.month == DateTime.now().month) {
+                // change the selected day to today to today
+                ref
+                    .watch(selectedDateProvider.notifier)
+                    .update((state) => DateTime.now());
+                _selectedDate = DateTime.now();
+              } else {
+                // auto select the first day of the month
+                _selectedDate = DateTime(focusedDay.year, focusedDay.month, 1);
+              }
             });
           },
 
