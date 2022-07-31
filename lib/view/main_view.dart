@@ -1,10 +1,11 @@
-import 'package:care_square_assignment/provider/current_month.dart';
-import 'package:care_square_assignment/view/widget/calendar.dart';
-import 'package:care_square_assignment/view/widget/event_list.dart';
+import 'package:care_square_assignment/view/widget/calendar/calendar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../provider/dates.dart';
 import 'widget/back_to_now.dart';
+import 'widget/events/event_list.dart';
 
 class MainView extends StatelessWidget {
   const MainView({Key? key}) : super(key: key);
@@ -45,7 +46,7 @@ class MainView extends StatelessWidget {
                 duration: const Duration(milliseconds: 500),
                 child: ref.watch(currentMonthProvider) != DateTime.now().month
                     ? const Padding(
-                        padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                        padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
                         child: BackToNow(),
                       )
                     : null,
@@ -59,17 +60,26 @@ class MainView extends StatelessWidget {
               icon: const Icon(
                 Icons.search,
                 color: Color(0xff313131),
+                size: 20,
               )),
 
           //* calendar accounts button
           IconButton(
               onPressed: () {},
-              icon: const Icon(Icons.calendar_month, color: Color(0xff313131))),
+              icon: const Icon(
+                Icons.calendar_month,
+                color: Color(0xff313131),
+                size: 20,
+              )),
 
           //* setting button
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.settings, color: Color(0xff313131)),
+            icon: const Icon(
+              Icons.settings,
+              color: Color(0xff313131),
+              size: 20,
+            ),
           )
         ],
       ),
@@ -81,7 +91,9 @@ class MainView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
               //* Calendar
-              SizedBox(child: CalendarWidget()),
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: CalendarWidget()),
 
               //
               SizedBox(

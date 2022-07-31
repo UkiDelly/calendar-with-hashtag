@@ -1,16 +1,17 @@
 import 'package:care_square_assignment/model/calendar_event.dart';
-import 'package:care_square_assignment/provider/current_month.dart';
-import 'package:care_square_assignment/provider/go_back_today.dart';
-import 'package:care_square_assignment/provider/selected_date.dart';
-import 'package:care_square_assignment/view/widget/cells/default.dart';
-import 'package:care_square_assignment/view/widget/cells/holiday.dart';
-import 'package:care_square_assignment/view/widget/cells/outside.dart';
-import 'package:care_square_assignment/view/widget/cells/selected.dart';
-import 'package:care_square_assignment/view/widget/cells/today.dart';
-import 'package:care_square_assignment/view/widget/cells/weekday.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import '../../../provider/dates.dart';
+
+import 'cells/default.dart';
+import 'cells/holiday.dart';
+import 'cells/outside.dart';
+import 'cells/selected.dart';
+import 'cells/today.dart';
+import 'cells/weekday.dart';
 
 class CalendarWidget extends ConsumerStatefulWidget {
   const CalendarWidget({Key? key}) : super(key: key);

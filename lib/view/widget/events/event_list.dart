@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 
-import '../../provider/selected_date.dart';
+import '../../../provider/dates.dart';
 
 class EventList extends StatefulWidget {
   const EventList({Key? key}) : super(key: key);
@@ -11,6 +12,29 @@ class EventList extends StatefulWidget {
 }
 
 class _EventListState extends State<EventList> {
+  String weekDayToName(DateTime day) {
+    switch (day.weekday) {
+      case 1:
+        return "월";
+
+      case 2:
+        return "화";
+      case 3:
+        return "수";
+      case 4:
+        return "목";
+      case 5:
+        return "금";
+      case 6:
+        return "토";
+      case 7:
+        return "일";
+
+      default:
+        return "";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,7 +48,7 @@ class _EventListState extends State<EventList> {
               return Padding(
                   padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
                   child: Text(
-                      "${selectedDate.year}년 ${selectedDate.month}월 ${selectedDate.day}일",
+                      "${selectedDate.year}년 ${selectedDate.month}월 ${selectedDate.day}일 (${weekDayToName(selectedDate)})",
                       style: const TextStyle(
                           color: Color(0xff313131),
                           fontWeight: FontWeight.bold,
@@ -40,7 +64,7 @@ class _EventListState extends State<EventList> {
               //* Add new Event
               Expanded(
                   child: Container(
-                margin: const EdgeInsets.fromLTRB(5, 10, 10, 10),
+                margin: const EdgeInsets.fromLTRB(10, 10, 5, 10),
                 width: 75,
                 height: 60,
                 decoration: BoxDecoration(
@@ -79,7 +103,8 @@ class _EventListState extends State<EventList> {
                       // text
                       Text(
                         "새로운 이벤트",
-                        style: TextStyle(fontSize: 25),
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w600),
                       )
                     ],
                   ),
@@ -88,12 +113,17 @@ class _EventListState extends State<EventList> {
 
               //* Template
               Container(
-                margin: const EdgeInsets.fromLTRB(5, 10, 10, 10),
                 width: 75,
                 height: 60,
+                margin: const EdgeInsets.fromLTRB(5, 10, 10, 10),
+                padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                     color: const Color(0xfff4f4f4),
                     borderRadius: BorderRadius.circular(10)),
+                child: SvgPicture.asset(
+                  'assets/icon/document.svg',
+                  height: 10,
+                ),
               )
             ],
           ),

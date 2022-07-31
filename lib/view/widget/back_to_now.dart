@@ -1,6 +1,9 @@
-import 'package:care_square_assignment/provider/go_back_today.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
+import 'dart:math' as math;
+
+import '../../provider/dates.dart';
 
 class BackToNow extends StatefulWidget {
   const BackToNow({Key? key}) : super(key: key);
@@ -44,47 +47,40 @@ class _BackToNowState extends State<BackToNow> with TickerProviderStateMixin {
         decoration: BoxDecoration(
             border: Border.all(color: const Color(0xff313131), width: 3),
             borderRadius: BorderRadius.circular(25)),
-        child: Row(
-          children: [
-            // Icon
-            Consumer(
-              builder: (context, ref, child) {
-                if (ref.watch(goBackTodayProvider) == 1) {
-                  // go back icon
-                  return const Icon(
-                    Icons.arrow_back,
+        child: Padding(
+          padding: const EdgeInsets.all(5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Icon
+              Center(
+                child: Consumer(
+                  builder: (context, ref, child) {
+                    if (ref.watch(goBackTodayProvider) == 1) {
+                      // go back icon
+                      return SvgPicture.asset('assets/icon/undo.svg');
+                    } else if (ref.watch(goBackTodayProvider) == -1) {
+                      // go forward icon
+                      return Transform(
+                          alignment: Alignment.center,
+                          transform: Matrix4.rotationY(math.pi),
+                          child: SvgPicture.asset('assets/icon/undo.svg'));
+                    }
+                    return const SizedBox();
+                  },
+                ),
+              ),
+
+              // Today
+              const Text(
+                "TODAY",
+                style: TextStyle(
                     color: Colors.black,
-                  );
-                } else if (ref.watch(goBackTodayProvider) == -1) {
-                  // go forward icon
-                  return const Icon(
-                    Icons.arrow_forward,
-                    color: Colors.black,
-                  );
-                }
-                return const SizedBox();
-              },
-            ),
-
-            //
-            const SizedBox(
-              width: 10,
-            ),
-
-            // Today
-            const Text(
-              "TODAY",
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20),
-            ),
-
-            //
-            const SizedBox(
-              width: 10,
-            )
-          ],
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15),
+              ),
+            ],
+          ),
         ),
       ),
     );
