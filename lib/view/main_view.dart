@@ -44,7 +44,10 @@ class MainView extends StatelessWidget {
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 500),
                 child: ref.watch(currentMonthProvider) != DateTime.now().month
-                    ? const BackToNow()
+                    ? const Padding(
+                        padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                        child: BackToNow(),
+                      )
                     : null,
               );
             },

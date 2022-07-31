@@ -1,5 +1,6 @@
 import 'package:care_square_assignment/model/calendar_event.dart';
 import 'package:care_square_assignment/provider/current_month.dart';
+import 'package:care_square_assignment/provider/go_back_today.dart';
 import 'package:care_square_assignment/provider/selected_date.dart';
 import 'package:care_square_assignment/view/widget/cells/default.dart';
 import 'package:care_square_assignment/view/widget/cells/holiday.dart';
@@ -61,8 +62,20 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
             _focusedDay = selectedDay;
           }),
 
+          // Holiday
+
           // Page change
           onPageChanged: (focusedDay) {
+            // tell that month is changed
+            // if the changed month is higher than the current month
+            if (focusedDay.month > DateTime.now().month) {
+              ref.watch(goBackTodayProvider.notifier).update((state) => 1);
+            }
+            // if the changed month is lower than the current month
+            else {
+              ref.watch(goBackTodayProvider.notifier).update((state) => -1);
+            }
+
             // change the month
             ref
                 .watch(currentMonthProvider.notifier)
