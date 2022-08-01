@@ -12,3 +12,5 @@ final goBackTodayProvider = StateProvider<int>((ref) => 0);
 final selectedDateProvider = StateProvider<DateTime>((ref) {
   return DateTime.now();
 });
+
+final allDayProvider = StateProvider<bool>((ref) => false);

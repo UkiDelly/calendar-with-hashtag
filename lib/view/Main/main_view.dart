@@ -1,10 +1,7 @@
-import 'package:care_square_assignment/view/widget/appbar/appbar.dart';
-import 'package:care_square_assignment/view/widget/calendar/calendar.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/cupertino.dart';
 
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
+import 'widget/appbar/appbar.dart';
+import 'widget/calendar/calendar.dart';
 import 'widget/events/event_list.dart';
 
 class MainView extends StatefulWidget {
@@ -17,11 +14,8 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
-    return CupertinoScaffold(
-      overlayStyle: SystemUiOverlayStyle.dark,
-      transitionBackgroundColor: Colors.white,
-      //
-      body: SafeArea(
+    return CupertinoPageScaffold(
+      child: SafeArea(
         child: Column(
           children: [
             // App bar

@@ -1,4 +1,4 @@
-import 'package:care_square_assignment/view/main_view.dart';
+import 'package:care_square_assignment/view/Main/main_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,8 +16,7 @@ class MyApp extends StatelessWidget {
     return const CupertinoApp(
       debugShowCheckedModeBanner: false,
       theme: CupertinoThemeData(
-        brightness: Brightness.light,
-      ),
+          brightness: Brightness.light, primaryColor: Colors.black),
       home: MainView(),
     );
   }

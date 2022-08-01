@@ -1,3 +1,4 @@
+import 'package:care_square_assignment/view/New%20Event/new_event_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,18 +24,13 @@ class AddNewEvent extends StatelessWidget {
                 color: const Color(0xfff4f4f4),
                 borderRadius: BorderRadius.circular(10)),
             child: CupertinoButton(
-              // when tap
+              //
+              //* Show adding event page
               onPressed: () => showCupertinoModalBottomSheet(
-                  context: context, builder: (context) => Container()),
-
-              // decoration
-              // borderRadius: BorderRadius.circular(10),
-              // highlightColor: Colors.white.withOpacity(0.5),
-              // hoverColor: Colors.white.withOpacity(0.5),
-              // splashColor: Colors.white.withOpacity(0.5),
-              // overlayColor:
-              //     MaterialStateProperty.all(Colors.white.withOpacity(0.5)),
-              //TODO: make the color white with opacity 50% when it pressed.
+                context: context,
+                backgroundColor: Colors.transparent,
+                builder: (context) => const AddNewEventPage(),
+              ),
 
               //
               child: Row(

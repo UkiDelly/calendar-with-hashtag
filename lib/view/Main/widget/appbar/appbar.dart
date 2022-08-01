@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../provider/dates.dart';
+import '../../../../provider/dates.dart';
+
 import '../back_to_now.dart';
 
 class CalendarAppBar extends StatefulWidget {
-
-  CalendarAppBar({Key? key, }) : super(key: key);
+  const CalendarAppBar({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<CalendarAppBar> createState() => _CalendarAppBarState();
@@ -46,8 +48,8 @@ class _CalendarAppBarState extends State<CalendarAppBar> {
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 500),
                 child: ref.watch(currentMonthProvider) != DateTime.now().month
-                    ? Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                    ? const Padding(
+                        padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
                         child: BackToNow(),
                       )
                     : null,

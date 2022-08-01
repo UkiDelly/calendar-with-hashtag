@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../provider/dates.dart';
+import '../../../../provider/dates.dart';
+
 import 'add_new_event.dart';
 
 class EventList extends StatefulWidget {

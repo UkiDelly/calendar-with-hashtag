@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../../provider/dates.dart';
+import '../../../../provider/dates.dart';
 
 import 'cells/default.dart';
 import 'cells/holiday.dart';
@@ -33,7 +33,7 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
   @override
   void initState() {
     super.initState();
-    _focusedDay = ref.watch(selectedDateProvider);
+    _focusedDay = DateTime.now();
     _firstDay = DateTime.utc(2010);
     _lastDay = DateTime.utc(2030);
   }
