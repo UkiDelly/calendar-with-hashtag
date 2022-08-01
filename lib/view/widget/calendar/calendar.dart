@@ -13,25 +13,35 @@ import 'cells/selected.dart';
 import 'cells/today.dart';
 import 'cells/weekday.dart';
 
+final calendarKey = GlobalKey<State>();
+
 class CalendarWidget extends ConsumerStatefulWidget {
-  const CalendarWidget({Key? key}) : super(key: key);
+  const CalendarWidget({
+    Key? key,
+  }) : super(key: key);
 
   @override
   ConsumerState<CalendarWidget> createState() => _CalendarWidgetState();
 }
 
 class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
-  late DateTime _focusedDay;
   late DateTime _firstDay;
   late DateTime _lastDay;
   DateTime? _selectedDate;
+  late DateTime _focusedDay;
 
   @override
   void initState() {
     super.initState();
-    _focusedDay = DateTime.now();
+    _focusedDay = ref.watch(selectedDateProvider);
     _firstDay = DateTime.utc(2010);
     _lastDay = DateTime.utc(2030);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _focusedDay = ref.watch(selectedDateProvider);
   }
 
   @override
@@ -88,9 +98,6 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
 
             //
             setState(() {
-              // change the focuse
-              _focusedDay = focusedDay;
-
               // if the month is current month
               if (focusedDay.month == DateTime.now().month) {
                 // change the selected day to today to today
@@ -107,6 +114,7 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
 
           // calendar builder
           calendarBuilders: CalendarBuilders(
+
               // weekday name builder
               dowBuilder: (context, day) {
                 switch (day.weekday) {

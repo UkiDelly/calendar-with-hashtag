@@ -1,4 +1,5 @@
 import 'package:care_square_assignment/view/main_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,12 +13,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const CupertinoApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
+      theme: CupertinoThemeData(
         brightness: Brightness.light,
       ),
-      home: const MainView(),
+      home: MainView(),
     );
   }
 }
