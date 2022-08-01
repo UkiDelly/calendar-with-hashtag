@@ -1,4 +1,4 @@
-import 'package:care_square_assignment/model/calendar_event.dart';
+import 'package:care_square_assignment/provider/events_list.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -78,6 +78,7 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
           // Page change
           onPageChanged: (focusedDay) {
             // tell that month is changed
+            _focusedDay = focusedDay;
             // if the changed month is higher than the current month
             if (focusedDay.month > DateTime.now().month) {
               ref.watch(goBackTodayProvider.notifier).update((state) => 1);
@@ -144,14 +145,18 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
               defaultBuilder: (context, day, focusedDay) {
                 return DefaultCell(
                   day: day,
-                  events: getEventsforDay(day),
+                  events: ref
+                      .watch(eventListProvider.notifier)
+                      .getEventsforDay(day),
                 );
               },
 
               // select builder
               selectedBuilder: (context, day, focusedDay) => SelectedCell(
                     day: day,
-                    events: getEventsforDay(day),
+                    events: ref
+                        .watch(eventListProvider.notifier)
+                        .getEventsforDay(day),
                   ),
 
               // today builder

@@ -1,22 +1,17 @@
-import 'package:care_square_assignment/data/events.dart';
 import 'package:flutter/material.dart';
 
 class CalendarEvent {
   final String title;
-  final DateTime date;
+  final DateTime startTime;
+  final DateTime endTime;
   final Color color;
-  final String? description;
+  final String description;
 
-  CalendarEvent(
-      {required this.title,
-      required this.date,
-      required this.color,
-      this.description});
-}
-
-List<CalendarEvent> getEventsforDay(DateTime day) {
-  // List<CalendarEvent> output =
-  //     events.where((event) => event.date.toUtc() == day.toUtc()).toList();
-
-  return events.where((element) => element.date == day).toList();
+  CalendarEvent({
+    required this.title,
+    required this.startTime,
+    required this.endTime,
+    required this.color,
+    required this.description,
+  });
 }

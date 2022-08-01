@@ -1,4 +1,4 @@
-import 'package:care_square_assignment/view/New%20Event/widgets/Time/time.dart';
+import 'package:care_square_assignment/view/New%20Event/widgets/time.dart';
 import 'package:care_square_assignment/view/New%20Event/widgets/title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

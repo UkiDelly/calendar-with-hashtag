@@ -1,3 +1,6 @@
+import 'package:care_square_assignment/model/calendar_event.dart';
+import 'package:care_square_assignment/provider/events_list.dart';
+import 'package:care_square_assignment/view/Main/widget/events/even_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -5,14 +8,21 @@ import '../../../../provider/dates.dart';
 
 import 'add_new_event.dart';
 
-class EventList extends StatefulWidget {
+class EventList extends ConsumerStatefulWidget {
   const EventList({Key? key}) : super(key: key);
 
   @override
-  State<EventList> createState() => _EventListState();
+  ConsumerState<EventList> createState() => _EventListState();
 }
 
-class _EventListState extends State<EventList> {
+class _EventListState extends ConsumerState<EventList> {
+  //
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   String weekDayToName(DateTime day) {
     switch (day.weekday) {
       case 1:
@@ -57,10 +67,30 @@ class _EventListState extends State<EventList> {
             }),
 
         //* Event List
+        eventList(),
 
         //* Add new Event with Template
         const AddNewEvent()
       ],
     );
+  }
+
+  Widget eventList() {
+    return Consumer(builder: (context, ref, child) {
+      DateTime selectedDate = ref.watch(selectedDateProvider);
+      List<CalendarEvent> eventList =
+          ref.watch(eventListProvider.notifier).getEventsforDay(selectedDate);
+
+      return ListView.builder(
+        shrinkWrap: true,
+        itemCount: eventList.length,
+        padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
+        itemBuilder: (context, index) {
+          return EventCardTile(
+            event: eventList[index],
+          );
+        },
+      );
+    });
   }
 }
