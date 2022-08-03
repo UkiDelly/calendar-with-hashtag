@@ -1,7 +1,8 @@
-import 'package:care_square_assignment/provider/dates.dart';
+import 'package:care_square_assignment/data/repeat_enum.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
+import '../../../model/global_functions.dart';
 
 class TimePick extends StatefulWidget {
   DateTime day;
@@ -12,56 +13,24 @@ class TimePick extends StatefulWidget {
 }
 
 class _TimePickState extends State<TimePick> {
+  //
   bool allDay = false;
   late DateTime startDate, endDate;
+  Repeat repeat = Repeat.none;
 
   @override
   void initState() {
     super.initState();
     // set the initial date
-    startDate = DateTime.utc(
-       widget.day.year,
-       widget.day.month,
-       widget.day.day,
-        0,
-        0);
+    startDate =
+        DateTime.utc(widget.day.year, widget.day.month, widget.day.day, 0, 0);
 
     // set the initial date
-    endDate = DateTime.utc(
-       widget.day.year,
-       widget.day.month,
-       widget.day.day,
-        23,
-        59);
+    endDate =
+        DateTime.utc(widget.day.year, widget.day.month, widget.day.day, 23, 59);
   }
 
-  String weekDay(int day) {
-    switch (day) {
-      case 1:
-        return "월";
-      case 2:
-        return "화";
-      case 3:
-        return "수";
-      case 4:
-        return "목";
-      case 5:
-        return "금";
-      case 6:
-        return "토";
-      case 7:
-        return "일";
-      default:
-        return "";
-    }
-  }
-
-  String convertTime(DateTime day) {
-    var time = DateFormat.jm().format(day);
-
-    return time.toString();
-  }
-
+  // text style when allDayButton is enabled or disabled
   TextStyle onAlldayEnabled() {
     if (allDay) {
       return const TextStyle(color: Colors.white, fontSize: 15);
@@ -85,7 +54,7 @@ class _TimePickState extends State<TimePick> {
 
           //
           const SizedBox(
-            width: 5,
+            width: 10,
           ),
 
           //* start
@@ -150,6 +119,7 @@ class _TimePickState extends State<TimePick> {
     );
   }
 
+  //* select the start date
   Widget timeStart() {
     return CupertinoButton(
       padding: const EdgeInsets.all(0),
@@ -196,7 +166,7 @@ class _TimePickState extends State<TimePick> {
               duration: const Duration(milliseconds: 1),
               curve: Curves.fastLinearToSlowEaseIn,
               child: Text(
-                convertTime(startDate),
+                formatTime(startDate),
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w800,
@@ -213,6 +183,7 @@ class _TimePickState extends State<TimePick> {
     );
   }
 
+  //* select the end date
   Widget timeEnd() {
     return CupertinoButton(
       padding: const EdgeInsets.all(0),
@@ -258,7 +229,7 @@ class _TimePickState extends State<TimePick> {
               duration: const Duration(milliseconds: 1),
               curve: Curves.fastLinearToSlowEaseIn,
               child: Text(
-                convertTime(endDate),
+                formatTime(endDate),
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w800,

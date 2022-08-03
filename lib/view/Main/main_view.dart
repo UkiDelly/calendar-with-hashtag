@@ -19,7 +19,7 @@ class _MainViewState extends State<MainView> {
         child: Column(
           children: [
             // App bar
-            CalendarAppBar(),
+            const CalendarAppBar(),
 
             //
             SingleChildScrollView(
