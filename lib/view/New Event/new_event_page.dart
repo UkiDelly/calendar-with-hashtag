@@ -4,8 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../provider/dates.dart';
+import 'widgets/accounts.dart';
+import 'widgets/alarm.dart';
 import 'widgets/date.dart';
+import 'widgets/location.dart';
+import 'widgets/memo.dart';
 import 'widgets/repeat.dart';
+import 'widgets/url.dart';
 
 class AddNewEventPage extends StatelessWidget {
   const AddNewEventPage({Key? key}) : super(key: key);
@@ -13,47 +18,75 @@ class AddNewEventPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-      padding: const EdgeInsets.only(left: 20, right: 0, top: 10),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: CupertinoTheme.of(context).primaryColor,
+          onPressed: () {},
+          child: const Icon(Icons.check),
+        ),
+
         //
-        //* Add to Template
-        Align(
-          alignment: Alignment.centerRight,
-          child: CupertinoButton(
-              padding: const EdgeInsets.all(0),
-              child: const Icon(
-                Icons.more_horiz,
-                color: Colors.black,
-                size: 35,
-              ),
-              onPressed: () {}),
-        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.only(left: 20, right: 0, top: 10),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            //
+            //* Add to Template
+            Align(
+              alignment: Alignment.centerRight,
+              child: CupertinoButton(
+                  padding: const EdgeInsets.all(0),
+                  child: const Icon(
+                    Icons.more_horiz,
+                    color: Colors.black,
+                    size: 35,
+                  ),
+                  onPressed: () {}),
+            ),
 
-        //* Title
-        const NewEventTitle(),
+            //* Title
+            const NewEventTitle(),
 
-        //* Time
-        Consumer(
-          builder: (ctx, ref, child) {
-            DateTime day = ref.watch(selectedDateProvider);
-            return TimePick(day: day);
-          },
-        ),
+            //* Time
+            Consumer(
+              builder: (ctx, ref, child) {
+                DateTime day = ref.watch(selectedDateProvider);
+                return TimePick(day: day);
+              },
+            ),
 
-        //* Repeat
-        const RepeatWidget()
+            //* Repeat
+            const RepeatWidget(),
 
-        //* Account
+            //
+            const SizedBox(
+              height: 30,
+            ),
 
-        //* Alarm befor
+            //* Account
+            const AccountWidget(),
 
-        //* Location
+            //
+            const SizedBox(
+              height: 5,
+            ),
 
-        //* url
+            //* Alarm before
+            const AlarmWidget(),
 
-        //* Memo],
-      ]),
-    ));
+            //
+            const SizedBox(
+              height: 30,
+            ),
+
+            //* Location
+            const LocationWidget(),
+
+            //* url
+            const UrlWidget(),
+
+            //* Memo
+            const MemoWidget(),
+          ]),
+        ));
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-import '../../../data/repeat_enum.dart';
+import '../../../model/repeat_enum.dart';
 import '../Repeat/repeat_pick.dart';
 
 class RepeatWidget extends StatefulWidget {
@@ -34,7 +34,7 @@ class _RepeatWidgetState extends State<RepeatWidget> {
           onPressed: () => showCupertinoModalBottomSheet(
             useRootNavigator: true,
             context: context,
-            builder: (context) => RepeatSelectPage((r) {
+            builder: (context) => RepeatSelectPage(repeat: repeat, (r) {
               //* update the repeat
               setState(() {
                 repeat = r;
@@ -48,7 +48,13 @@ class _RepeatWidgetState extends State<RepeatWidget> {
                     convertEnum(repeat),
                     style: TextStyle(color: Colors.grey.shade500),
                   )
-                : const SizedBox(),
+                : Container(
+                    padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: const Color(0xfff4f4f4)),
+                    child: Text(convertEnum(repeat)),
+                  ),
           ),
         )
       ],
