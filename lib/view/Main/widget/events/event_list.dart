@@ -1,12 +1,13 @@
 import 'package:care_square_assignment/model/calendar_event.dart';
 import 'package:care_square_assignment/provider/events_list.dart';
-import 'package:care_square_assignment/view/Main/widget/events/even_card.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../provider/dates.dart';
 
 import 'add_new_event.dart';
+import 'even_card.dart';
 
 class EventList extends ConsumerStatefulWidget {
   const EventList({Key? key}) : super(key: key);

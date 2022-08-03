@@ -14,4 +14,9 @@ class CalendarEvent {
     required this.color,
     required this.description,
   });
+
+  @override
+  String toString() {
+    return "CalendarEvent(title: $title, startTime: $startTime, endTime: $endTime, color: $color, description: $description)";
+  }
 }

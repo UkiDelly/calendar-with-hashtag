@@ -1,4 +1,5 @@
 import 'package:care_square_assignment/model/calendar_event.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EventCardTile extends StatefulWidget {
@@ -44,51 +45,58 @@ class _EventCardTileState extends State<EventCardTile>
   @override
   Widget build(BuildContext context) {
     //animation
-    return AnimatedOpacity(
-      opacity: opcaity.value,
-      duration: const Duration(milliseconds: 500),
-      child: Card(
-        color: const Color(0xfff4f4f4),
-        elevation: 0,
+    return CupertinoButton(
+      padding: const EdgeInsets.all(0),
 
-        //
-        child: SizedBox(
-            child: Row(
-          children: [
-            //* Date
-            SizedBox(
-              width: 100,
-              child: Column(
-                children: const [],
+      //* go to event detal
+      onPressed: () {},
+      child: AnimatedOpacity(
+        opacity: opcaity.value,
+        duration: const Duration(milliseconds: 500),
+        child: Card(
+          color: const Color(0xfff4f4f4),
+          elevation: 0,
+
+          //
+          child: SizedBox(
+              child: Row(
+            children: [
+              //
+              //* Date
+              SizedBox(
+                width: 100,
+                child: Column(
+                  children: const [],
+                ),
               ),
-            ),
 
-            // Divider
-            Container(
-              width: 5,
-              height: 50,
-              decoration: BoxDecoration(
-                  color: Colors.red, borderRadius: BorderRadius.circular(25)),
-            ),
-
-            Container(
-              padding: const EdgeInsets.all(7),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // title
-                  Text(
-                    widget.event.title,
-                    style: titleTextStyle,
-                  ),
-
-                  // description
-                  Text(widget.event.description)
-                ],
+              // Divider
+              Container(
+                width: 5,
+                height: 50,
+                decoration: BoxDecoration(
+                    color: Colors.red, borderRadius: BorderRadius.circular(25)),
               ),
-            )
-          ],
-        )),
+
+              Container(
+                padding: const EdgeInsets.all(7),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //* title
+                    Text(
+                      widget.event.title,
+                      style: titleTextStyle,
+                    ),
+
+                    //* description
+                    Text(widget.event.description)
+                  ],
+                ),
+              )
+            ],
+          )),
+        ),
       ),
     );
   }

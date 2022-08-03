@@ -1,10 +1,11 @@
-import 'package:care_square_assignment/view/New%20Event/widgets/time.dart';
 import 'package:care_square_assignment/view/New%20Event/widgets/title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../provider/dates.dart';
+import 'widgets/date.dart';
+import 'widgets/repeat.dart';
 
 class AddNewEventPage extends StatelessWidget {
   const AddNewEventPage({Key? key}) : super(key: key);
@@ -38,7 +39,10 @@ class AddNewEventPage extends StatelessWidget {
             DateTime day = ref.watch(selectedDateProvider);
             return TimePick(day: day);
           },
-        )
+        ),
+
+        //* Repeat
+        const RepeatWidget()
 
         //* Account
 
