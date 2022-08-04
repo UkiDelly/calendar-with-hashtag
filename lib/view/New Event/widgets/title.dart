@@ -14,7 +14,6 @@ class _NewEventTitleState extends State<NewEventTitle> {
   @override
   void initState() {
     super.initState();
-    _textEditingController.text = "제목";
   }
 
   @override
@@ -41,6 +40,7 @@ class _NewEventTitleState extends State<NewEventTitle> {
             //
             decoration: const BoxDecoration(),
             style: const TextStyle(fontSize: 50),
+            placeholder: "제목",
           ))
         ],
       ),

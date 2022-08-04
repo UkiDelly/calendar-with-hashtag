@@ -2,7 +2,7 @@ import 'package:care_square_assignment/model/calendar_event.dart';
 
 import 'package:flutter/material.dart';
 
-import '../../events/event_widget.dart';
+import '../event_widget.dart';
 
 class DefaultCell extends StatelessWidget {
   final DateTime day;
