@@ -1,4 +1,6 @@
+import 'package:care_square_assignment/view/New%20Event/Alarm/alarm_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../model/alarm._enum.dart';
 
@@ -11,16 +13,7 @@ class AlarmWidget extends StatefulWidget {
 
 class _AlarmWidgetState extends State<AlarmWidget> {
   // using Set because duplication is not allowed
-  Set<Alarm> alarmList = {
-    Alarm.atTime,
-    Alarm.minuteBefore,
-    Alarm.fiveMinutesBefore,
-    Alarm.tenMinutesBefore,
-    Alarm.fiftheenMinutesbefore,
-    Alarm.thirtyMinutesBefore,
-    Alarm.oneHourBefore,
-    Alarm.oneDayBefore
-  };
+  Set<Alarm> alarmList = {};
 
   //
   @override
@@ -37,7 +30,7 @@ class _AlarmWidgetState extends State<AlarmWidget> {
           width: 10,
         ),
 
-        // Alarm
+        //* Alarm
         Expanded(
           child: Align(
             alignment: Alignment.centerLeft,
@@ -45,9 +38,17 @@ class _AlarmWidgetState extends State<AlarmWidget> {
               padding: const EdgeInsets.all(0),
 
               //* go to alarm selection page
-              onPressed: () => setState(() {
-                alarmList.clear();
-              }),
+              onPressed: () => showCupertinoModalBottomSheet(
+                context: context,
+
+                //* show the alarm picker page then, update the alarm list
+                builder: (context) => AlarmPickerView(
+                  alarmList: alarmList,
+                ),
+              ).then((alarmList) => setState(() {
+                    // update the alarm list;
+                    this.alarmList = alarmList;
+                  })),
 
               // if the alarm is null, show the list of selected alarms, if not null, show no alarm selected
               child: alarmList.isEmpty ? const Text("없음") : alarms(),

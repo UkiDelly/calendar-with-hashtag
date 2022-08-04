@@ -67,7 +67,7 @@ class AddNewEventPage extends StatelessWidget {
 
             //
             const SizedBox(
-              height: 5,
+              height: 15,
             ),
 
             //* Alarm before
@@ -83,6 +83,11 @@ class AddNewEventPage extends StatelessWidget {
 
             //* url
             const UrlWidget(),
+
+            //
+            const SizedBox(
+              height: 10,
+            ),
 
             //* Memo
             const MemoWidget(),

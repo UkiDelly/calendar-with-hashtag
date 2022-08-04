@@ -1,6 +1,5 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class LocationWidget extends StatefulWidget {
   const LocationWidget({Key? key}) : super(key: key);
@@ -10,8 +9,29 @@ class LocationWidget extends StatefulWidget {
 }
 
 class _LocationWidgetState extends State<LocationWidget> {
+  TextEditingController locationController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return const SizedBox();
+    return Row(
+      children: [
+        const Icon(Icons.location_on_outlined),
+        //
+        const SizedBox(
+          width: 10,
+        ),
+        const Expanded(
+            child: CupertinoTextField(
+          //
+          decoration: BoxDecoration(color: Colors.transparent),
+
+          //
+          placeholder: "위치",
+        )),
+        CupertinoButton(
+          onPressed: () {},
+          child: const Icon(CupertinoIcons.search),
+        )
+      ],
+    );
   }
 }
