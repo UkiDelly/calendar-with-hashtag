@@ -3,6 +3,7 @@ import 'package:care_square_assignment/data/events.dart';
 import 'package:care_square_assignment/model/account.dart';
 import 'package:care_square_assignment/model/calendar_event.dart';
 import 'package:care_square_assignment/model/repeat_enum.dart';
+import 'package:care_square_assignment/provider/dates.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../model/alarm._enum.dart';
-import '../../provider/dates.dart';
 import 'Memo/memo_page.dart';
 import 'widgets/accounts.dart';
 import 'widgets/alarm.dart';
@@ -23,14 +23,16 @@ class AddNewEventPage extends ConsumerStatefulWidget {
   const AddNewEventPage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<AddNewEventPage> createState() => _AddNewEventPageState();
+  ConsumerState<AddNewEventPage> createState() => AddNewEventPageState();
 }
 
-class _AddNewEventPageState extends ConsumerState<AddNewEventPage> {
+class AddNewEventPageState extends ConsumerState<AddNewEventPage> {
   String? memo;
   late String title, location, url;
 
   late DateTime startDate, endDate;
+
+  bool allDay = false;
 
   // the default account is 개인
   Account account = accounts[0];
@@ -61,6 +63,7 @@ class _AddNewEventPageState extends ConsumerState<AddNewEventPage> {
                 title: title,
                 startTime: startDate,
                 endTime: endDate,
+                allDay: allDay,
                 account: account,
                 alarm: alarm);
 
@@ -99,9 +102,10 @@ class _AddNewEventPageState extends ConsumerState<AddNewEventPage> {
                 DateTime day = ref.watch(selectedDateProvider);
                 return TimePick(
                   day: day,
-                  getDate: (startDate, endDate) => setState(() {
+                  getDate: (startDate, endDate, allDay) => setState(() {
                     this.startDate = startDate;
                     this.endDate = endDate;
+                    this.allDay = allDay;
                   }),
                 );
               },

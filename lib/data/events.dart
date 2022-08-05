@@ -6,6 +6,7 @@ List<CalendarEvent> events = [
       title: "진료",
       startTime: DateTime(2022, 8, 2, 0, 0),
       endTime: DateTime(2022, 8, 2, 23, 59),
+      allDay: true,
       memo: "오늘은 진료가 있는날",
       alarm: {},
       account: accounts[0]),
