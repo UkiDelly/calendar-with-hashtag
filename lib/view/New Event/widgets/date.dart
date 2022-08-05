@@ -317,10 +317,14 @@ class _TimePickState extends State<TimePick> {
             endDate = value;
           }
 
+          // update the date
           setState(() {
             startDate;
             endDate;
           });
+
+          // call back
+          widget.getDate(startDate, endDate, allDay);
         },
       ),
     );

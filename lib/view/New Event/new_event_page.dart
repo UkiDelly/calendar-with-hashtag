@@ -64,6 +64,7 @@ class AddNewEventPageState extends State<AddNewEventPage> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: CupertinoTheme.of(context).primaryColor,
           onPressed: () {
+            // create event instance
             event = CalendarEvent(
                 title: title,
                 startTime: startDate,
@@ -72,9 +73,10 @@ class AddNewEventPageState extends State<AddNewEventPage> {
                 account: account,
                 alarm: alarm);
 
-            print(event);
-
+            // add to the events list
             events.add(event);
+
+            Navigator.of(context).pop();
           },
           child: const Icon(Icons.check),
         ),

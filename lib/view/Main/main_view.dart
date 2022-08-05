@@ -4,6 +4,8 @@ import 'widget/appbar/appbar.dart';
 import 'widget/calendar/calendar.dart';
 import 'widget/events/event_list.dart';
 
+final mainPageKey = GlobalKey<State>();
+
 class MainView extends StatefulWidget {
   const MainView({Key? key}) : super(key: key);
 
