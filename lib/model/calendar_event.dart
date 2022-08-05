@@ -5,6 +5,7 @@ import 'repeat_enum.dart';
 class CalendarEvent {
   final String title;
   final DateTime startTime, endTime;
+  final bool allDay;
   final Account account;
   Repeat? repeat;
   Set<Alarm> alarm;
@@ -16,6 +17,7 @@ class CalendarEvent {
       required this.endTime,
       required this.account,
       required this.alarm,
+      required this.allDay,
       this.repeat,
       this.location,
       this.url,

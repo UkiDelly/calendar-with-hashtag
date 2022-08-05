@@ -1,4 +1,5 @@
 import 'package:care_square_assignment/model/calendar_event.dart';
+import 'package:care_square_assignment/model/global_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,18 +13,20 @@ class EventCardTile extends StatefulWidget {
 
 class _EventCardTileState extends State<EventCardTile>
     with TickerProviderStateMixin {
-  //
+  // animation
   late Animation<double> opcaity;
   late AnimationController animationController;
 
-  //
+  // title text style
   TextStyle titleTextStyle =
       const TextStyle(fontSize: 25, fontWeight: FontWeight.w700);
   TextStyle subtitleTextStyle = const TextStyle();
 
+  var startTime, endTime;
+
   @override
   void initState() {
-    // Animation
+    // Animation controller
     animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300))
       ..addListener(() {
@@ -31,7 +34,12 @@ class _EventCardTileState extends State<EventCardTile>
       })
       ..forward();
 
+    //animtaion
     opcaity = Tween<double>(begin: 0, end: 1).animate(animationController);
+
+    // date format
+    startTime = formatTime(widget.event.startTime);
+    endTime = formatTime(widget.event.endTime);
 
     super.initState();
   }
@@ -66,16 +74,24 @@ class _EventCardTileState extends State<EventCardTile>
               SizedBox(
                 width: 100,
                 child: Column(
-                  children: const [],
+                  children: [
+                    if (widget.event.allDay)
+                      const Text(
+                        "하루종일",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      )
+                  ],
                 ),
               ),
 
               // Divider
               Container(
                 width: 5,
-                height: 50,
+                height: 30,
                 decoration: BoxDecoration(
-                    color: Colors.red, borderRadius: BorderRadius.circular(25)),
+                    color: widget.event.account.color,
+                    borderRadius: BorderRadius.circular(25)),
               ),
 
               Container(
