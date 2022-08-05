@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import '../../../model/repeat_enum.dart';
 
 class RepeatSelectPage extends StatefulWidget {
-  final Function(Repeat r) getRepeat;
   final Repeat repeat;
-  const RepeatSelectPage(
-    this.getRepeat, {
+  const RepeatSelectPage({
     required this.repeat,
     Key? key,
   }) : super(key: key);
@@ -76,21 +74,6 @@ class _RepeatSelectPageState extends State<RepeatSelectPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //* Save button
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: CupertinoTheme.of(context).primaryColor,
-        child: const Icon(
-          Icons.check,
-          size: 30,
-        ),
-        onPressed: () {
-          //* call the callback function
-          widget.getRepeat(selectedToRepeat());
-
-          Navigator.of(context).pop();
-        },
-      ),
-
       //
       body: SizedBox(
         child: Column(
@@ -112,7 +95,8 @@ class _RepeatSelectPageState extends State<RepeatSelectPage> {
                   ),
 
                   // close the page
-                  onPressed: () => {Navigator.of(context).pop()}),
+                  onPressed: () =>
+                      {Navigator.of(context).pop(selectedToRepeat())}),
             ),
 
             //* Repeat Text
@@ -201,7 +185,7 @@ class _RepeatSelectPageState extends State<RepeatSelectPage> {
             children: [
               //* Repeat option
               Text(
-                convertEnum(r),
+                convertRepeat(r),
                 style:
                     const TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
               ),

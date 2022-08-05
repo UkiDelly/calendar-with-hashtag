@@ -19,7 +19,6 @@ class _AlarmPickerViewState extends State<AlarmPickerView> {
   @override
   void initState() {
     super.initState();
-    
   }
 
   @override
@@ -69,7 +68,7 @@ class _AlarmPickerViewState extends State<AlarmPickerView> {
                 children: [
                   // alarm text
                   Text(
-                    convertEnum(Alarm.none),
+                    convertAlarm(Alarm.none),
                     style: const TextStyle(fontSize: 20),
                   ),
 
@@ -126,8 +125,12 @@ class _AlarmPickerViewState extends State<AlarmPickerView> {
       padding: const EdgeInsets.all(0),
       onPressed: () {
         setState(() {
-          // add choice
-          widget.alarmList.add(alarm);
+          if (widget.alarmList.contains(alarm)) {
+            widget.alarmList.remove(alarm);
+          } else {
+            // add choice
+            widget.alarmList.add(alarm);
+          }
         });
       },
       child: Container(
@@ -140,7 +143,7 @@ class _AlarmPickerViewState extends State<AlarmPickerView> {
           children: [
             // alarm text
             Text(
-              convertEnum(alarm),
+              convertAlarm(alarm),
               style: const TextStyle(fontSize: 20),
             ),
 

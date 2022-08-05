@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../../model/account.dart';
+
 class AccountWidget extends StatelessWidget {
-  const AccountWidget({Key? key}) : super(key: key);
+  final Account account;
+  const AccountWidget({Key? key, required this.account}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +30,8 @@ class AccountWidget extends StatelessWidget {
               Container(
                 width: 5,
                 height: 5,
-                decoration: const BoxDecoration(
-                    shape: BoxShape.circle, color: Colors.red),
+                decoration:
+                    BoxDecoration(shape: BoxShape.circle, color: account.color),
               ),
 
               const SizedBox(width: 10),

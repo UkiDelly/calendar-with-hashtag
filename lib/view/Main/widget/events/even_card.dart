@@ -90,7 +90,7 @@ class _EventCardTileState extends State<EventCardTile>
                     ),
 
                     //* description
-                    Text(widget.event.description)
+                    if (widget.event.memo != null) Text(widget.event.memo!)
                   ],
                 ),
               )

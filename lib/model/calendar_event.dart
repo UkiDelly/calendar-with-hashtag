@@ -1,22 +1,28 @@
-import 'package:flutter/material.dart';
+import 'account.dart';
+import 'alarm._enum.dart';
+import 'repeat_enum.dart';
 
 class CalendarEvent {
   final String title;
-  final DateTime startTime;
-  final DateTime endTime;
-  final Color color;
-  final String description;
+  final DateTime startTime, endTime;
+  final Account account;
+  Repeat? repeat;
+  Set<Alarm> alarm;
+  String? location, url, memo;
 
-  CalendarEvent({
-    required this.title,
-    required this.startTime,
-    required this.endTime,
-    required this.color,
-    required this.description,
-  });
+  CalendarEvent(
+      {required this.title,
+      required this.startTime,
+      required this.endTime,
+      required this.account,
+      required this.alarm,
+      this.repeat,
+      this.location,
+      this.url,
+      this.memo});
 
   @override
   String toString() {
-    return "CalendarEvent(title: $title, startTime: $startTime, endTime: $endTime, color: $color, description: $description)";
+    return "CalendarEvent(title: $title, startTime: $startTime, endTime: $endTime, account: ${account.name}, alarm: $alarm , location: $location, url: $url, memo: $memo,)";
   }
 }

@@ -11,7 +11,7 @@ enum Alarm {
 }
 
 @override
-convertEnum(Alarm a) {
+convertAlarm(Alarm a) {
   switch (a) {
     case Alarm.none:
       return "없음";

@@ -7,7 +7,7 @@ enum Repeat {
   year,
 }
 
-convertEnum(Repeat r) {
+convertRepeat(Repeat r) {
   switch (r) {
     case Repeat.day:
       return "매일";

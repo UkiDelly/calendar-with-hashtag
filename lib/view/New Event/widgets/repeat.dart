@@ -14,6 +14,8 @@ class RepeatWidget extends StatefulWidget {
 
 class _RepeatWidgetState extends State<RepeatWidget> {
   Repeat repeat = Repeat.none;
+
+  //
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -34,18 +36,17 @@ class _RepeatWidgetState extends State<RepeatWidget> {
           onPressed: () => showCupertinoModalBottomSheet(
             useRootNavigator: true,
             context: context,
-            builder: (context) => RepeatSelectPage(repeat: repeat, (r) {
-              //* update the repeat
-              setState(() {
-                repeat = r;
-              });
-            }),
-          ),
+            builder: (context) => RepeatSelectPage(
+              repeat: repeat,
+            ),
+          ).then((repeat) => setState(
+                () => this.repeat = repeat,
+              )),
           child: SizedBox(
             child: repeat == Repeat.none
                 ? Text(
                     //* no repeat
-                    convertEnum(repeat),
+                    convertRepeat(repeat),
                     style: TextStyle(color: Colors.grey.shade500),
                   )
                 : Container(
@@ -53,7 +54,7 @@ class _RepeatWidgetState extends State<RepeatWidget> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
                         color: const Color(0xfff4f4f4)),
-                    child: Text(convertEnum(repeat)),
+                    child: Text(convertRepeat(repeat)),
                   ),
           ),
         )
