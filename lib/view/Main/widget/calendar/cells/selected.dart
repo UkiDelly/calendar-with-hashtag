@@ -1,8 +1,6 @@
 import 'package:care_square_assignment/model/calendar_event.dart';
 import 'package:flutter/material.dart';
 
-import '../event_widget.dart';
-
 class SelectedCell extends StatefulWidget {
   final DateTime day;
   final List<CalendarEvent>? events;
@@ -15,11 +13,14 @@ class SelectedCell extends StatefulWidget {
 
 class _SelectedCellState extends State<SelectedCell>
     with TickerProviderStateMixin {
+  //
   late AnimationController _animationController;
   late Animation _opacity;
+  List eventsOfDay = [];
 
   @override
   void initState() {
+    // animation controller
     _animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 1))
           ..forward()
@@ -27,7 +28,13 @@ class _SelectedCellState extends State<SelectedCell>
             setState(() {});
           });
 
+    //animation
     _opacity = Tween<double>(begin: 0, end: 1).animate(_animationController);
+
+    // filter events
+    eventsOfDay = widget.events!
+        .where((event) => event.startTime.day == widget.day.day)
+        .toList();
     super.initState();
   }
 
@@ -61,12 +68,18 @@ class _SelectedCellState extends State<SelectedCell>
                   fontWeight: FontWeight.bold, color: Colors.white),
             ),
 
+            //
+            const Spacer(),
+
             // events
-            widget.events != null
-                ? EventCard(
-                    events: widget.events!,
-                  )
-                : const SizedBox(),
+            if (eventsOfDay.isNotEmpty)
+              Container(
+                width: 10,
+                height: 10,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: eventsOfDay.first.account.color),
+              ),
 
             const Spacer()
           ],

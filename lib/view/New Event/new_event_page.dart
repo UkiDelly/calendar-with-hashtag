@@ -19,14 +19,15 @@ import 'widgets/location.dart';
 import 'widgets/repeat.dart';
 import 'widgets/url.dart';
 
-class AddNewEventPage extends ConsumerStatefulWidget {
-  const AddNewEventPage({Key? key}) : super(key: key);
+class AddNewEventPage extends StatefulWidget {
+  final DateTime date;
+  const AddNewEventPage({Key? key, required this.date}) : super(key: key);
 
   @override
-  ConsumerState<AddNewEventPage> createState() => AddNewEventPageState();
+  State<AddNewEventPage> createState() => AddNewEventPageState();
 }
 
-class AddNewEventPageState extends ConsumerState<AddNewEventPage> {
+class AddNewEventPageState extends State<AddNewEventPage> {
   String? memo;
   late String title, location, url;
 
@@ -51,6 +52,10 @@ class AddNewEventPageState extends ConsumerState<AddNewEventPage> {
   @override
   void initState() {
     super.initState();
+    startDate =
+        DateTime(widget.date.year, widget.date.month, widget.date.day, 0, 0);
+    endDate =
+        DateTime(widget.date.year, widget.date.month, widget.date.day, 23, 59);
   }
 
   @override

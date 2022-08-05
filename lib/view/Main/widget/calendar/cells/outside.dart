@@ -1,8 +1,29 @@
 import 'package:flutter/material.dart';
 
-class OutSideCell extends StatelessWidget {
+import '../../../../../model/calendar_event.dart';
+
+class OutSideCell extends StatefulWidget {
   final DateTime day;
-  const OutSideCell({Key? key, required this.day}) : super(key: key);
+  final List<CalendarEvent>? events;
+  const OutSideCell({Key? key, required this.day, required this.events})
+      : super(key: key);
+
+  @override
+  State<OutSideCell> createState() => _OutSideCellState();
+}
+
+class _OutSideCellState extends State<OutSideCell> {
+  List eventsOfDay = [];
+
+  @override
+  void initState() {
+    super.initState();
+    eventsOfDay = widget.events!
+        .where((event) =>
+            event.startTime.day == widget.day.day &&
+            event.startTime.month == widget.day.month)
+        .toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,15 +37,28 @@ class OutSideCell extends StatelessWidget {
           ),
           // date
           Text(
-            day.day.toString(),
+            widget.day.day.toString(),
             style: TextStyle(
                 fontWeight: FontWeight.bold,
 
                 // if weekend, change color to red
-                color: day.weekday == 6 || day.weekday == 7
+                color: widget.day.weekday == 6 || widget.day.weekday == 7
                     ? const Color(0xfffac9cb)
                     : Colors.grey.withOpacity(0.8)),
           ),
+
+          //
+          const Spacer(),
+
+          // events
+          if (eventsOfDay.isNotEmpty)
+            Container(
+              width: 10,
+              height: 10,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: eventsOfDay.first.account.color),
+            ),
 
           const Spacer()
         ],

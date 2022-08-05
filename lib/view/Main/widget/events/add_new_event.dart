@@ -1,6 +1,8 @@
+import 'package:care_square_assignment/provider/dates.dart';
 import 'package:care_square_assignment/view/New%20Event/new_event_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -23,44 +25,51 @@ class AddNewEvent extends StatelessWidget {
             decoration: BoxDecoration(
                 color: const Color(0xfff4f4f4),
                 borderRadius: BorderRadius.circular(10)),
-            child: CupertinoButton(
-              //
-              //* Show adding event page
-              onPressed: () => showCupertinoModalBottomSheet(
-                context: context,
-                backgroundColor: Colors.transparent,
-                builder: (context) => const AddNewEventPage(),
-              ),
-
-              //
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
+            child: Consumer(
+              builder: (ctx, ref, child) {
+                DateTime date = ref.watch(selectedDateProvider);
+                return CupertinoButton(
                   //
-
-                  // + icon
-
-                  Icon(
-                    CupertinoIcons.add,
-                    color: Colors.black,
-                    size: 30,
+                  //* Show adding event page
+                  onPressed: () => showCupertinoModalBottomSheet(
+                    context: context,
+                    backgroundColor: Colors.transparent,
+                    builder: (context) => AddNewEventPage(
+                      date: date,
+                    ),
                   ),
 
                   //
-                  SizedBox(
-                    width: 10,
-                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: const [
+                      //
 
-                  // text
-                  Text(
-                    "새로운 이벤트",
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black),
-                  )
-                ],
-              ),
+                      // + icon
+
+                      Icon(
+                        CupertinoIcons.add,
+                        color: Colors.black,
+                        size: 30,
+                      ),
+
+                      //
+                      SizedBox(
+                        width: 10,
+                      ),
+
+                      // text
+                      Text(
+                        "새로운 이벤트",
+                        style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black),
+                      )
+                    ],
+                  ),
+                );
+              },
             ),
           )),
 

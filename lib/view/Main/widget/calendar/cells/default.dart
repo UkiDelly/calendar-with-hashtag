@@ -2,13 +2,26 @@ import 'package:care_square_assignment/model/calendar_event.dart';
 
 import 'package:flutter/material.dart';
 
-import '../event_widget.dart';
-
-class DefaultCell extends StatelessWidget {
+class DefaultCell extends StatefulWidget {
   final DateTime day;
   final List<CalendarEvent>? events;
   const DefaultCell({Key? key, required this.day, this.events})
       : super(key: key);
+
+  @override
+  State<DefaultCell> createState() => _DefaultCellState();
+}
+
+class _DefaultCellState extends State<DefaultCell> {
+  List<CalendarEvent> eventsOfDay = [];
+
+  @override
+  void initState() {
+    super.initState();
+    eventsOfDay = widget.events!
+        .where((event) => event.startTime.day == widget.day.day)
+        .toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,23 +35,30 @@ class DefaultCell extends StatelessWidget {
           ),
           // date
           Text(
-            day.day.toString(),
+            widget.day.day.toString(),
             style: TextStyle(
                 fontWeight: FontWeight.bold,
 
                 // if weekend, change color to red
-                color: day.weekday == 6 || day.weekday == 7
+                color: widget.day.weekday == 6 || widget.day.weekday == 7
                     ? Colors.red
                     : const Color(0xff313131)),
           ),
 
-          // events
-          events != null
-              ? EventCard(
-                  events: events!,
-                )
-              : const SizedBox(),
+          //
+          const Spacer(),
 
+          // events
+          if (eventsOfDay.isNotEmpty)
+            Container(
+              width: 10,
+              height: 10,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: eventsOfDay.first.account.color),
+            ),
+
+          //
           const Spacer()
         ],
       ),

@@ -1,8 +1,30 @@
 import 'package:flutter/material.dart';
 
-class TodayCell extends StatelessWidget {
+import '../../../../../model/calendar_event.dart';
+
+class TodayCell extends StatefulWidget {
   final DateTime day;
-  const TodayCell({Key? key, required this.day}) : super(key: key);
+  final List<CalendarEvent>? events;
+  const TodayCell({
+    Key? key,
+    required this.day,
+    required this.events,
+  }) : super(key: key);
+
+  @override
+  State<TodayCell> createState() => _TodayCellState();
+}
+
+class _TodayCellState extends State<TodayCell> {
+  List eventsOfDay = [];
+
+  @override
+  void initState() {
+    super.initState();
+    eventsOfDay = widget.events!
+        .where((event) => event.startTime.day == widget.day.day)
+        .toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +41,23 @@ class TodayCell extends StatelessWidget {
           ),
           // date
           Text(
-            day.day.toString(),
+            widget.day.day.toString(),
             style: const TextStyle(
                 fontWeight: FontWeight.bold, color: Colors.white),
           ),
+
+          //
+          const Spacer(),
+
+          // events
+          if (eventsOfDay.isNotEmpty)
+            Container(
+              width: 10,
+              height: 10,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: eventsOfDay.first.account.color),
+            ),
 
           const Spacer()
         ],
