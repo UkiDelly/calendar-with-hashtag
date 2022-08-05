@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import '../../../model/global_functions.dart';
 
 class TimePick extends StatefulWidget {
+  final Function(DateTime startDate, DateTime endDate) getDate;
   DateTime day;
-  TimePick({Key? key, required this.day}) : super(key: key);
+  TimePick({Key? key, required this.day, required this.getDate})
+      : super(key: key);
 
   @override
   State<TimePick> createState() => _TimePickState();
@@ -84,6 +86,19 @@ class _TimePickState extends State<TimePick> {
             onPressed: () {
               setState(() {
                 allDay = !allDay;
+
+                if (allDay) {
+                  // set the start date to 12 am
+                  startDate = DateTime.utc(
+                      startDate.year, startDate.month, startDate.day, 0, 0);
+
+                  // set the end date to 11:59 pm
+                  endDate = DateTime.utc(
+                      endDate.year, endDate.month, endDate.day, 23, 59);
+                }
+
+                //
+                widget.getDate(startDate, endDate);
               });
             },
 

@@ -18,7 +18,6 @@ class _AlarmWidgetState extends State<AlarmWidget> {
   //
   @override
   Widget build(BuildContext context) {
-    print(alarmList);
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -39,18 +38,22 @@ class _AlarmWidgetState extends State<AlarmWidget> {
 
               //* go to alarm selection page
               onPressed: () => showCupertinoModalBottomSheet(
+                useRootNavigator: true,
+
                 context: context,
 
                 //* show the alarm picker page then, update the alarm list
                 builder: (context) => AlarmPickerView(
                   alarmList: alarmList,
                 ),
-              ).then((alarmList) => setState(() {
-                    // update the alarm list;
-                    this.alarmList = alarmList;
-                  })),
+              )
+                  .then((alarmList) => setState(() {
+                        // update the alarm list;
+                        this.alarmList = alarmList;
+                      }))
+                  .whenComplete(() => null),
 
-              // if the alarm is null, show the list of selected alarms, if not null, show no alarm selected
+              // if the alarm is empty,show no alarm selected. if not null, show the list of selected alarm.  show no alarm selected
               child: alarmList.isEmpty ? const Text("없음") : alarms(),
             ),
           ),
@@ -73,7 +76,7 @@ class _AlarmWidgetState extends State<AlarmWidget> {
                 borderRadius: BorderRadius.circular(25),
                 color: const Color(0xfff4f4f4)),
             child: Text(
-              convertEnum(selectedAlarm),
+              convertAlarm(selectedAlarm),
               style: const TextStyle(fontSize: 12.5),
             ),
           )
