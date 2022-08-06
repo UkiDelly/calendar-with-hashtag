@@ -1,7 +1,9 @@
+import 'package:care_square_assignment/view/Search/search_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../provider/dates.dart';
 
@@ -60,7 +62,10 @@ class _CalendarAppBarState extends State<CalendarAppBar> {
           //* Search button
           CupertinoButton(
               padding: const EdgeInsets.all(0),
-              onPressed: () {},
+              onPressed: () => showCupertinoModalBottomSheet(
+                    context: context,
+                    builder: (context) => const SearchPage(),
+                  ),
               child: const Icon(
                 CupertinoIcons.search,
                 color: Color(0xff313131),

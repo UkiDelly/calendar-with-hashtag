@@ -71,7 +71,8 @@ class AddNewEventPageState extends State<AddNewEventPage> {
                 endTime: endDate,
                 allDay: allDay,
                 account: account,
-                alarm: alarm);
+                alarm: alarm,
+                memo: memo);
 
             // add to the events list
             events.add(event);
@@ -113,6 +114,7 @@ class AddNewEventPageState extends State<AddNewEventPage> {
                     this.startDate = startDate;
                     this.endDate = endDate;
                     this.allDay = allDay;
+                    
                   }),
                 );
               },
@@ -214,6 +216,7 @@ class AddNewEventPageState extends State<AddNewEventPage> {
   }
 
   Widget memoWidget() {
+    // if memo is not empty
     if (memo != null && memo != "") {
       return Align(
         alignment: Alignment.centerLeft,
@@ -258,6 +261,8 @@ class AddNewEventPageState extends State<AddNewEventPage> {
           ),
         ),
       );
+
+      // if memo is empty
     } else {
       return Row(
         children: [
@@ -277,10 +282,10 @@ class AddNewEventPageState extends State<AddNewEventPage> {
 
               //* show the memo input page
               builder: (context) => MemoInputPage(),
-            ).then((value) => setState(
+            ).then((memo) => setState(
                   () {
                     // update the memo
-                    memo = value;
+                    this.memo = memo;
                   },
                 )),
 
