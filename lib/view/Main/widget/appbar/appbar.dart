@@ -7,6 +7,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../provider/dates.dart';
 
+import '../../../Account/account_page.dart';
 import '../back_to_now.dart';
 
 class CalendarAppBar extends StatefulWidget {
@@ -75,7 +76,8 @@ class _CalendarAppBarState extends State<CalendarAppBar> {
           //* calendar accounts button
           CupertinoButton(
               padding: const EdgeInsets.all(0),
-              onPressed: () {},
+              onPressed: () => showCupertinoModalBottomSheet(
+                  context: context, builder: (context) => const AccountPage()),
               child: const Icon(
                 CupertinoIcons.calendar,
                 color: Color(0xff313131),

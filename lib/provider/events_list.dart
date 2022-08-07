@@ -27,6 +27,8 @@ class EventsNotifier extends StateNotifier<List<CalendarEvent>> {
   }
 }
 
+
+// provider for listen the state notifier
 final eventListProvider =
     StateNotifierProvider<EventsNotifier, List<CalendarEvent>>(
         (ref) => EventsNotifier());
