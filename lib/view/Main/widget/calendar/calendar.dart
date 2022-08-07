@@ -14,7 +14,7 @@ import 'cells/selected.dart';
 import 'cells/today.dart';
 import 'cells/weekday.dart';
 
-final calendarKey = GlobalKey<State>(); 
+final calendarKey = GlobalKey<State>();
 
 class CalendarWidget extends ConsumerStatefulWidget {
   const CalendarWidget({

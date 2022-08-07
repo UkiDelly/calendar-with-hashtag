@@ -1,9 +1,9 @@
 import 'package:care_square_assignment/data/accounts.dart';
-import 'package:care_square_assignment/data/events.dart';
 import 'package:care_square_assignment/model/account.dart';
 import 'package:care_square_assignment/model/calendar_event.dart';
 import 'package:care_square_assignment/model/repeat_enum.dart';
 import 'package:care_square_assignment/provider/dates.dart';
+import 'package:care_square_assignment/provider/events_list.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,15 +19,15 @@ import 'widgets/location.dart';
 import 'widgets/repeat.dart';
 import 'widgets/url.dart';
 
-class AddNewEventPage extends StatefulWidget {
+class AddNewEventPage extends ConsumerStatefulWidget {
   final DateTime date;
   const AddNewEventPage({Key? key, required this.date}) : super(key: key);
 
   @override
-  State<AddNewEventPage> createState() => AddNewEventPageState();
+  ConsumerState<AddNewEventPage> createState() => _AddNewEventPageState();
 }
 
-class AddNewEventPageState extends State<AddNewEventPage> {
+class _AddNewEventPageState extends ConsumerState<AddNewEventPage> {
   String? memo;
   late String title, location, url;
 
@@ -75,7 +75,7 @@ class AddNewEventPageState extends State<AddNewEventPage> {
                 memo: memo);
 
             // add to the events list
-            events.add(event);
+            ref.watch(eventListProvider.notifier).addEvent = event;
 
             Navigator.of(context).pop();
           },
@@ -114,7 +114,6 @@ class AddNewEventPageState extends State<AddNewEventPage> {
                     this.startDate = startDate;
                     this.endDate = endDate;
                     this.allDay = allDay;
-                    
                   }),
                 );
               },
