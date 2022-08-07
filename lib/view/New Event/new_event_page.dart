@@ -1,9 +1,9 @@
 import 'package:care_square_assignment/data/accounts.dart';
-import 'package:care_square_assignment/data/events.dart';
 import 'package:care_square_assignment/model/account.dart';
 import 'package:care_square_assignment/model/calendar_event.dart';
 import 'package:care_square_assignment/model/repeat_enum.dart';
 import 'package:care_square_assignment/provider/dates.dart';
+import 'package:care_square_assignment/provider/events_list.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,15 +19,15 @@ import 'widgets/location.dart';
 import 'widgets/repeat.dart';
 import 'widgets/url.dart';
 
-class AddNewEventPage extends StatefulWidget {
+class AddNewEventPage extends ConsumerStatefulWidget {
   final DateTime date;
   const AddNewEventPage({Key? key, required this.date}) : super(key: key);
 
   @override
-  State<AddNewEventPage> createState() => AddNewEventPageState();
+  ConsumerState<AddNewEventPage> createState() => _AddNewEventPageState();
 }
 
-class AddNewEventPageState extends State<AddNewEventPage> {
+class _AddNewEventPageState extends ConsumerState<AddNewEventPage> {
   String? memo;
   late String title, location, url;
 
@@ -64,17 +64,20 @@ class AddNewEventPageState extends State<AddNewEventPage> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: CupertinoTheme.of(context).primaryColor,
           onPressed: () {
+            // create event instance
             event = CalendarEvent(
                 title: title,
                 startTime: startDate,
                 endTime: endDate,
                 allDay: allDay,
                 account: account,
-                alarm: alarm);
+                alarm: alarm,
+                memo: memo);
 
-            print(event);
+            // add to the events list
+            ref.watch(eventListProvider.notifier).addEvent = event;
 
-            events.add(event);
+            Navigator.of(context).pop();
           },
           child: const Icon(Icons.check),
         ),
@@ -212,6 +215,7 @@ class AddNewEventPageState extends State<AddNewEventPage> {
   }
 
   Widget memoWidget() {
+    // if memo is not empty
     if (memo != null && memo != "") {
       return Align(
         alignment: Alignment.centerLeft,
@@ -256,6 +260,8 @@ class AddNewEventPageState extends State<AddNewEventPage> {
           ),
         ),
       );
+
+      // if memo is empty
     } else {
       return Row(
         children: [
@@ -275,10 +281,10 @@ class AddNewEventPageState extends State<AddNewEventPage> {
 
               //* show the memo input page
               builder: (context) => MemoInputPage(),
-            ).then((value) => setState(
+            ).then((memo) => setState(
                   () {
                     // update the memo
-                    memo = value;
+                    this.memo = memo;
                   },
                 )),
 

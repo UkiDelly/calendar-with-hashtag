@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../model/calendar_event.dart';
+import '../../../../../provider/events_list.dart';
 
 class OutSideCell extends StatefulWidget {
   final DateTime day;
@@ -50,14 +52,20 @@ class _OutSideCellState extends State<OutSideCell> {
           //
           const Spacer(),
 
-          // events
+           // events
           if (eventsOfDay.isNotEmpty)
-            Container(
-              width: 10,
-              height: 10,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: eventsOfDay.first.account.color),
+            Consumer(
+              builder: (ctx, ref, child) {
+                List<CalendarEvent> event = ref
+                    .watch(eventListProvider.notifier)
+                    .getEventsforDay(widget.day);
+                return Container(
+                  width: 10,
+                  height: 10,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: event.first.account.color),
+                );
+              },
             ),
 
           const Spacer()

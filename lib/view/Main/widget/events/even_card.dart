@@ -66,54 +66,81 @@ class _EventCardTileState extends State<EventCardTile>
           elevation: 0,
 
           //
-          child: SizedBox(
+          child: Container(
+              padding: const EdgeInsets.all(5),
               child: Row(
-            children: [
-              //
-              //* Date
-              SizedBox(
-                width: 100,
-                child: Column(
-                  children: [
-                    if (widget.event.allDay)
-                      const Text(
-                        "하루종일",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      )
-                  ],
-                ),
-              ),
-
-              // Divider
-              Container(
-                width: 5,
-                height: 30,
-                decoration: BoxDecoration(
-                    color: widget.event.account.color,
-                    borderRadius: BorderRadius.circular(25)),
-              ),
-
-              Container(
-                padding: const EdgeInsets.all(7),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //* title
-                    Text(
-                      widget.event.title,
-                      style: titleTextStyle,
+                children: [
+                  //
+                  //* Date
+                  SizedBox(
+                    width: 100,
+                    child: Column(
+                      children: [
+                        // if all day
+                        if (widget.event.allDay)
+                          const Text(
+                            "하루종일",
+                            style: TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.bold),
+                          )
+                        else
+                          time()
+                      ],
                     ),
+                  ),
 
-                    //* description
-                    if (widget.event.memo != null) Text(widget.event.memo!)
-                  ],
-                ),
-              )
-            ],
-          )),
+                  // Divider
+                  Container(
+                    width: 5,
+                    height: 30,
+                    decoration: BoxDecoration(
+                        color: widget.event.account.color,
+                        borderRadius: BorderRadius.circular(25)),
+                  ),
+
+                  //
+                  const SizedBox(
+                    width: 10,
+                  ),
+
+                  Container(
+                    padding: const EdgeInsets.all(7),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        //* title
+                        Text(
+                          widget.event.title,
+                          style: titleTextStyle,
+                        ),
+
+                        //* description
+                        if (widget.event.memo != null) Text(widget.event.memo!)
+                      ],
+                    ),
+                  )
+                ],
+              )),
         ),
       ),
+    );
+  }
+
+  Widget time() {
+    return Column(
+      children: [
+        // Start time
+        Text(
+          formatTime(widget.event.startTime),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+
+        // End Time
+        Text(
+          formatTime(widget.event.endTime),
+          style: const TextStyle(fontSize: 15, color: Colors.grey),
+        ),
+      ],
     );
   }
 }

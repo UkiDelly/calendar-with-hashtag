@@ -1,4 +1,5 @@
 import 'package:care_square_assignment/provider/dates.dart';
+import 'package:care_square_assignment/view/Main/widget/calendar/calendar.dart';
 import 'package:care_square_assignment/view/New%20Event/new_event_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,11 +7,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class AddNewEvent extends StatelessWidget {
+class AddNewEvent extends StatefulWidget {
   const AddNewEvent({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<AddNewEvent> createState() => _AddNewEventState();
+}
+
+class _AddNewEventState extends State<AddNewEvent> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -37,7 +43,7 @@ class AddNewEvent extends StatelessWidget {
                     builder: (context) => AddNewEventPage(
                       date: date,
                     ),
-                  ),
+                  ).then((value) => calendarKey.currentState!.setState(() {})),
 
                   //
                   child: Row(

@@ -1,0 +1,23 @@
+{
+    "events" : [
+        {
+            "title" : "귀국",
+            "startTime": "2022-08-02 00:00:00.000",
+            "endTime": "2022-08-02 23:59:00.000",
+            "allDay" : true,
+            "memo": "드디어 귀국하는 날",
+            "alarm" : {},
+            "account" : {}
+
+        },
+        {
+            "title" : "광복절",
+            "startTime": "2022-08-15 00:00:00.000",
+            "endTime": "2022-08-15 23:59:00.000",
+            "allDay" : true,
+            "memo": "광복절",
+            "alarm" : {},
+            "account" : {}
+        }
+    ]
+}
