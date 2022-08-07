@@ -1,4 +1,5 @@
 import 'package:care_square_assignment/view/Search/search_page.dart';
+import 'package:care_square_assignment/view/Setting/setting_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -87,7 +88,8 @@ class _CalendarAppBarState extends State<CalendarAppBar> {
           //* setting button
           CupertinoButton(
             padding: const EdgeInsets.all(0),
-            onPressed: () {},
+            onPressed: () => showCupertinoModalBottomSheet(
+                context: context, builder: (context) => const SettingPage()),
             child: const Icon(
               Icons.settings,
               color: Color(0xff313131),
