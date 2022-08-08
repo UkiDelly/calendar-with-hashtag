@@ -1,8 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import 'widget/appbar/appbar.dart';
 import 'widget/calendar/calendar.dart';
 import 'widget/events/event_list.dart';
+
+final mainPageKey = GlobalKey<State>();
 
 class MainView extends StatefulWidget {
   const MainView({Key? key}) : super(key: key);
@@ -14,8 +16,8 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      child: SafeArea(
+    return Scaffold(
+      body: SafeArea(
         child: Column(
           children: [
             // App bar

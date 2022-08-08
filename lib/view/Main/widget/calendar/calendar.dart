@@ -1,3 +1,4 @@
+import 'package:care_square_assignment/data/events.dart';
 import 'package:care_square_assignment/provider/events_list.dart';
 
 import 'package:flutter/material.dart';
@@ -160,11 +161,16 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
                   ),
 
               // today builder
-              todayBuilder: (context, day, focusedDay) => TodayCell(day: day),
+              todayBuilder: (context, day, focusedDay) => TodayCell(
+                    day: day,
+                    events: events,
+                  ),
 
               // outside builder
-              outsideBuilder: (context, day, focusedDay) =>
-                  OutSideCell(day: day),
+              outsideBuilder: (context, day, focusedDay) => OutSideCell(
+                    day: day,
+                    events: events,
+                  ),
 
               // holiday builder
               holidayBuilder: (context, day, focusedDay) => HolidayCell(

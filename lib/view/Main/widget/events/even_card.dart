@@ -1,4 +1,5 @@
 import 'package:care_square_assignment/model/calendar_event.dart';
+import 'package:care_square_assignment/model/global_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,18 +13,15 @@ class EventCardTile extends StatefulWidget {
 
 class _EventCardTileState extends State<EventCardTile>
     with TickerProviderStateMixin {
-  //
+  // animation
   late Animation<double> opcaity;
   late AnimationController animationController;
 
-  //
-  TextStyle titleTextStyle =
-      const TextStyle(fontSize: 25, fontWeight: FontWeight.w700);
-  TextStyle subtitleTextStyle = const TextStyle();
+  var startTime, endTime;
 
   @override
   void initState() {
-    // Animation
+    // Animation controller
     animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300))
       ..addListener(() {
@@ -31,7 +29,12 @@ class _EventCardTileState extends State<EventCardTile>
       })
       ..forward();
 
+    //animtaion
     opcaity = Tween<double>(begin: 0, end: 1).animate(animationController);
+
+    // date format
+    startTime = formatTime(widget.event.startTime);
+    endTime = formatTime(widget.event.endTime);
 
     super.initState();
   }
@@ -58,46 +61,92 @@ class _EventCardTileState extends State<EventCardTile>
           elevation: 0,
 
           //
-          child: SizedBox(
+          child: Container(
+              padding: const EdgeInsets.all(5),
               child: Row(
-            children: [
-              //
-              //* Date
-              SizedBox(
-                width: 100,
-                child: Column(
-                  children: const [],
-                ),
-              ),
-
-              // Divider
-              Container(
-                width: 5,
-                height: 50,
-                decoration: BoxDecoration(
-                    color: Colors.red, borderRadius: BorderRadius.circular(25)),
-              ),
-
-              Container(
-                padding: const EdgeInsets.all(7),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //* title
-                    Text(
-                      widget.event.title,
-                      style: titleTextStyle,
+                children: [
+                  //
+                  //* Date
+                  SizedBox(
+                    width: 100,
+                    child: Column(
+                      children: [
+                        // if all day
+                        if (widget.event.allDay)
+                          Text(
+                            "하루종일",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .copyWith(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                          )
+                        else
+                          time()
+                      ],
                     ),
+                  ),
 
-                    //* description
-                    Text(widget.event.description)
-                  ],
-                ),
-              )
-            ],
-          )),
+                  // Divider
+                  Container(
+                    width: 5,
+                    height: 30,
+                    decoration: BoxDecoration(
+                        color: widget.event.account.color,
+                        borderRadius: BorderRadius.circular(25)),
+                  ),
+
+                  //
+                  const SizedBox(
+                    width: 10,
+                  ),
+
+                  Container(
+                    padding: const EdgeInsets.all(7),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        //* title
+                        Text(
+                          widget.event.title,
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+
+                        //* description
+                        if (widget.event.memo != null)
+                          Text(widget.event.memo!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(fontSize: 15))
+                      ],
+                    ),
+                  )
+                ],
+              )),
         ),
       ),
+    );
+  }
+
+  Widget time() {
+    return Column(
+      children: [
+        // Start time
+        Text(
+          formatTime(widget.event.startTime),
+          style: Theme.of(context).textTheme.headline5,
+        ),
+
+        // End Time
+        Text(
+          formatTime(widget.event.endTime),
+          style: Theme.of(context)
+              .textTheme
+              .headline5!
+              .copyWith(color: Colors.grey, fontSize: 15),
+        ),
+      ],
     );
   }
 }

@@ -17,12 +17,12 @@ class EventCard extends StatelessWidget {
           height: 15,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: events[index].color.withOpacity(0.1)),
+              color: events[index].account.color.withOpacity(0.1)),
           child: Row(
             children: [
               //
               VerticalDivider(
-                color: events[index].color,
+                color: events[index].account.color,
                 thickness: 3,
                 indent: 3,
                 endIndent: 3,

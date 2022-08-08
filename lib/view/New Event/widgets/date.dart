@@ -1,27 +1,32 @@
-import 'package:care_square_assignment/data/repeat_enum.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../model/global_functions.dart';
 
 class TimePick extends StatefulWidget {
-  DateTime day;
-  TimePick({Key? key, required this.day}) : super(key: key);
+  final Function(DateTime startDate, DateTime endDate, bool allDay) getDate;
+  final DateTime day;
+  const TimePick({Key? key, required this.day, required this.getDate})
+      : super(key: key);
 
   @override
   State<TimePick> createState() => _TimePickState();
 }
 
+enum _DatePressed { startDate, endDate }
+
 class _TimePickState extends State<TimePick> {
   //
   bool allDay = false;
   late DateTime startDate, endDate;
-  Repeat repeat = Repeat.none;
+  bool pressedDatePicker = false;
+  late _DatePressed selected;
 
   @override
   void initState() {
     super.initState();
     // set the initial date
+
     startDate =
         DateTime.utc(widget.day.year, widget.day.month, widget.day.day, 0, 0);
 
@@ -40,80 +45,107 @@ class _TimePickState extends State<TimePick> {
 
   @override
   Widget build(BuildContext context) {
+    // parent state
+    // AddNewEventPageState pageState =
+    //     context.findAncestorStateOfType<AddNewEventPageState>()!;
     return SizedBox(
-      height: 70,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+      height: pressedDatePicker ? 120 : 70,
+      child: Column(
         children: [
           //
-          //* Icon
-          const Icon(
-            CupertinoIcons.clock,
-            size: 20,
-          ),
+          Expanded(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                //
+                //* Icon
+                const Icon(
+                  CupertinoIcons.clock,
+                  size: 20,
+                ),
 
-          //
-          const SizedBox(
-            width: 10,
-          ),
+                //
+                const SizedBox(
+                  width: 10,
+                ),
 
-          //* start
-          ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: 110,
-              ),
-              child: timeStart()),
+                //* start
+                ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxWidth: 110,
+                    ),
+                    child: timeStart()),
 
-          // arrow
-          const Icon(
-            CupertinoIcons.forward,
-            size: 20,
-          ),
+                // arrow
+                const Icon(
+                  CupertinoIcons.forward,
+                  size: 20,
+                ),
 
-          //* end
-          ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 115),
-              child: timeEnd()),
+                //* end
+                ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 115),
+                    child: timeEnd()),
 
-          //
-          const Spacer(),
+                //
+                const Spacer(),
 
-          //* Allday Button
-          CupertinoButton(
-            padding: const EdgeInsets.all(3),
-            onPressed: () {
-              setState(() {
-                allDay = !allDay;
-              });
-            },
+                //* Allday Button
+                CupertinoButton(
+                  padding: const EdgeInsets.all(3),
+                  onPressed: () {
+                    setState(() {
+                      allDay = !allDay;
+                      pressedDatePicker = false;
 
-            // animtation
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 700),
-              padding: const EdgeInsets.all(5),
-              decoration: allDay
-                  ? BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      border: Border.all(width: 2, color: Colors.black),
-                      color: Colors.black,
-                    )
-                  : BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      border:
-                          Border.all(width: 2, color: Colors.grey.shade600)),
-              child: AnimatedDefaultTextStyle(
-                  duration: const Duration(milliseconds: 500),
-                  style: onAlldayEnabled(),
+                      if (allDay) {
+                        // set the start date to 12 am
+                        startDate = DateTime.utc(widget.day.year,
+                            widget.day.month, widget.day.day, 0, 0);
 
-                  // all Day
-                  child: const Text("하루 종일")),
+                        // set the end date to 11:59 pm
+                        endDate = DateTime.utc(widget.day.year,
+                            widget.day.month, widget.day.day, 23, 59);
+                      }
+
+                      //
+                      widget.getDate(startDate, endDate, allDay);
+                    });
+                  },
+
+                  // animtation
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 700),
+                    padding: const EdgeInsets.all(5),
+                    decoration: allDay
+                        ? BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            border: Border.all(width: 2, color: Colors.black),
+                            color: Colors.black,
+                          )
+                        : BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            border: Border.all(
+                                width: 2, color: Colors.grey.shade600)),
+                    child: AnimatedDefaultTextStyle(
+                        duration: const Duration(milliseconds: 500),
+                        style: onAlldayEnabled(),
+
+                        // all Day
+                        child: const Text("하루 종일")),
+                  ),
+                ),
+
+                //
+                const SizedBox(
+                  width: 10,
+                )
+              ],
             ),
           ),
 
-          //
-          const SizedBox(
-            width: 10,
-          )
+          // Date Picker
+          if (pressedDatePicker) Expanded(child: datePick())
         ],
       ),
     );
@@ -123,7 +155,10 @@ class _TimePickState extends State<TimePick> {
   Widget timeStart() {
     return CupertinoButton(
       padding: const EdgeInsets.all(0),
-      onPressed: () {},
+      onPressed: () => setState(() {
+        pressedDatePicker = true;
+        selected = _DatePressed.startDate;
+      }),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -187,7 +222,12 @@ class _TimePickState extends State<TimePick> {
   Widget timeEnd() {
     return CupertinoButton(
       padding: const EdgeInsets.all(0),
-      onPressed: () {},
+      onPressed: () {
+        setState(() {
+          pressedDatePicker = true;
+          selected = _DatePressed.endDate;
+        });
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -242,6 +282,50 @@ class _TimePickState extends State<TimePick> {
           ),
           const Spacer()
         ],
+      ),
+    );
+  }
+
+  Widget datePick() {
+    return SizedBox(
+      //
+      child: CupertinoDatePicker(
+        // inial date
+        initialDateTime: selected == _DatePressed.startDate
+            ? startDate
+            : DateTime(
+                endDate.year, endDate.month, endDate.day, endDate.hour, 55),
+
+        dateOrder: DatePickerDateOrder.ymd,
+        minuteInterval: 5,
+
+        // when the date change
+        onDateTimeChanged: (value) {
+          // check if start date
+          if (selected == _DatePressed.startDate) {
+            startDate = value;
+            endDate = DateTime(
+              startDate.year,
+              startDate.month,
+              startDate.day,
+              endDate.hour,
+              endDate.minute,
+            );
+
+            // or end date
+          } else {
+            endDate = value;
+          }
+
+          // update the date
+          setState(() {
+            startDate;
+            endDate;
+          });
+
+          // call back
+          widget.getDate(startDate, endDate, allDay);
+        },
       ),
     );
   }

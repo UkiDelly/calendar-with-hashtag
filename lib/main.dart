@@ -1,6 +1,6 @@
 import 'package:care_square_assignment/view/Main/main_view.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
@@ -13,11 +13,30 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const CupertinoApp(
+
+    // only light mode
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+            statusBarBrightness: Brightness.light)
+        );
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: CupertinoThemeData(
-          brightness: Brightness.light, primaryColor: Colors.black),
-      home: MainView(),
+
+      // Theme
+      themeMode: ThemeMode.light,
+      theme: ThemeData(brightness: Brightness.light, textTheme: _textTheme),
+
+      //
+      home: MainView(
+        key: mainPageKey,
+      ),
     );
   }
 }
+
+TextTheme _textTheme = const TextTheme().copyWith(
+    titleLarge: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+    titleMedium: const TextStyle(fontWeight: FontWeight.w700, fontSize: 22),
+    titleSmall: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
+    bodySmall: const TextStyle(fontSize: 17)
+    // headline2: const TextStyle(fontSize: 20)
+    );
