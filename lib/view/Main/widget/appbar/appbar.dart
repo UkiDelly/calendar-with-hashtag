@@ -1,4 +1,5 @@
 import 'package:care_square_assignment/view/Search/search_page.dart';
+import 'package:care_square_assignment/view/Setting/setting_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../../provider/dates.dart';
 
 import '../../../Account/account_page.dart';
-import '../back_to_now.dart';
+import 'back_to_now.dart';
 
 class CalendarAppBar extends StatefulWidget {
   const CalendarAppBar({
@@ -87,7 +88,10 @@ class _CalendarAppBarState extends State<CalendarAppBar> {
           //* setting button
           CupertinoButton(
             padding: const EdgeInsets.all(0),
-            onPressed: () {},
+            onPressed: () => showCupertinoModalBottomSheet(
+                useRootNavigator: true,
+                context: context,
+                builder: (context) => const SettingPage()),
             child: const Icon(
               Icons.settings,
               color: Color(0xff313131),

@@ -48,29 +48,29 @@ class _AddNewEventState extends State<AddNewEvent> {
                   //
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
+                    children: [
                       //
 
                       // + icon
 
-                      Icon(
+                      const Icon(
                         CupertinoIcons.add,
                         color: Colors.black,
                         size: 30,
                       ),
 
                       //
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
 
                       // text
                       Text(
                         "새로운 이벤트",
-                        style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(fontWeight: FontWeight.normal),
                       )
                     ],
                   ),

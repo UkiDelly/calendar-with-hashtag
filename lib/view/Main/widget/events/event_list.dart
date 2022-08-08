@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../provider/dates.dart';
 
-import 'add_new_event.dart';
+import 'new_event_card.dart';
 import 'even_card.dart';
 
 class EventList extends ConsumerStatefulWidget {
@@ -62,10 +62,7 @@ class _EventListState extends ConsumerState<EventList> {
                   padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
                   child: Text(
                       "${selectedDate.year}년 ${selectedDate.month}월 ${selectedDate.day}일 (${weekDayToName(selectedDate)})",
-                      style: const TextStyle(
-                          color: Color(0xff313131),
-                          fontWeight: FontWeight.w900,
-                          fontSize: 20)));
+                      style: Theme.of(context).textTheme.titleMedium));
             }),
 
         //* Event List
