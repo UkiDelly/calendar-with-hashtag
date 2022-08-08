@@ -17,11 +17,6 @@ class _EventCardTileState extends State<EventCardTile>
   late Animation<double> opcaity;
   late AnimationController animationController;
 
-  // title text style
-  TextStyle titleTextStyle =
-      const TextStyle(fontSize: 25, fontWeight: FontWeight.w700);
-  TextStyle subtitleTextStyle = const TextStyle();
-
   var startTime, endTime;
 
   @override
@@ -78,10 +73,13 @@ class _EventCardTileState extends State<EventCardTile>
                       children: [
                         // if all day
                         if (widget.event.allDay)
-                          const Text(
+                          Text(
                             "하루종일",
-                            style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .copyWith(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
                           )
                         else
                           time()
@@ -111,11 +109,16 @@ class _EventCardTileState extends State<EventCardTile>
                         //* title
                         Text(
                           widget.event.title,
-                          style: titleTextStyle,
+                          style: Theme.of(context).textTheme.titleSmall,
                         ),
 
                         //* description
-                        if (widget.event.memo != null) Text(widget.event.memo!)
+                        if (widget.event.memo != null)
+                          Text(widget.event.memo!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(fontSize: 15))
                       ],
                     ),
                   )
@@ -132,13 +135,16 @@ class _EventCardTileState extends State<EventCardTile>
         // Start time
         Text(
           formatTime(widget.event.startTime),
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.headline5,
         ),
 
         // End Time
         Text(
           formatTime(widget.event.endTime),
-          style: const TextStyle(fontSize: 15, color: Colors.grey),
+          style: Theme.of(context)
+              .textTheme
+              .headline5!
+              .copyWith(color: Colors.grey, fontSize: 15),
         ),
       ],
     );

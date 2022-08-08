@@ -6,7 +6,6 @@ class AppSliverDelegate extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-      height: maxExtent,
       color: Colors.transparent,
       child: LayoutBuilder(
         builder: (context, constraints) => Stack(
@@ -28,22 +27,11 @@ class AppSliverDelegate extends SliverPersistentHeaderDelegate {
             Align(
               alignment: Alignment.lerp(const Alignment(-.9, 0),
                   const Alignment(0, 0), shrinkOffset / maxExtent)!,
-              child: DefaultTextStyle(
-                // change the font size if the alignment is changed
-                style: (shrinkOffset / maxExtent) <= 0.7
-                    ? TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).primaryColor)
-                    : TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).primaryColor),
-                child: const Padding(
-                  padding: EdgeInsets.only(top: 10.0),
-                  child: Text(
-                    "설정",
-                  ),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Text(
+                  "설정",
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
             ),

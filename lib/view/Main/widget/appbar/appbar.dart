@@ -9,7 +9,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../../provider/dates.dart';
 
 import '../../../Account/account_page.dart';
-import '../back_to_now.dart';
+import 'back_to_now.dart';
 
 class CalendarAppBar extends StatefulWidget {
   const CalendarAppBar({
@@ -89,7 +89,9 @@ class _CalendarAppBarState extends State<CalendarAppBar> {
           CupertinoButton(
             padding: const EdgeInsets.all(0),
             onPressed: () => showCupertinoModalBottomSheet(
-                context: context, builder: (context) => const SettingPage()),
+                useRootNavigator: true,
+                context: context,
+                builder: (context) => const SettingPage()),
             child: const Icon(
               Icons.settings,
               color: Color(0xff313131),
