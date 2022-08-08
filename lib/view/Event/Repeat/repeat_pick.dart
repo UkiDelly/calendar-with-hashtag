@@ -193,7 +193,11 @@ class _RepeatSelectPageState extends State<RepeatSelectPage> {
               ),
 
               //* Check icon
-              if (select == index) const Icon(Icons.check)
+              if (select == index)
+                Icon(
+                  Icons.check,
+                  color: Theme.of(context).primaryColor,
+                )
             ],
           ),
 

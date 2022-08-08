@@ -37,7 +37,7 @@ class AccountWidget extends StatelessWidget {
               const SizedBox(width: 10),
 
               //* account name
-              const Text("개인")
+              Text(account.name.toString())
             ],
           ),
         ),

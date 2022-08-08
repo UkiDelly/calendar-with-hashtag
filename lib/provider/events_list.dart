@@ -23,9 +23,16 @@ class EventsNotifier extends StateNotifier<List<CalendarEvent>> {
       }
     }
 
-    void updateEvent(CalendarEvent event) {}
-
     return temp;
+  }
+
+  // update Event
+  void updateEvent(CalendarEvent oldEvent, CalendarEvent newEvent) {
+    // remove the old event
+    state.remove(oldEvent);
+
+    // add the updated event
+    state.add(newEvent);
   }
 }
 

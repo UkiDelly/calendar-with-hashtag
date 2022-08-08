@@ -1,12 +1,16 @@
-import 'package:care_square_assignment/view/New%20Event/Alarm/alarm_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../model/alarm._enum.dart';
+import '../Alarm/alarm_picker.dart';
 
 class AlarmWidget extends StatefulWidget {
-  const AlarmWidget({Key? key}) : super(key: key);
+  final Set<Alarm> alarmList;
+  final Function(Set<Alarm>) getAlarmList;
+  const AlarmWidget(
+      {Key? key, required this.alarmList, required this.getAlarmList})
+      : super(key: key);
 
   @override
   State<AlarmWidget> createState() => _AlarmWidgetState();
@@ -15,6 +19,12 @@ class AlarmWidget extends StatefulWidget {
 class _AlarmWidgetState extends State<AlarmWidget> {
   // using Set because duplication is not allowed
   Set<Alarm> alarmList = {};
+
+  @override
+  void initState() {
+    super.initState();
+    alarmList = widget.alarmList;
+  }
 
   //
   @override
@@ -47,12 +57,16 @@ class _AlarmWidgetState extends State<AlarmWidget> {
                 builder: (context) => AlarmPickerView(
                   alarmList: alarmList,
                 ),
-              )
-                  .then((alarmList) => setState(() {
-                        // update the alarm list;
-                        this.alarmList = alarmList;
-                      }))
-                  .whenComplete(() => null),
+              ).then((alarmList) {
+                //
+                setState(() {
+                  // update the alarm list;
+                  this.alarmList = alarmList;
+                });
+
+                // send the alarm list to the parent
+                widget.getAlarmList(alarmList);
+              }).whenComplete(() => null),
 
               // if the alarm is empty,show no alarm selected. if not null, show the list of selected alarm.  show no alarm selected
               child: alarmList.isEmpty

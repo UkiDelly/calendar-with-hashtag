@@ -1,9 +1,11 @@
 import 'package:care_square_assignment/model/calendar_event.dart';
 import 'package:care_square_assignment/model/global_functions.dart';
-import 'package:care_square_assignment/view/Event/event_detail_page.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+
+import '../../../Event/event_detail_page.dart';
 
 class EventCardTile extends StatefulWidget {
   final CalendarEvent event;

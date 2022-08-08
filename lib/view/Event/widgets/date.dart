@@ -5,8 +5,14 @@ import '../../../model/global_functions.dart';
 
 class TimePick extends StatefulWidget {
   final Function(DateTime startDate, DateTime endDate, bool allDay) getDate;
-  final DateTime day;
-  const TimePick({Key? key, required this.day, required this.getDate})
+  final DateTime startDate, endDate;
+  final bool allDay;
+  const TimePick(
+      {Key? key,
+      required this.startDate,
+      required this.endDate,
+      required this.getDate,
+      required this.allDay})
       : super(key: key);
 
   @override
@@ -17,7 +23,7 @@ enum _DatePressed { startDate, endDate }
 
 class _TimePickState extends State<TimePick> {
   //
-  bool allDay = false;
+  late bool allDay;
   late DateTime startDate, endDate;
   bool pressedDatePicker = false;
   late _DatePressed selected;
@@ -27,12 +33,10 @@ class _TimePickState extends State<TimePick> {
     super.initState();
     // set the initial date
 
-    startDate =
-        DateTime.utc(widget.day.year, widget.day.month, widget.day.day, 0, 0);
-
+    startDate = widget.startDate;
     // set the initial date
-    endDate =
-        DateTime.utc(widget.day.year, widget.day.month, widget.day.day, 23, 59);
+    endDate = widget.endDate;
+    allDay = widget.allDay;
   }
 
   // text style when allDayButton is enabled or disabled
@@ -100,12 +104,12 @@ class _TimePickState extends State<TimePick> {
 
                       if (allDay) {
                         // set the start date to 12 am
-                        startDate = DateTime.utc(widget.day.year,
-                            widget.day.month, widget.day.day, 0, 0);
+                        startDate = DateTime.utc(widget.startDate.year,
+                            widget.startDate.month, widget.startDate.day, 0, 0);
 
                         // set the end date to 11:59 pm
-                        endDate = DateTime.utc(widget.day.year,
-                            widget.day.month, widget.day.day, 23, 59);
+                        endDate = DateTime.utc(widget.endDate.year,
+                            widget.endDate.month, widget.endDate.day, 23, 59);
                       }
 
                       //

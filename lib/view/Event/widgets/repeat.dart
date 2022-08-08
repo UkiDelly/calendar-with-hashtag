@@ -6,14 +6,23 @@ import '../../../model/repeat_enum.dart';
 import '../Repeat/repeat_pick.dart';
 
 class RepeatWidget extends StatefulWidget {
-  const RepeatWidget({Key? key}) : super(key: key);
+  final Repeat repeat;
+  final Function(Repeat) getRepeat;
+  const RepeatWidget({Key? key, required this.getRepeat, required this.repeat})
+      : super(key: key);
 
   @override
   State<RepeatWidget> createState() => _RepeatWidgetState();
 }
 
 class _RepeatWidgetState extends State<RepeatWidget> {
-  Repeat repeat = Repeat.none;
+  late Repeat repeat;
+
+  @override
+  void initState() {
+    super.initState();
+    repeat = widget.repeat;
+  }
 
   //
   @override
@@ -40,7 +49,7 @@ class _RepeatWidgetState extends State<RepeatWidget> {
             //
             //* Go to the repeat select page
             builder: (context) => RepeatSelectPage(
-              repeat: repeat,
+              repeat: widget.repeat,
             ),
           ).then((repeat) => setState(
                 () => this.repeat = repeat,

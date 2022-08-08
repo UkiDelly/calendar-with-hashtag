@@ -7,7 +7,7 @@ class CalendarEvent {
   final DateTime startTime, endTime;
   final bool allDay;
   final Account account;
-  Repeat? repeat;
+  Repeat repeat;
   Set<Alarm> alarm;
   String? location, url, memo;
 
@@ -18,7 +18,7 @@ class CalendarEvent {
       required this.account,
       required this.alarm,
       required this.allDay,
-      this.repeat,
+      required this.repeat,
       this.location,
       this.url,
       this.memo});

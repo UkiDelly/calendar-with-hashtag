@@ -1,11 +1,13 @@
 import 'package:care_square_assignment/provider/dates.dart';
 import 'package:care_square_assignment/view/Main/widget/calendar/calendar.dart';
-import 'package:care_square_assignment/view/New%20Event/new_event_page.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+
+import '../../../Event/new_event_page.dart';
 
 class AddNewEvent extends StatefulWidget {
   const AddNewEvent({
