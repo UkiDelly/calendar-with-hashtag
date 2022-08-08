@@ -186,8 +186,10 @@ class _RepeatSelectPageState extends State<RepeatSelectPage> {
               //* Repeat option
               Text(
                 convertRepeat(r),
-                style:
-                    const TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall!
+                    .copyWith(color: Colors.black),
               ),
 
               //* Check icon

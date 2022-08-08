@@ -173,11 +173,11 @@ class _TimePickState extends State<TimePick> {
                 ? TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
-                    color: CupertinoTheme.of(context).primaryColor)
+                    color: Theme.of(context).primaryColor)
                 : TextStyle(
                     fontSize: 12.5,
                     fontWeight: FontWeight.w500,
-                    color: CupertinoTheme.of(context).primaryColor),
+                    color: Theme.of(context).primaryColor),
             child: Text(
               "${startDate.month}월 ${startDate.day}일 (${weekDay(startDate.weekday)})",
             ),
@@ -202,10 +202,10 @@ class _TimePickState extends State<TimePick> {
               curve: Curves.fastLinearToSlowEaseIn,
               child: Text(
                 formatTime(startDate),
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w800,
-                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleSmall!
+                    .copyWith(fontWeight: FontWeight.w800),
               ),
             ),
 
@@ -241,11 +241,11 @@ class _TimePickState extends State<TimePick> {
                 ? TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
-                    color: CupertinoTheme.of(context).primaryColor)
+                    color: Theme.of(context).primaryColor)
                 : TextStyle(
                     fontSize: 12.5,
                     fontWeight: FontWeight.w500,
-                    color: CupertinoTheme.of(context).primaryColor),
+                    color: Theme.of(context).primaryColor),
             child: Text(
               "${endDate.month}월 ${endDate.day}일 (${weekDay(endDate.weekday)})",
             ),
@@ -270,10 +270,10 @@ class _TimePickState extends State<TimePick> {
               curve: Curves.fastLinearToSlowEaseIn,
               child: Text(
                 formatTime(endDate),
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w800,
-                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleSmall!
+                    .copyWith(fontWeight: FontWeight.w800),
               ),
             ),
 

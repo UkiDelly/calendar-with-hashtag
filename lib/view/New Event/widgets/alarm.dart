@@ -1,5 +1,6 @@
 import 'package:care_square_assignment/view/New%20Event/Alarm/alarm_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../model/alarm._enum.dart';
@@ -54,7 +55,13 @@ class _AlarmWidgetState extends State<AlarmWidget> {
                   .whenComplete(() => null),
 
               // if the alarm is empty,show no alarm selected. if not null, show the list of selected alarm.  show no alarm selected
-              child: alarmList.isEmpty ? const Text("없음") : alarms(),
+              child: alarmList.isEmpty
+                  ? Text("없음",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall!
+                          .copyWith(color: Colors.grey, fontSize: 15))
+                  : alarms(),
             ),
           ),
         ),
@@ -77,7 +84,8 @@ class _AlarmWidgetState extends State<AlarmWidget> {
                 color: const Color(0xfff4f4f4)),
             child: Text(
               convertAlarm(selectedAlarm),
-              style: const TextStyle(fontSize: 12.5),
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color: Theme.of(context).primaryColor, fontSize: 12.5),
             ),
           )
       ],

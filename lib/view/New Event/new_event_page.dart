@@ -62,7 +62,7 @@ class _AddNewEventPageState extends ConsumerState<AddNewEventPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-          backgroundColor: CupertinoTheme.of(context).primaryColor,
+          backgroundColor: Theme.of(context).primaryColor,
           onPressed: () {
             // create event instance
             event = CalendarEvent(
@@ -191,6 +191,7 @@ class _AddNewEventPageState extends ConsumerState<AddNewEventPage> {
             decoration: const BoxDecoration(),
             style: const TextStyle(fontSize: 50),
             placeholder: "제목",
+            cursorColor: Theme.of(context).primaryColor,
 
             // save the title when done typing
             onChanged: (value) => setState(() {

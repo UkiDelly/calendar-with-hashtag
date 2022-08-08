@@ -13,17 +13,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    
 
     // only light mode
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-            statusBarBrightness: Brightness.light)
-        );
+    SystemChrome.setSystemUIOverlayStyle(
+        const SystemUiOverlayStyle(statusBarBrightness: Brightness.light));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
       // Theme
       themeMode: ThemeMode.light,
-      theme: ThemeData(brightness: Brightness.light, textTheme: _textTheme),
+      theme: ThemeData(
+          brightness: Brightness.light,
+          textTheme: textTheme,
+          primaryColor: Colors.black,
+          iconTheme: const IconThemeData(color: Colors.black)),
 
       //
       home: MainView(
@@ -33,7 +37,10 @@ class MyApp extends StatelessWidget {
   }
 }
 
-TextTheme _textTheme = const TextTheme().copyWith(
+
+// theme data
+// text theme
+final TextTheme textTheme = const TextTheme().copyWith(
     titleLarge: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
     titleMedium: const TextStyle(fontWeight: FontWeight.w700, fontSize: 22),
     titleSmall: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),

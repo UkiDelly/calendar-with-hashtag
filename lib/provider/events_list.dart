@@ -23,6 +23,8 @@ class EventsNotifier extends StateNotifier<List<CalendarEvent>> {
       }
     }
 
+    void updateEvent(CalendarEvent event) {}
+
     return temp;
   }
 }

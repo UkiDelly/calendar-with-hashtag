@@ -75,21 +75,20 @@ class _EventListState extends ConsumerState<EventList> {
   }
 
   Widget eventList() {
-    return Consumer(builder: (context, ref, child) {
-      DateTime selectedDate = ref.watch(selectedDateProvider);
-      List<CalendarEvent> eventList =
-          ref.watch(eventListProvider.notifier).getEventsforDay(selectedDate);
+    DateTime selectedDate = ref.watch(selectedDateProvider);
+    List<CalendarEvent> eventList =
+        ref.watch(eventListProvider.notifier).getEventsforDay(selectedDate);
 
-      return ListView.builder(
-        shrinkWrap: true,
-        itemCount: eventList.length,
-        padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
-        itemBuilder: (context, index) {
-          return EventCardTile(
-            event: eventList[index],
-          );
-        },
-      );
-    });
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: eventList.length,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
+      itemBuilder: (context, index) {
+        return EventCardTile(
+          event: eventList[index],
+        );
+      },
+    );
   }
 }

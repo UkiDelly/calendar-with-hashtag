@@ -18,34 +18,36 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            // App bar
-            const CalendarAppBar(),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // App bar
+              const CalendarAppBar(),
 
-            //
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //* Calendar
-                  Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: CalendarWidget(
-                        key: calendarKey,
-                      )),
+              //
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //* Calendar
+                    Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: CalendarWidget(
+                          key: calendarKey,
+                        )),
 
-                  //
-                  const SizedBox(
-                    height: 20,
-                  ),
+                    //
+                    const SizedBox(
+                      height: 20,
+                    ),
 
-                  //* Event List
-                  const EventList()
-                ],
+                    //* Event List
+                    const EventList()
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

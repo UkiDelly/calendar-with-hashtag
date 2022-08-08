@@ -17,5 +17,5 @@ List<CalendarEvent> events = [
     account: accounts[1],
     alarm: {},
     allDay: true,
-  )
+  ),
 ];

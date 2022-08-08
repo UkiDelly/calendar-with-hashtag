@@ -69,14 +69,21 @@ class _AlarmPickerViewState extends State<AlarmPickerView> {
                   // alarm text
                   Text(
                     convertAlarm(Alarm.none),
-                    style: const TextStyle(fontSize: 20),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall!
+                        .copyWith(fontWeight: FontWeight.normal),
                   ),
 
                   //
                   const Spacer(),
 
                   // if selected
-                  if (widget.alarmList.isEmpty) const Icon(Icons.check)
+                  if (widget.alarmList.isEmpty)
+                    const Icon(
+                      Icons.check,
+                      color: Colors.black,
+                    )
 
                   //
                 ],
@@ -144,14 +151,21 @@ class _AlarmPickerViewState extends State<AlarmPickerView> {
             // alarm text
             Text(
               convertAlarm(alarm),
-              style: const TextStyle(fontSize: 20),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(fontWeight: FontWeight.normal),
             ),
 
             //
             const Spacer(),
 
             // if selected
-            if (widget.alarmList.contains(alarm)) const Icon(Icons.check)
+            if (widget.alarmList.contains(alarm))
+              const Icon(
+                Icons.check,
+                color: Colors.black,
+              )
 
             //
           ],

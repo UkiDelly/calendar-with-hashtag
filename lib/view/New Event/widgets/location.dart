@@ -29,7 +29,10 @@ class _LocationWidgetState extends State<LocationWidget> {
         )),
         CupertinoButton(
           onPressed: () {},
-          child: const Icon(CupertinoIcons.search),
+          child: const Icon(
+            CupertinoIcons.search,
+            color: Colors.black,
+          ),
         )
       ],
     );
