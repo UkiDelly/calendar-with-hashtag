@@ -175,7 +175,7 @@ class _TimePickState extends State<TimePick> {
             duration: const Duration(milliseconds: 100),
             style: allDay
                 ? TextStyle(
-                    fontSize: 20,
+                    fontSize: 17,
                     fontWeight: FontWeight.w700,
                     color: Theme.of(context).primaryColor)
                 : TextStyle(
@@ -243,7 +243,7 @@ class _TimePickState extends State<TimePick> {
             duration: const Duration(milliseconds: 100),
             style: allDay
                 ? TextStyle(
-                    fontSize: 20,
+                    fontSize: 17,
                     fontWeight: FontWeight.w700,
                     color: Theme.of(context).primaryColor)
                 : TextStyle(

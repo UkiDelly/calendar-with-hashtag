@@ -56,15 +56,21 @@ class _MemoWidgetState extends State<MemoWidget> {
                           style: TextStyle(fontSize: 12.5),
                         )),
                     onPressed: () => showCupertinoModalBottomSheet(
-                        context: context,
-                        builder: (context) => MemoInputPage(
-                              memo: widget.memo,
-                            )).then((memo) => setState(
-                          () {
-                            // update the memo
-                            this.memo = memo;
-                          },
-                        ))),
+                            context: context,
+                            builder: (context) => MemoInputPage(
+                                  memo: widget.memo,
+                                )).then((memo) {
+                          // send the memo to the parent widget
+                          widget.getMemo(memo);
+
+                          //
+                          setState(
+                            () {
+                              // update the memo
+                              this.memo = memo;
+                            },
+                          );
+                        })),
               )
             ],
           ),

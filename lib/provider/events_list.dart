@@ -9,7 +9,9 @@ class EventsNotifier extends StateNotifier<List<CalendarEvent>> {
   set addEvent(CalendarEvent event) => state.add(event);
 
   // remove event
-  void removeEvent(DateTime day) {}
+  void removeEvent(CalendarEvent event) {
+    state.remove(event);
+  }
 
   // get event for day
   getEventsforDay(DateTime day) {

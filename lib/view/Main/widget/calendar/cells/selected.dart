@@ -4,22 +4,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../provider/events_list.dart';
 
-class SelectedCell extends StatefulWidget {
+class SelectedCell extends ConsumerStatefulWidget {
   final DateTime day;
   final List<CalendarEvent>? events;
   const SelectedCell({Key? key, required this.day, this.events})
       : super(key: key);
 
   @override
-  State<SelectedCell> createState() => _SelectedCellState();
+  ConsumerState<SelectedCell> createState() => _SelectedCellState();
 }
 
-class _SelectedCellState extends State<SelectedCell>
+class _SelectedCellState extends ConsumerState<SelectedCell>
     with TickerProviderStateMixin {
   //
   late AnimationController _animationController;
   late Animation _opacity;
-  List eventsOfDay = [];
+  List<CalendarEvent> eventsOfDay = [];
 
   @override
   void initState() {
@@ -78,7 +78,7 @@ class _SelectedCellState extends State<SelectedCell>
             if (eventsOfDay.isNotEmpty)
               Consumer(
                 builder: (ctx, ref, child) {
-                  List<CalendarEvent> event = ref
+                  List<CalendarEvent>? event = ref
                       .watch(eventListProvider.notifier)
                       .getEventsforDay(widget.day);
                   return Container(
@@ -86,7 +86,7 @@ class _SelectedCellState extends State<SelectedCell>
                     height: 10,
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: event.first.account.color),
+                        color: event!.first.account.color),
                   );
                 },
               ),

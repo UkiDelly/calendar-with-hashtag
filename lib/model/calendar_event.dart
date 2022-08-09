@@ -25,7 +25,7 @@ class CalendarEvent {
 
   @override
   String toString() {
-    return "CalendarEvent(title: $title, startTime: $startTime, endTime: $endTime, account: ${account.name}, alarm: $alarm , location: $location, url: $url, memo: $memo,)";
+    return "CalendarEvent(title: $title, startTime: $startTime, endTime: $endTime repeat: $repeat, account: ${account.name}, alarm: $alarm , location: $location, url: $url, memo: $memo,)";
   }
 
   CalendarEvent copyWith({
