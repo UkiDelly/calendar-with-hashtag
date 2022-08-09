@@ -51,9 +51,14 @@ class _RepeatWidgetState extends State<RepeatWidget> {
             builder: (context) => RepeatSelectPage(
               repeat: widget.repeat,
             ),
-          ).then((repeat) => setState(
-                () => this.repeat = repeat,
-              )),
+          ).then((repeat) {
+            // send the repeat to the parent widget
+            widget.getRepeat(repeat);
+            //
+            setState(
+              () => this.repeat = repeat,
+            );
+          }),
 
           //
           child: SizedBox(

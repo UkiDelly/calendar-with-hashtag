@@ -95,6 +95,11 @@ class _EventCardTileState extends State<EventCardTile>
                     ),
                   ),
 
+                  //
+                  const SizedBox(
+                    width: 5,
+                  ),
+
                   // Divider
                   Container(
                     width: 5,
@@ -106,7 +111,7 @@ class _EventCardTileState extends State<EventCardTile>
 
                   //
                   const SizedBox(
-                    width: 10,
+                    width: 5,
                   ),
 
                   Container(
@@ -143,7 +148,10 @@ class _EventCardTileState extends State<EventCardTile>
         // Start time
         Text(
           formatTime(widget.event.startTime),
-          style: Theme.of(context).textTheme.headline5,
+          style: Theme.of(context)
+              .textTheme
+              .headline5!
+              .copyWith(fontWeight: FontWeight.bold, fontSize: 22.5),
         ),
 
         // End Time

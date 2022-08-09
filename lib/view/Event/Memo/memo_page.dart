@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 
 class MemoInputPage extends StatefulWidget {
   String? memo;
-  MemoInputPage({Key? key, this.memo}) : super(key: key);
+
+  MemoInputPage({
+    Key? key,
+    this.memo,
+  }) : super(key: key);
 
   @override
   State<MemoInputPage> createState() => _MemoInputPageState();
