@@ -17,12 +17,14 @@ class AlarmWidget extends StatefulWidget {
 }
 
 class _AlarmWidgetState extends State<AlarmWidget> {
-  // using Set because duplication is not allowed
+  //! 중복을 허용하지 않기 위해 Set을 이용
   Set<Alarm> alarmList = {};
 
   @override
   void initState() {
     super.initState();
+
+    // 넘겨 받은 데이터로 초기화
     alarmList = widget.alarmList;
   }
 
@@ -32,7 +34,7 @@ class _AlarmWidgetState extends State<AlarmWidget> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        //* Icon
+        //* 아이콘
         const Icon(CupertinoIcons.bell),
 
         //
@@ -40,41 +42,43 @@ class _AlarmWidgetState extends State<AlarmWidget> {
           width: 10,
         ),
 
-        //* Alarm
+        //* 알림
         Expanded(
           child: Align(
             alignment: Alignment.centerLeft,
             child: CupertinoButton(
               padding: const EdgeInsets.all(0),
 
-              //* go to alarm selection page
+              //* 알림 선택 페이지로
               onPressed: () => showCupertinoModalBottomSheet(
                 useRootNavigator: true,
 
                 context: context,
 
-                //* show the alarm picker page then, update the alarm list
+                //* 알림 선택 페이지에서 돌아올때 넘겨 받은 데이터로 업데이트
                 builder: (context) => AlarmPickerView(
                   alarmList: alarmList,
                 ),
               ).then((alarmList) {
                 //
                 setState(() {
-                  // update the alarm list;
+                  // 업데이트
                   this.alarmList = alarmList;
                 });
 
-                // send the alarm list to the parent
+                // 콜백
                 widget.getAlarmList(alarmList);
               }).whenComplete(() => null),
 
-              // if the alarm is empty,show no alarm selected. if not null, show the list of selected alarm.  show no alarm selected
+              // 알림 Set가 비었을때 "없음" 표시하고, 있으면 선택한 알람들을 디스플레이
+
               child: alarmList.isEmpty
                   ? Text("없음",
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall!
                           .copyWith(color: Colors.grey, fontSize: 15))
+                  // 알림 디스플레이
                   : alarms(),
             ),
           ),
@@ -96,6 +100,7 @@ class _AlarmWidgetState extends State<AlarmWidget> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
                 color: const Color(0xfff4f4f4)),
+            // 문자열로 변환
             child: Text(
               convertAlarm(selectedAlarm),
               style: Theme.of(context).textTheme.bodySmall!.copyWith(

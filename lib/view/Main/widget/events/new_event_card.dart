@@ -1,5 +1,4 @@
 import 'package:care_square_assignment/provider/dates.dart';
-import 'package:care_square_assignment/view/Main/widget/calendar/calendar.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +23,8 @@ class _AddNewEventState extends State<AddNewEvent> {
     return SizedBox(
       child: Row(
         children: [
-          //* Add new Event
+          //
+          //* 새로운 이벤트 추가
           Expanded(
               child: Container(
             margin: const EdgeInsets.fromLTRB(10, 10, 5, 10),
@@ -35,17 +35,18 @@ class _AddNewEventState extends State<AddNewEvent> {
                 borderRadius: BorderRadius.circular(10)),
             child: Consumer(
               builder: (ctx, ref, child) {
+                // 선택한 날짜 가져오기
                 DateTime date = ref.watch(selectedDateProvider);
                 return CupertinoButton(
                   //
-                  //* Show adding event page
+                  //* 새로운 이벤트 추가 페이지로 이동
                   onPressed: () => showCupertinoModalBottomSheet(
                     context: context,
                     backgroundColor: Colors.transparent,
                     builder: (context) => AddNewEventPage(
                       date: date,
                     ),
-                  ).then((value) => calendarKey.currentState!.setState(() {})),
+                  ),
 
                   //
                   child: Row(
@@ -53,7 +54,7 @@ class _AddNewEventState extends State<AddNewEvent> {
                     children: [
                       //
 
-                      // + icon
+                      // 아이콘
 
                       const Icon(
                         CupertinoIcons.add,
@@ -66,7 +67,7 @@ class _AddNewEventState extends State<AddNewEvent> {
                         width: 10,
                       ),
 
-                      // text
+                      //
                       Text(
                         "새로운 이벤트",
                         style: Theme.of(context)
@@ -81,7 +82,7 @@ class _AddNewEventState extends State<AddNewEvent> {
             ),
           )),
 
-          //* Template
+          //* 템플렛 목록, 기능 없음..
           Container(
             width: 60,
             height: 60,

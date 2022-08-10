@@ -20,12 +20,14 @@ class _MemoWidgetState extends State<MemoWidget> {
   @override
   void initState() {
     super.initState();
+
+    // 넘겨 받은 memo로 초기화
     memo = widget.memo;
   }
 
   @override
   Widget build(BuildContext context) {
-    // if memo is not empty
+    // memo가 비어 있지 않을때,
     if (memo != null && memo != "") {
       return Align(
         alignment: Alignment.centerLeft,
@@ -38,10 +40,10 @@ class _MemoWidgetState extends State<MemoWidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Memo text
+              // 메모 디스플레이
               Text(memo!),
 
-              // edit Button
+              // 편집 버튼
               Align(
                 alignment: Alignment.bottomRight,
                 child: CupertinoButton(
@@ -55,12 +57,16 @@ class _MemoWidgetState extends State<MemoWidget> {
                           "편집",
                           style: TextStyle(fontSize: 12.5),
                         )),
+
+                    // 메모 편집 페이지로 이동
                     onPressed: () => showCupertinoModalBottomSheet(
                             context: context,
+
+                            // 편집 페이지에서 돌아올때 넘겨 받은 데이터로 업데이트
                             builder: (context) => MemoInputPage(
                                   memo: widget.memo,
                                 )).then((memo) {
-                          // send the memo to the parent widget
+                          // 콜백 함수 호출
                           widget.getMemo(memo);
 
                           //
@@ -77,7 +83,7 @@ class _MemoWidgetState extends State<MemoWidget> {
         ),
       );
 
-      // if memo is empty
+      // 메모가 비어 있을때
     } else {
       return Row(
         children: [
@@ -95,11 +101,11 @@ class _MemoWidgetState extends State<MemoWidget> {
             onTap: () => showCupertinoModalBottomSheet(
               context: context,
 
-              //* show the memo input page
+              //* 메모 입력 페이지로 이동
               builder: (context) => MemoInputPage(),
             ).then((memo) => setState(
                   () {
-                    // update the memo
+                    // 메모 업데이트
                     this.memo = memo;
                   },
                 )),

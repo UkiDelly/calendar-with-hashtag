@@ -29,7 +29,7 @@ class _RepeatWidgetState extends State<RepeatWidget> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // Icon
+        // 아이콘
         const Icon(
           CupertinoIcons.refresh_thin,
           size: 20,
@@ -39,7 +39,7 @@ class _RepeatWidgetState extends State<RepeatWidget> {
           width: 10,
         ),
 
-        //* Reapeat button
+        //* 버튼
         CupertinoButton(
           padding: const EdgeInsets.all(0),
           onPressed: () => showCupertinoModalBottomSheet(
@@ -47,12 +47,12 @@ class _RepeatWidgetState extends State<RepeatWidget> {
             context: context,
 
             //
-            //* Go to the repeat select page
+            //* 반복 선택 페이지로 이동
             builder: (context) => RepeatSelectPage(
               repeat: widget.repeat,
             ),
           ).then((repeat) {
-            // send the repeat to the parent widget
+            // 넘겨받은 데이터로 업데이트
             widget.getRepeat(repeat);
             //
             setState(
@@ -64,10 +64,11 @@ class _RepeatWidgetState extends State<RepeatWidget> {
           child: SizedBox(
             child: repeat == Repeat.none
                 ? Text(
-                    //* no repeat
+                    // 반복이 없을때
                     convertRepeat(repeat),
                     style: TextStyle(color: Colors.grey.shade500),
                   )
+                // 반복이 있을때
                 : Container(
                     padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                     decoration: BoxDecoration(

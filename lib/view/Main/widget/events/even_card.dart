@@ -17,15 +17,14 @@ class EventCardTile extends StatefulWidget {
 
 class _EventCardTileState extends State<EventCardTile>
     with TickerProviderStateMixin {
-  // animation
   late Animation<double> opcaity;
   late AnimationController animationController;
 
-  var startTime, endTime;
+  late String startTime, endTime;
 
   @override
   void initState() {
-    // Animation controller
+    // 애니메이션 컨트롤러
     animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300))
       ..addListener(() {
@@ -33,10 +32,10 @@ class _EventCardTileState extends State<EventCardTile>
       })
       ..forward();
 
-    //animtaion
+    // 투명도 애니메니셩
     opcaity = Tween<double>(begin: 0, end: 1).animate(animationController);
 
-    // date format
+    // 날짜 포맷
     startTime = formatTime(widget.event.startTime);
     endTime = formatTime(widget.event.endTime);
 
@@ -51,11 +50,11 @@ class _EventCardTileState extends State<EventCardTile>
 
   @override
   Widget build(BuildContext context) {
-    //animation
+
     return CupertinoButton(
       padding: const EdgeInsets.all(0),
 
-      //* go to event detail
+      //* 이벤트 상세 페이지로 이동
       onPressed: () => showCupertinoModalBottomSheet(
           context: context,
           builder: (context) => EventDetailPage(
@@ -74,12 +73,12 @@ class _EventCardTileState extends State<EventCardTile>
               child: Row(
                 children: [
                   //
-                  //* Date
+                  //* 날짜
                   SizedBox(
                     width: 100,
                     child: Column(
                       children: [
-                        // if all day
+                        // 하루종일 일때
                         if (widget.event.allDay)
                           Text(
                             "하루종일",
@@ -100,7 +99,7 @@ class _EventCardTileState extends State<EventCardTile>
                     width: 5,
                   ),
 
-                  // Divider
+                  // 구분선
                   Container(
                     width: 5,
                     height: 30,
@@ -119,13 +118,13 @@ class _EventCardTileState extends State<EventCardTile>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        //* title
+                        //* 제목
                         Text(
                           widget.event.title,
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
 
-                        //* description
+                        //* 메모
                         if (widget.event.memo != null)
                           Text(widget.event.memo!,
                               style: Theme.of(context)
@@ -145,7 +144,7 @@ class _EventCardTileState extends State<EventCardTile>
   Widget time() {
     return Column(
       children: [
-        // Start time
+        // 시작 시간
         Text(
           formatTime(widget.event.startTime),
           style: Theme.of(context)
@@ -154,7 +153,7 @@ class _EventCardTileState extends State<EventCardTile>
               .copyWith(fontWeight: FontWeight.bold, fontSize: 22.5),
         ),
 
-        // End Time
+        // 끝나는 시간
         Text(
           formatTime(widget.event.endTime),
           style: Theme.of(context)

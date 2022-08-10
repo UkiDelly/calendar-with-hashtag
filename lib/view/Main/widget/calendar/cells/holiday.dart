@@ -14,14 +14,11 @@ class HolidayCell extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          // date
+          //* 날짜
           Text(
             day.day.toString(),
-            style: const TextStyle(
-                fontWeight: FontWeight.bold,
-
-                // if weekend, change color to red
-                color: Colors.red),
+            style:
+                const TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
           ),
 
           const Spacer()

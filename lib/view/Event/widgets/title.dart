@@ -22,8 +22,9 @@ class _TitleWidgetState extends State<TitleWidget> {
   void initState() {
     super.initState();
 
-    // it is editing the events
+    // 이벤트가 존재 할시
     if (widget.event != null) {
+      // 텍스트 컨트롤러의 텍스트를 넘겨받은 이벤트의 제목으로 설정
       _titleController.text = widget.event!.title;
     }
   }
@@ -35,19 +36,19 @@ class _TitleWidgetState extends State<TitleWidget> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          //* text field
+          // 제목 입력
           Expanded(
               child: CupertinoTextField(
             controller: _titleController,
             padding: const EdgeInsets.all(10),
 
-            // indicator
+            // 인디케이터
             prefix: Container(
               height: 40,
               width: 5,
               decoration: BoxDecoration(
-                  // if the event parameter is null, show the 개인's color
-                  // but if not null, show the color of the event's
+                  // 넘겨 받은 이벤트가 존재하지 않을시 색을 기본 계정인 '개인'의 색깔으로 설정
+                  // 넘겨 받은 이벤트가 존재하면 해당 이벤트의 계정 색을 가져오기
                   color: widget.event != null
                       ? widget.event!.account.color
                       : accounts[0].color,
@@ -60,8 +61,8 @@ class _TitleWidgetState extends State<TitleWidget> {
             placeholder: "제목",
             cursorColor: Theme.of(context).primaryColor,
 
-            // save the title when done typing
-            onChanged: (value) => widget.getTitle(value),
+            // 입력이 끝나면 콜백 함수를 호출하여 새로운 제목 데이터를 넘겨주기
+            onChanged: (title) => widget.getTitle(title),
           ))
         ],
       ),

@@ -19,6 +19,7 @@ class _UrlWidgetState extends State<UrlWidget> {
   void initState() {
     super.initState();
 
+    // 넘겨 받은 데이터가 존재할시 그 데이터로 초기화
     if (widget.url != null) urlController.text = widget.url!;
   }
 
@@ -31,10 +32,14 @@ class _UrlWidgetState extends State<UrlWidget> {
         const SizedBox(
           width: 10,
         ),
+
+        //
         Expanded(
             child: CupertinoTextField(
           controller: urlController,
           decoration: const BoxDecoration(color: Colors.transparent),
+
+          // 수정이 끝나면 콜백 함수 호출
           onEditingComplete: () => widget.getUrl(urlController.text),
 
           //

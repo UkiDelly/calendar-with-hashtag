@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../model/calendar_event.dart';
-import '../../../../../provider/events_list.dart';
 
-class TodayCell extends StatefulWidget {
+class TodayCell extends StatelessWidget {
   final DateTime day;
   final List<CalendarEvent>? events;
   const TodayCell({
@@ -12,21 +11,6 @@ class TodayCell extends StatefulWidget {
     required this.day,
     required this.events,
   }) : super(key: key);
-
-  @override
-  State<TodayCell> createState() => _TodayCellState();
-}
-
-class _TodayCellState extends State<TodayCell> {
-  List eventsOfDay = [];
-
-  @override
-  void initState() {
-    super.initState();
-    eventsOfDay = widget.events!
-        .where((event) => event.startTime.day == widget.day.day)
-        .toList();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +25,9 @@ class _TodayCellState extends State<TodayCell> {
           const SizedBox(
             height: 5,
           ),
-          // date
+          //* 날짜
           Text(
-            widget.day.day.toString(),
+            day.day.toString(),
             style: const TextStyle(
                 fontWeight: FontWeight.bold, color: Colors.white),
           ),
@@ -51,18 +35,16 @@ class _TodayCellState extends State<TodayCell> {
           //
           const Spacer(),
 
-          // events
-          if (eventsOfDay.isNotEmpty)
+          //* 이벤트 표시
+          if (events!.isNotEmpty)
             Consumer(
               builder: (ctx, ref, child) {
-                List<CalendarEvent> event = ref
-                    .watch(eventListProvider.notifier)
-                    .getEventsforDay(widget.day);
                 return Container(
                   width: 10,
                   height: 10,
                   decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: event.first.account.color),
+                      shape: BoxShape.circle,
+                      color: events!.first.account.color),
                 );
               },
             ),

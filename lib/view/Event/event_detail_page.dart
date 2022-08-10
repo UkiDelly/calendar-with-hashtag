@@ -26,52 +26,42 @@ class EventDetailPage extends ConsumerStatefulWidget {
 
 class _EventDetailPageState extends ConsumerState<EventDetailPage> {
   //
-  late String title;
-  late DateTime startDate, endDate;
-  late bool allDay;
-  late Repeat repeat;
-  late Account account;
-  late Set<Alarm> alarmList;
-  late String? location, url, memo;
+  String? title;
+  DateTime? startDate, endDate;
+  bool? allDay;
+  Repeat? repeat;
+  Account? account;
+  Set<Alarm>? alarmList;
+  String? location, url, memo;
 
   @override
   void initState() {
     super.initState();
-
-    // set the title to the title of the event
-    title = widget.event.title;
-    startDate = widget.event.startTime;
-    endDate = widget.event.endTime;
-    allDay = widget.event.allDay;
-    repeat = widget.event.repeat;
-    account = widget.event.account;
-    alarmList = widget.event.alarm;
-    location = widget.event.location;
-    url = widget.event.url;
-    memo = widget.event.memo;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Okay button
+      //* 저장 버튼
       floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor,
           onPressed: () {
-            // chagne the event using copyWith
+            //
+            // 새로운 이벤트 인스턴스 생성
             CalendarEvent event = CalendarEvent(
-                title: title,
-                startTime: startDate,
-                endTime: endDate,
-                allDay: allDay,
-                repeat: repeat,
-                account: account,
-                alarm: alarmList,
-                location: location,
-                url: url,
-                memo: memo);
+              title: title ?? widget.event.title,
+              startTime: startDate ?? widget.event.startTime,
+              endTime: endDate ?? widget.event.endTime,
+              allDay: allDay ?? widget.event.allDay,
+              repeat: repeat ?? widget.event.repeat,
+              account: account ?? widget.event.account,
+              alarm: alarmList ?? widget.event.alarm,
+              location: location ?? widget.event.location,
+              url: url ?? widget.event.url,
+              memo: memo ?? widget.event.memo,
+            );
 
-            // update the event
+            //* 이벤트 업데이트
             ref
                 .watch(eventListProvider.notifier)
                 .updateEvent(widget.event, event);
@@ -83,17 +73,17 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
         padding: const EdgeInsets.only(left: 20, right: 0, top: 10),
         child: Column(
           children: [
-            // delete the event
+            //* 이벤트 삭제
             Align(
                 alignment: Alignment.centerRight,
                 child: Consumer(
                   builder: (context, ref, child) {
                     EventsNotifier eventsNotifier =
                         ref.watch(eventListProvider.notifier);
-                    // delete button
+                    // 삭제 버튼
                     return IconButton(
 
-                        // show the alert dialog
+                        // alert dialog 띄우기
                         onPressed: () => _showAlertDialog(
                             context, eventsNotifier, widget.event),
                         icon: const Icon(
@@ -103,31 +93,35 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
                   },
                 )),
 
-            //* Title
+            //* 제목
             TitleWidget(
               event: widget.event,
 
-              // update the title
+              // 제목 콜백
               getTitle: (title) => setState(() {
                 this.title = title;
               }),
             ),
 
-            //* Time
+            //* 시간
             TimePick(
               startDate: widget.event.startTime,
               endDate: widget.event.endTime,
               allDay: widget.event.allDay,
+
+              // 시간 지정 콜백
               getDate: (startDate, endDate, allDay) => setState(() {
+
+                // 받은 데이터로 업데이트
                 this.startDate = startDate;
                 this.endDate = endDate;
                 this.allDay = allDay;
               }),
             ),
 
-            //* Repeat
+            //* 반복
             RepeatWidget(
-              repeat: repeat,
+              repeat: widget.event.repeat,
               getRepeat: (repeat) => setState(() {
                 this.repeat = repeat;
               }),
@@ -138,9 +132,9 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
               height: 30,
             ),
 
-            //* Account
+            //* 계정
             AccountWidget(
-              account: account,
+              account: widget.event.account,
             ),
 
             //
@@ -148,9 +142,9 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
               height: 15,
             ),
 
-            //* Alarm before
+            //* 알림
             AlarmWidget(
-              alarmList: alarmList,
+              alarmList: widget.event.alarm,
               getAlarmList: (alarmList) => setState(() {
                 this.alarmList = alarmList;
               }),
@@ -163,7 +157,7 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
 
             //* Location
             LocationWidget(
-              location: location,
+              location: widget.event.location,
               getLocation: (location) => setState(() {
                 this.location = location;
               }),
@@ -171,7 +165,7 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
 
             //* url
             UrlWidget(
-              url: url,
+              url: widget.event.url,
               getUrl: (url) => setState(() {
                 this.url = url;
               }),
@@ -184,7 +178,7 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
 
             //* Memo
             MemoWidget(
-              memo: memo,
+              memo: widget.event.memo,
               getMemo: (memo) => setState(() {
                 this.memo = memo;
               }),
@@ -199,10 +193,10 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
 //
 _showAlertDialog(
     BuildContext context, EventsNotifier eventsNotifier, CalendarEvent event) {
-  //* Ok button
+  //* Ok 버튼
   Widget okButton = ElevatedButton(
       onPressed: () {
-        //* remove the event
+        //* 이벤트 삭제
         eventsNotifier.removeEvent(event);
 
         //
@@ -212,17 +206,17 @@ _showAlertDialog(
       },
       child: const Text("삭제"));
 
-  //* Canecel button
+  //* 취소 버튼
   Widget cancelButton = ElevatedButton(
     onPressed: () => Navigator.of(context).pop(),
     child: const Text("취소"),
   );
 
-  //* Create alert dialog
+  //* alert dialog 생성
   AlertDialog alertDialog = AlertDialog(
       content: const Text("정말 삭제 할까요?"), actions: [cancelButton, okButton]);
 
-  //* show alert dialog
+  //* alertDialog 호출
   showDialog(
     context: context,
     builder: (context) => alertDialog,

@@ -18,6 +18,7 @@ class _RepeatSelectPageState extends State<RepeatSelectPage> {
   //
   late int select;
 
+  // int -> enum 변환
   Repeat selectedToRepeat() {
     switch (select) {
       case 1:
@@ -46,6 +47,7 @@ class _RepeatSelectPageState extends State<RepeatSelectPage> {
     }
   }
 
+  // enum -> int 변환
   int repeatToSelect() {
     switch (widget.repeat) {
       case Repeat.day:
@@ -67,6 +69,8 @@ class _RepeatSelectPageState extends State<RepeatSelectPage> {
   @override
   void initState() {
     super.initState();
+
+    // 초기화
     select = repeatToSelect();
   }
 
@@ -81,7 +85,7 @@ class _RepeatSelectPageState extends State<RepeatSelectPage> {
           children: [
             //
             //
-            //* exit button
+            //* 뒤로가기 버튼
             Align(
               alignment: Alignment.centerRight,
               child: CupertinoButton(
@@ -94,12 +98,12 @@ class _RepeatSelectPageState extends State<RepeatSelectPage> {
                     ),
                   ),
 
-                  // close the page
+                  // 전 페이지로 이동하면서, 데이터 넘기기
                   onPressed: () =>
                       {Navigator.of(context).pop(selectedToRepeat())}),
             ),
 
-            //* Repeat Text
+            //* 반복 텍스트
             const Padding(
               padding: EdgeInsets.fromLTRB(15, 5, 0, 5),
               child: Text(
@@ -124,7 +128,7 @@ class _RepeatSelectPageState extends State<RepeatSelectPage> {
                       physics: const ClampingScrollPhysics(),
                       shrinkWrap: true,
                       children: [
-                        //* No repeat
+                        //* 반복 없음
                         repeatTile(Repeat.none, 0),
 
                         //
@@ -139,13 +143,6 @@ class _RepeatSelectPageState extends State<RepeatSelectPage> {
 
                         //
                         const SizedBox(height: 20),
-
-                        //
-                        repeatTile(Repeat.none, 6),
-                        repeatTile(Repeat.none, 7),
-                        repeatTile(Repeat.none, 8),
-                        repeatTile(Repeat.none, 9),
-                        repeatTile(Repeat.none, 10),
 
                         //
                         const SizedBox(height: 20),
@@ -169,6 +166,7 @@ class _RepeatSelectPageState extends State<RepeatSelectPage> {
     );
   }
 
+  // 반복 타일
   Widget repeatTile(Repeat r, int index) {
     return Container(
       padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
@@ -183,7 +181,7 @@ class _RepeatSelectPageState extends State<RepeatSelectPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              //* Repeat option
+              //* 반복 옵션
               Text(
                 convertRepeat(r),
                 style: Theme.of(context)
@@ -192,7 +190,7 @@ class _RepeatSelectPageState extends State<RepeatSelectPage> {
                     .copyWith(color: Colors.black),
               ),
 
-              //* Check icon
+              //* 체크 아이콘
               if (select == index)
                 Icon(
                   Icons.check,
@@ -201,13 +199,14 @@ class _RepeatSelectPageState extends State<RepeatSelectPage> {
             ],
           ),
 
-          // this is the selected
+          // 해당 옵션을 선택할시
           onPressed: () => setState(() {
                 select = index;
               })),
     );
   }
 
+  // 반복이 끝나는 날짜를 정하는 타일 // 기능 없음..
   Widget endTile() {
     return Container(
       padding: const EdgeInsets.fromLTRB(15, 10, 0, 10),

@@ -13,8 +13,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    
-
     // only light mode
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarBrightness: Brightness.light));
@@ -30,13 +28,10 @@ class MyApp extends StatelessWidget {
           iconTheme: const IconThemeData(color: Colors.black)),
 
       //
-      home: MainView(
-        key: mainPageKey,
-      ),
+      home: const MainView(),
     );
   }
 }
-
 
 // theme data
 // text theme

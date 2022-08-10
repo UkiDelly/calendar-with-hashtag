@@ -20,7 +20,7 @@ class _LocationWidgetState extends State<LocationWidget> {
   void initState() {
     super.initState();
 
-    // if the location is not null
+    // 넘겨 받은 위치 정보가 있을때, 그 데이터로 초기화
     if (widget.location != null) locationController.text = widget.location!;
   }
 
@@ -33,13 +33,19 @@ class _LocationWidgetState extends State<LocationWidget> {
         const SizedBox(
           width: 10,
         ),
+
+        //
         Expanded(
             child: CupertinoTextField(
           controller: locationController,
           decoration: const BoxDecoration(color: Colors.transparent),
           placeholder: "위치",
+
+          // 수정이 끝나면 콜백 함수 호출
           onEditingComplete: () => widget.getLocation(locationController.text),
         )),
+
+        // 검색 버튼, 기능 없음..
         CupertinoButton(
           onPressed: () {},
           child: const Icon(

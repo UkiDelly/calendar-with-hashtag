@@ -31,15 +31,14 @@ class _TimePickState extends State<TimePick> {
   @override
   void initState() {
     super.initState();
-    // set the initial date
 
+    // 넘겨 받은 날짜 데이터로 초기화
     startDate = widget.startDate;
-    // set the initial date
     endDate = widget.endDate;
     allDay = widget.allDay;
   }
 
-  // text style when allDayButton is enabled or disabled
+  // 하루종일 버튼을 눌렀을때 텍스트 스타일 결정
   TextStyle onAlldayEnabled() {
     if (allDay) {
       return const TextStyle(color: Colors.white, fontSize: 15);
@@ -49,9 +48,6 @@ class _TimePickState extends State<TimePick> {
 
   @override
   Widget build(BuildContext context) {
-    // parent state
-    // AddNewEventPageState pageState =
-    //     context.findAncestorStateOfType<AddNewEventPageState>()!;
     return SizedBox(
       height: pressedDatePicker ? 120 : 70,
       child: Column(
@@ -62,7 +58,7 @@ class _TimePickState extends State<TimePick> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 //
-                //* Icon
+                //* 아이콘
                 const Icon(
                   CupertinoIcons.clock,
                   size: 20,
@@ -73,7 +69,7 @@ class _TimePickState extends State<TimePick> {
                   width: 10,
                 ),
 
-                //* start
+                //* 시작 날짜
                 ConstrainedBox(
                     constraints: const BoxConstraints(
                       maxWidth: 110,
@@ -155,12 +151,17 @@ class _TimePickState extends State<TimePick> {
     );
   }
 
-  //* select the start date
+  //* 시작 날짜 고르기
   Widget timeStart() {
     return CupertinoButton(
       padding: const EdgeInsets.all(0),
+
+      //
       onPressed: () => setState(() {
+        // 위젯을 누르면 DatePicker을 보여줌
         pressedDatePicker = true;
+
+        // 시작날짜를 눌렀다고 알리기
         selected = _DatePressed.startDate;
       }),
       child: Column(
@@ -170,9 +171,11 @@ class _TimePickState extends State<TimePick> {
           //
           const Spacer(),
 
-          //* Date
+          //* 날짜
           AnimatedDefaultTextStyle(
             duration: const Duration(milliseconds: 100),
+
+            // 하루종일인지 아닌지에 따라 스타일 변경
             style: allDay
                 ? TextStyle(
                     fontSize: 17,
@@ -192,14 +195,14 @@ class _TimePickState extends State<TimePick> {
             height: 5,
           ),
 
-          //* Time
+          //* 시간
           AnimatedCrossFade(
-            // show the time if allday is false
+            // 하루종일의 값에 따라, 시간을 표시할지 아니면 아무것도 표시 안함
             crossFadeState:
                 allDay ? CrossFadeState.showSecond : CrossFadeState.showFirst,
             duration: const Duration(milliseconds: 100),
 
-            // first child, show the time
+            // 첫 위젯: 시간표시
             firstChild: AnimatedOpacity(
               opacity: allDay ? 0 : 1,
               duration: const Duration(milliseconds: 1),
@@ -213,7 +216,7 @@ class _TimePickState extends State<TimePick> {
               ),
             ),
 
-            // secod child, nothing
+            // 두번째 위젯: null
             secondChild: const SizedBox(),
           ),
           const Spacer()
@@ -222,13 +225,17 @@ class _TimePickState extends State<TimePick> {
     );
   }
 
-  //* select the end date
+  //* 끝나는 시간
   Widget timeEnd() {
     return CupertinoButton(
       padding: const EdgeInsets.all(0),
+      //
       onPressed: () {
         setState(() {
+          // DatePicker 위젯 호출
           pressedDatePicker = true;
+
+          // 끝나는 시간을 눌렀다고 알리기
           selected = _DatePressed.endDate;
         });
       },
@@ -238,9 +245,11 @@ class _TimePickState extends State<TimePick> {
           //
           const Spacer(),
 
-          //* Date
+          //* 날짜
           AnimatedDefaultTextStyle(
             duration: const Duration(milliseconds: 100),
+
+            // 하루종일의 값에 따라 스타일 변경
             style: allDay
                 ? TextStyle(
                     fontSize: 17,
@@ -260,14 +269,14 @@ class _TimePickState extends State<TimePick> {
             height: 5,
           ),
 
-          //* Time
+          //* 시간
           AnimatedCrossFade(
-            // show the time if allday is false
+            // 하루종일이 아닐시, 시간도 표시
             crossFadeState:
                 allDay ? CrossFadeState.showSecond : CrossFadeState.showFirst,
             duration: const Duration(milliseconds: 100),
 
-            // first child, show the time
+            // 첫번째 child: 시간
             firstChild: AnimatedOpacity(
               opacity: allDay ? 0 : 1,
               duration: const Duration(milliseconds: 1),
@@ -281,7 +290,7 @@ class _TimePickState extends State<TimePick> {
               ),
             ),
 
-            // secod child, nothing
+            // 두번째 child: null
             secondChild: const SizedBox(),
           ),
           const Spacer()
@@ -290,11 +299,12 @@ class _TimePickState extends State<TimePick> {
     );
   }
 
+  // DatePicker
   Widget datePick() {
     return SizedBox(
       //
       child: CupertinoDatePicker(
-        // inial date
+        // 날짜 초기화
         initialDateTime: selected == _DatePressed.startDate
             ? startDate
             : DateTime(
@@ -303,11 +313,14 @@ class _TimePickState extends State<TimePick> {
         dateOrder: DatePickerDateOrder.ymd,
         minuteInterval: 5,
 
-        // when the date change
-        onDateTimeChanged: (value) {
-          // check if start date
+        // 날짜가 바뀔때
+        onDateTimeChanged: (date) {
+          // 시작 날짜를 바꿀시,
           if (selected == _DatePressed.startDate) {
-            startDate = value;
+            //
+            startDate = date;
+
+            // 끝나는 날짜를 시작하는 날짜와 맞추기
             endDate = DateTime(
               startDate.year,
               startDate.month,
@@ -315,19 +328,17 @@ class _TimePickState extends State<TimePick> {
               endDate.hour,
               endDate.minute,
             );
-
-            // or end date
           } else {
-            endDate = value;
+            endDate = date;
           }
 
-          // update the date
+          // 날짜 업데이트
           setState(() {
             startDate;
             endDate;
           });
 
-          // call back
+          // 콜백 함수
           widget.getDate(startDate, endDate, allDay);
         },
       ),

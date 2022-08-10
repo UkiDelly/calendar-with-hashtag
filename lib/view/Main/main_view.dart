@@ -4,16 +4,9 @@ import 'widget/appbar/appbar.dart';
 import 'widget/calendar/calendar.dart';
 import 'widget/events/event_list.dart';
 
-final mainPageKey = GlobalKey<State>();
-
-class MainView extends StatefulWidget {
+class MainView extends StatelessWidget {
   const MainView({Key? key}) : super(key: key);
 
-  @override
-  State<MainView> createState() => _MainViewState();
-}
-
-class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,28 +14,26 @@ class _MainViewState extends State<MainView> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // App bar
+              //* App bar
               const CalendarAppBar(),
 
-              //
+              //* Calendar
               SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: const [
                     //* Calendar
                     Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: CalendarWidget(
-                          key: calendarKey,
-                        )),
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: CalendarWidget()),
 
                     //
-                    const SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
 
                     //* Event List
-                    const EventList()
+                    EventList()
                   ],
                 ),
               ),

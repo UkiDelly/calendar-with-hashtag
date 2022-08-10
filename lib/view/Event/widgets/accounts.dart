@@ -26,7 +26,7 @@ class AccountWidget extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              //* account color
+              //* 계정 색
               Container(
                 width: 5,
                 height: 5,
@@ -36,7 +36,7 @@ class AccountWidget extends StatelessWidget {
 
               const SizedBox(width: 10),
 
-              //* account name
+              //* 계정 이름
               Text(account.name.toString())
             ],
           ),

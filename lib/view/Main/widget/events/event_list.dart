@@ -1,4 +1,5 @@
 import 'package:care_square_assignment/model/calendar_event.dart';
+import 'package:care_square_assignment/model/global_functions.dart';
 import 'package:care_square_assignment/provider/events_list.dart';
 
 import 'package:flutter/material.dart';
@@ -9,51 +10,21 @@ import '../../../../provider/dates.dart';
 import 'new_event_card.dart';
 import 'even_card.dart';
 
-class EventList extends ConsumerStatefulWidget {
+class EventList extends ConsumerWidget {
   const EventList({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<EventList> createState() => _EventListState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    //
+    DateTime selectedDate = ref.watch(selectedDateProvider);
+    List<CalendarEvent> eventList =
+        ref.watch(eventListProvider.notifier).getEventsforDay(selectedDate);
 
-class _EventListState extends ConsumerState<EventList> {
-  //
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  String weekDayToName(DateTime day) {
-    switch (day.weekday) {
-      case 1:
-        return "월";
-
-      case 2:
-        return "화";
-      case 3:
-        return "수";
-      case 4:
-        return "목";
-      case 5:
-        return "금";
-      case 6:
-        return "토";
-      case 7:
-        return "일";
-
-      default:
-        return "";
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //
-        //* Date
+        //* 날짜
         Consumer(
             child: null,
             builder: (context, ref, child) {
@@ -61,34 +32,26 @@ class _EventListState extends ConsumerState<EventList> {
               return Padding(
                   padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
                   child: Text(
-                      "${selectedDate.year}년 ${selectedDate.month}월 ${selectedDate.day}일 (${weekDayToName(selectedDate)})",
+                      "${selectedDate.year}년 ${selectedDate.month}월 ${selectedDate.day}일 (${weekDay(selectedDate.weekday)})",
                       style: Theme.of(context).textTheme.titleMedium));
             }),
 
-        //* Event List
-        eventList(),
+        //* 이벤트 리스트
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: eventList.length,
+          physics: const NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
+          itemBuilder: (context, index) {
+            return EventCardTile(
+              event: eventList[index],
+            );
+          },
+        ),
 
-        //* Add new Event with Template
+        //* 새 이벤트 추가
         const AddNewEvent()
       ],
-    );
-  }
-
-  Widget eventList() {
-    DateTime selectedDate = ref.watch(selectedDateProvider);
-    List<CalendarEvent> eventList =
-        ref.watch(eventListProvider.notifier).getEventsforDay(selectedDate);
-
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: eventList.length,
-      physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
-      itemBuilder: (context, index) {
-        return EventCardTile(
-          event: eventList[index],
-        );
-      },
     );
   }
 }

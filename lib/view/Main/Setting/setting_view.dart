@@ -1,5 +1,7 @@
-import 'package:care_square_assignment/view/Setting/appbar_setting.dart';
+
 import 'package:flutter/material.dart';
+
+import 'appbar_setting.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({Key? key}) : super(key: key);
@@ -15,9 +17,6 @@ class _SettingPageState extends State<SettingPage> {
   // ScrollController
   final ScrollController _scrollController = ScrollController();
 
-  //
-  final appBarkey = GlobalKey();
-
   @override
   void initState() {
     super.initState();
@@ -28,7 +27,6 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: CustomScrollView(
         controller: _scrollController,
         scrollBehavior: NoGlow(),

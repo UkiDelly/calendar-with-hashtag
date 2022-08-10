@@ -1,29 +1,25 @@
 import 'package:care_square_assignment/model/calendar_event.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../../provider/events_list.dart';
-
-class SelectedCell extends ConsumerStatefulWidget {
+class SelectedCell extends StatefulWidget {
   final DateTime day;
   final List<CalendarEvent>? events;
   const SelectedCell({Key? key, required this.day, this.events})
       : super(key: key);
 
   @override
-  ConsumerState<SelectedCell> createState() => _SelectedCellState();
+  State<SelectedCell> createState() => _SelectedCellState();
 }
 
-class _SelectedCellState extends ConsumerState<SelectedCell>
+class _SelectedCellState extends State<SelectedCell>
     with TickerProviderStateMixin {
   //
   late AnimationController _animationController;
   late Animation _opacity;
-  List<CalendarEvent> eventsOfDay = [];
 
   @override
   void initState() {
-    // animation controller
+    // 애니메이션 컨트롤러
     _animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 1))
           ..forward()
@@ -31,13 +27,9 @@ class _SelectedCellState extends ConsumerState<SelectedCell>
             setState(() {});
           });
 
-    //animation
+    // 투명도 애니메이션
     _opacity = Tween<double>(begin: 0, end: 1).animate(_animationController);
 
-    // filter events
-    eventsOfDay = widget.events!
-        .where((event) => event.startTime.day == widget.day.day)
-        .toList();
     super.initState();
   }
 
@@ -49,7 +41,9 @@ class _SelectedCellState extends ConsumerState<SelectedCell>
 
   @override
   Widget build(BuildContext context) {
-    _animationController.forward();
+    // _animationController.forward();
+
+    //
     return Opacity(
       opacity: _opacity.value,
       child: Container(
@@ -64,7 +58,7 @@ class _SelectedCellState extends ConsumerState<SelectedCell>
             const SizedBox(
               height: 5,
             ),
-            // date
+            //* 날짜
             Text(
               widget.day.day.toString(),
               style: const TextStyle(
@@ -74,21 +68,14 @@ class _SelectedCellState extends ConsumerState<SelectedCell>
             //
             const Spacer(),
 
-            // events
-            if (eventsOfDay.isNotEmpty)
-              Consumer(
-                builder: (ctx, ref, child) {
-                  List<CalendarEvent>? event = ref
-                      .watch(eventListProvider.notifier)
-                      .getEventsforDay(widget.day);
-                  return Container(
-                    width: 10,
-                    height: 10,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: event!.first.account.color),
-                  );
-                },
+            //* 이벤트 표시
+            if (widget.events!.isNotEmpty)
+              Container(
+                width: 10,
+                height: 10,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: widget.events?.first.account.color),
               ),
 
             const Spacer()
