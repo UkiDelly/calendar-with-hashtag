@@ -130,7 +130,7 @@ ThemeData darkTheme = ThemeData(
   primarySwatch: createMaterialColor(Colors.white),
   useMaterial3: true,
   scaffoldBackgroundColor: const Color(0xff212529),
-  primaryIconTheme: const IconThemeData(color: Colors.black),
+  primaryIconTheme: const IconThemeData(color: Colors.white),
   backgroundColor: Colors.white,
   buttonTheme: const ButtonThemeData(
     colorScheme: ColorScheme.light(),
@@ -200,7 +200,7 @@ ThemeData darkTheme = ThemeData(
     ),
     titleSmall: TextStyle(
       color: Colors.white,
-      fontSize: 20,
+      fontSize: 15,
       fontWeight: FontWeight.w700,
     ),
     bodyLarge: TextStyle(

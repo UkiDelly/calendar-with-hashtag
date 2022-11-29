@@ -19,94 +19,70 @@ class AddNewEvent extends StatefulWidget {
 class _AddNewEventState extends State<AddNewEvent> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Row(
-        children: [
-          //
-          //* 새로운 이벤트 추가
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-              width: 75,
-              height: 60,
-              decoration: BoxDecoration(
-                color: Theme.of(context).cardTheme.color,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: Theme.of(context).textTheme.bodyLarge!.color!,
-                ),
+    return Container(
+      margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+      width: double.infinity,
+      height: 60,
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: Theme.of(context).textTheme.bodyLarge!.color!,
+        ),
+      ),
+      child: Consumer(
+        builder: (ctx, ref, child) {
+          // 선택한 날짜 가져오기
+          DateTime date = ref.watch(selectedDateProvider);
+          return CupertinoButton(
+            //
+            //* 새로운 이벤트 추가 페이지로 이동
+            onPressed: () => showCupertinoModalBottomSheet(
+              // enableDrag: false,
+              isDismissible: false,
+              
+              context: context,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: Theme.of(context).textTheme.bodyLarge!.color!),
               ),
-              child: Consumer(
-                builder: (ctx, ref, child) {
-                  // 선택한 날짜 가져오기
-                  DateTime date = ref.watch(selectedDateProvider);
-                  return CupertinoButton(
-                    //
-                    //* 새로운 이벤트 추가 페이지로 이동
-                    onPressed: () => showCupertinoModalBottomSheet(
-                      context: context,
-                      backgroundColor: Colors.grey,
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Theme.of(context).textTheme.bodyLarge!.color!),
-                      ),
-                      builder: (context) => AddNewEventPage(
-                        date: date,
-                      ),
-                    ).then(
-                      (value) => {eventListKey.currentState!.setState(() {})},
-                    ),
-
-                    //
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        //
-
-                        // 아이콘
-
-                        Icon(
-                          CupertinoIcons.add,
-                          color: Theme.of(context).iconTheme.color,
-                          size: 30,
-                        ),
-
-                        //
-                        const SizedBox(
-                          width: 10,
-                        ),
-
-                        //
-                        Text(
-                          '새로운 이벤트',
-                          style: Theme.of(context)
-                              .primaryTextTheme
-                              .displayMedium!
-                              .copyWith(fontWeight: FontWeight.normal),
-                        )
-                      ],
-                    ),
-                  );
-                },
+              builder: (context) => AddNewEventPage(
+                date: date,
               ),
+            ).then(
+              (value) => {eventListKey.currentState!.setState(() {})},
             ),
-          ),
 
-          //* 템플렛 목록, 기능 없음..
-          // Container(
-          //   width: 60,
-          //   height: 60,
-          //   margin: const EdgeInsets.fromLTRB(5, 10, 10, 10),
-          //   padding: const EdgeInsets.all(15),
-          //   decoration: BoxDecoration(
-          //     color: const Color(0xfff4f4f4),
-          //     borderRadius: BorderRadius.circular(10),
-          //   ),
-          //   child: SvgPicture.asset(
-          //     'assets/icon/document.svg',
-          //     height: 10,
-          //   ),
-          // )
-        ],
+            //
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                //
+
+                // 아이콘
+
+                Icon(
+                  CupertinoIcons.add,
+                  color: Theme.of(context).primaryIconTheme.color,
+                  size: 30,
+                ),
+
+                //
+                const SizedBox(
+                  width: 10,
+                ),
+
+                //
+                Text(
+                  '새로운 이벤트',
+                  style: Theme.of(context)
+                      .primaryTextTheme
+                      .displayMedium!
+                      .copyWith(fontWeight: FontWeight.normal),
+                )
+              ],
+            ),
+          );
+        },
       ),
     );
   }
