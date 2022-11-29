@@ -1,26 +1,26 @@
 import 'package:care_square_assignment/data/events.dart';
-import 'package:care_square_assignment/model/calendar_event.dart';
+import 'package:care_square_assignment/model/event_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class EventsNotifier extends StateNotifier<List<CalendarEvent>> {
+class EventsNotifier extends StateNotifier<List<CalendarEventModel>> {
   EventsNotifier() : super(events);
 
   // Add event
-  set addEvent(CalendarEvent event) => state.add(event);
+  set addEvent(CalendarEventModel event) => state.add(event);
 
   // remove event
-  void removeEvent(CalendarEvent event) {
+  void removeEvent(CalendarEventModel event) {
     state.remove(event);
   }
 
   // get event for day
-  getEventsforDay(DateTime day) {
-    List<CalendarEvent> temp = [];
+  List<CalendarEventModel> getEventsforDay(DateTime day) {
+    List<CalendarEventModel> temp = [];
 
     // search for matching events
-    for (var element in state) {
-      if (element.startTime.month == day.month && element.startTime.day == day.day) {
-        temp.add(element);
+    for (CalendarEventModel event in state) {
+      if (event.startTime.month == day.month && event.startTime.day == day.day) {
+        temp.add(event);
       }
     }
 
@@ -28,7 +28,7 @@ class EventsNotifier extends StateNotifier<List<CalendarEvent>> {
   }
 
   // update Event
-  void updateEvent(CalendarEvent oldEvent, CalendarEvent newEvent) {
+  void updateEvent(CalendarEventModel oldEvent, CalendarEventModel newEvent) {
     // remove the old event and add updated event
     state
       ..remove(oldEvent)
@@ -38,4 +38,4 @@ class EventsNotifier extends StateNotifier<List<CalendarEvent>> {
 
 // provider for listen the state notifier
 final eventListProvider =
-    StateNotifierProvider<EventsNotifier, List<CalendarEvent>>((ref) => EventsNotifier());
+    StateNotifierProvider<EventsNotifier, List<CalendarEventModel>>((ref) => EventsNotifier());

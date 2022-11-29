@@ -39,29 +39,33 @@ class _MemoInputPageState extends State<MemoInputPage> {
 
               // Memo
               const Text(
-                "메모",
+                '메모',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
 
               // ok button
               const Spacer(),
               CupertinoButton(
-                  child: const Text(
-                    "완료",
-                    style: TextStyle(color: Colors.blue),
-                  ),
-                  onPressed: () =>
-                      Navigator.of(context).pop(memoController.text)),
+                child: Text(
+                  '완료',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                onPressed: () => Navigator.of(context).pop(memoController.text),
+              ),
             ],
           ),
 
           // input
           Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: CupertinoTextField(
-            maxLines: null,
-            controller: memoController,
-            decoration: const BoxDecoration(color: Colors.transparent),
-          ))
+                maxLines: null,
+                controller: memoController,
+                decoration: const BoxDecoration(color: Colors.transparent),
+              ),
+            ),
+          )
         ],
       ),
     );

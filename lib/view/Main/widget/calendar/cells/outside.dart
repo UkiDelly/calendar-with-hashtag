@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../../model/calendar_event.dart';
+import '../../../../../constant/themes.dart';
+import '../../../../../model/event_model.dart';
 
 class OutSideCell extends StatelessWidget {
   final DateTime day;
-  final List<CalendarEvent>? events;
-  const OutSideCell({Key? key, required this.day, required this.events})
-      : super(key: key);
+  final List<CalendarEventModel>? events;
+  const OutSideCell({Key? key, required this.day, required this.events}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +22,12 @@ class OutSideCell extends StatelessWidget {
           //* 날짜
           Text(
             day.day.toString(),
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-
-                // 주말일 경우, 색변경
-                color: day.weekday == 6 || day.weekday == 7
-                    ? const Color(0xfffac9cb)
-                    : Colors.grey.withOpacity(0.8)),
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color: day.weekday == 6 || day.weekday == 7
+                      ? AppColor.holidayColor.withOpacity(0.5)
+                      : Colors.grey.withOpacity(0.5),
+                  fontWeight: FontWeight.bold,
+                ),
           ),
 
           //
@@ -41,9 +40,10 @@ class OutSideCell extends StatelessWidget {
                 return Container(
                   width: 10,
                   height: 10,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: events!.first.account.color),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.yellow, // events!.first.account.color
+                  ),
                 );
               },
             ),

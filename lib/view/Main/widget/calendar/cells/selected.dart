@@ -1,11 +1,10 @@
-import 'package:care_square_assignment/model/calendar_event.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../constant/themes.dart';
+import '../../../../../model/event_model.dart';
 
 class SelectedCell extends StatefulWidget {
   final DateTime day;
-  final List<CalendarEvent>? events;
+  final List<CalendarEventModel>? events;
   const SelectedCell({Key? key, required this.day, this.events}) : super(key: key);
 
   @override
@@ -48,10 +47,9 @@ class _SelectedCellState extends State<SelectedCell> with TickerProviderStateMix
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: brightness == Brightness.light
-                ? AppColor.selectedCellLight
-                : AppColor.selectedCellDark),
+          borderRadius: BorderRadius.circular(10),
+          color: Theme.of(context).backgroundColor,
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -62,11 +60,10 @@ class _SelectedCellState extends State<SelectedCell> with TickerProviderStateMix
             //* 날짜
             Text(
               widget.day.day.toString(),
-              style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                  color: brightness == Brightness.light
-                      ? AppColor.selectedCellTextLight
-                      : AppColor.selectedCellTextDark,
-                  fontWeight: FontWeight.w700),
+              style: Theme.of(context).primaryTextTheme.bodySmall!.copyWith(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
 
             //
@@ -77,8 +74,10 @@ class _SelectedCellState extends State<SelectedCell> with TickerProviderStateMix
               Container(
                 width: 10,
                 height: 10,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: widget.events?.first.account.color),
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.yellow, // widget.events?.first.account.color
+                ),
               ),
 
             const Spacer()

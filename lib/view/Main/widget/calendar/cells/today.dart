@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../../model/calendar_event.dart';
+import '../../../../../model/event_model.dart';
 
 class TodayCell extends StatelessWidget {
   final DateTime day;
-  final List<CalendarEvent>? events;
+  final List<CalendarEventModel>? events;
   const TodayCell({
     Key? key,
     required this.day,
@@ -17,7 +17,9 @@ class TodayCell extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10), color: Colors.grey),
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.grey,
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -28,8 +30,10 @@ class TodayCell extends StatelessWidget {
           //* 날짜
           Text(
             day.day.toString(),
-            style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.white),
+            style: Theme.of(context).primaryTextTheme.bodySmall!.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
 
           //
@@ -42,9 +46,10 @@ class TodayCell extends StatelessWidget {
                 return Container(
                   width: 10,
                   height: 10,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: events!.first.account.color),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.yellow, //  events!.first.account.color
+                  ),
                 );
               },
             ),

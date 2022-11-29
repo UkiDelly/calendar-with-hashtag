@@ -1,8 +1,9 @@
-import 'package:care_square_assignment/model/calendar_event.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../model/event_model.dart';
+
 class EventCard extends StatelessWidget {
-  final List<CalendarEvent> events;
+  final List<CalendarEventModel> events;
   const EventCard({Key? key, required this.events}) : super(key: key);
 
   @override
@@ -16,13 +17,14 @@ class EventCard extends StatelessWidget {
           margin: const EdgeInsets.all(5),
           height: 15,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: events[index].account.color.withOpacity(0.1)),
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.yellow, //events[index].account.color.withOpacity(0.1),
+          ),
           child: Row(
             children: [
               //
-              VerticalDivider(
-                color: events[index].account.color,
+              const VerticalDivider(
+                color: Colors.yellow, //events[index].account.color,
                 thickness: 3,
                 indent: 3,
                 endIndent: 3,

@@ -24,7 +24,7 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
   late DateTime _firstDay;
   late DateTime _lastDay;
   DateTime? _selectedDate;
-  late DateTime _focusedDay;
+  late DateTime _focusedDay = ref.watch(selectedDateProvider);
 
   @override
   void initState() {
@@ -41,13 +41,8 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _focusedDay = ref.watch(selectedDateProvider);
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final eventListHandler = ref.watch(eventListProvider.notifier);
     return TableCalendar(
       // 캘린터 범위 지정 및 포커스 날짜 지정
       focusedDay: _focusedDay,
@@ -64,6 +59,7 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
 
       // 각 셀의 높이 지정
       rowHeight: 60,
+      daysOfWeekHeight: 40,
 
       // 옆으로 넘기는 제스쳐만 허용
       availableGestures: AvailableGestures.horizontalSwipe,
@@ -113,40 +109,40 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
 
       // 커스텀 캘린더
       calendarBuilders: CalendarBuilders(
+        // 요일
+        dowBuilder: (context, day) => WeekdayCell(weekDayNumber: day.weekday),
 
-          // 요일
-          dowBuilder: (context, day) => WeekdayCell(weekDayNumber: day.weekday),
+        // 기본 셀
+        defaultBuilder: (context, day, focusedDay) {
+          return DefaultCell(
+            day: day,
+            events: eventListHandler.getEventsforDay(day),
+          );
+        },
 
-          // 기본 셀
-          defaultBuilder: (context, day, focusedDay) {
-            return DefaultCell(
-              day: day,
-              events: ref.watch(eventListProvider.notifier).getEventsforDay(day),
-            );
-          },
+        // 선택한 날짜의 셀
+        selectedBuilder: (context, day, focusedDay) => SelectedCell(
+          day: day,
+          events: eventListHandler.getEventsforDay(day),
+        ),
 
-          // 선택한 날짜의 셀
-          selectedBuilder: (context, day, focusedDay) => SelectedCell(
-                day: day,
-                events: ref.watch(eventListProvider.notifier).getEventsforDay(day),
-              ),
+        // 오늘 날짜 셀
+        todayBuilder: (context, day, focusedDay) => TodayCell(
+          day: day,
+          events: eventListHandler.getEventsforDay(day),
+        ),
 
-          // 오늘 날짜 셀
-          todayBuilder: (context, day, focusedDay) => TodayCell(
-                day: day,
-                events: ref.watch(eventListProvider.notifier).getEventsforDay(day),
-              ),
+        // 이번 달을 제외한 날짜들의 셀
+        outsideBuilder: (context, day, focusedDay) => OutSideCell(
+          day: day,
+          events: eventListHandler.getEventsforDay(day),
+        ),
 
-          // 이번 달을 제외한 날짜들의 셀
-          outsideBuilder: (context, day, focusedDay) => OutSideCell(
-                day: day,
-                events: ref.watch(eventListProvider.notifier).getEventsforDay(day),
-              ),
-
-          // 공휴일 셀
-          holidayBuilder: (context, day, focusedDay) => HolidayCell(
-                day: day,
-              )),
+        // 공휴일 셀
+        holidayBuilder: (context, day, focusedDay) => HolidayCell(
+          day: day,
+        ),
+      ),
     );
   }
 }

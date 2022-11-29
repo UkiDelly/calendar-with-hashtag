@@ -1,14 +1,12 @@
-import 'package:care_square_assignment/model/calendar_event.dart';
+import 'package:care_square_assignment/model/event_model.dart';
 import 'package:care_square_assignment/model/global_functions.dart';
 import 'package:care_square_assignment/provider/events_list.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../provider/dates.dart';
-
-import 'new_event_card.dart';
 import 'even_card.dart';
+import 'new_event_card.dart';
 
 class EventList extends ConsumerWidget {
   const EventList({Key? key}) : super(key: key);
@@ -17,7 +15,7 @@ class EventList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //
     DateTime selectedDate = ref.watch(selectedDateProvider);
-    List<CalendarEvent> eventList =
+    List<CalendarEventModel> eventList =
         ref.watch(eventListProvider.notifier).getEventsforDay(selectedDate);
 
     return Column(
@@ -26,10 +24,12 @@ class EventList extends ConsumerWidget {
         //
         //* 날짜
         Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
-            child: Text(
-                "${selectedDate.year}년 ${selectedDate.month}월 ${selectedDate.day}일 (${weekDay(selectedDate.weekday)})",
-                style: Theme.of(context).textTheme.titleMedium)),
+          padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+          child: Text(
+            '${selectedDate.year}년 ${selectedDate.month}월 ${selectedDate.day}일 (${weekDay(selectedDate.weekday)})',
+            style: Theme.of(context).primaryTextTheme.titleMedium,
+          ),
+        ),
 
         //* 이벤트 리스트
         ListView.builder(

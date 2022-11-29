@@ -22,15 +22,17 @@ class CalendarAppBar extends ConsumerWidget {
           //* 월 표시
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 15, 10, 0),
-            child: Text(ref.watch(currentMonthProvider).month.toString(),
-                style: Theme.of(context).appBarTheme.titleTextStyle?.copyWith(fontSize: 50)),
+            child: Text(
+              ref.watch(currentMonthProvider).month.toString(),
+              style: Theme.of(context).primaryTextTheme.titleLarge!.copyWith(fontSize: 50),
+            ),
           ),
 
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 15, 0, 10),
             child: Text(
               ref.watch(currentMonthProvider).year.toString(),
-              style: Theme.of(context).appBarTheme.titleTextStyle,
+              style: Theme.of(context).primaryTextTheme.titleMedium,
             ),
           ),
 
@@ -50,28 +52,30 @@ class CalendarAppBar extends ConsumerWidget {
 
           //* 검색 버튼
           CupertinoButton(
-              padding: const EdgeInsets.all(0),
-              onPressed: () => showCupertinoModalBottomSheet(
-                    context: context,
-                    builder: (context) => const SearchPage(),
-                  ),
-              child: Icon(
-                CupertinoIcons.search,
-                size: 25,
-                color: Theme.of(context).iconTheme.color,
-              )),
+            padding: const EdgeInsets.all(0),
+            onPressed: () => showCupertinoModalBottomSheet(
+              context: context,
+              builder: (context) => const SearchPage(),
+            ),
+            child: Icon(
+              CupertinoIcons.search,
+              size: 25,
+              color: Theme.of(context).iconTheme.color,
+            ),
+          ),
 
           //* 계정 선택 버튼
           CupertinoButton(
-              padding: const EdgeInsets.all(0),
-              onPressed: null,
-              // () => showCupertinoModalBottomSheet(
-              //     context: context, builder: (context) => const AccountPage()),
-              child: Icon(
-                CupertinoIcons.calendar,
-                color: Theme.of(context).iconTheme.color,
-                size: 25,
-              )),
+            padding: const EdgeInsets.all(0),
+            onPressed: null,
+            // () => showCupertinoModalBottomSheet(
+            //     context: context, builder: (context) => const AccountPage()),
+            child: Icon(
+              CupertinoIcons.calendar,
+              color: Theme.of(context).iconTheme.color,
+              size: 25,
+            ),
+          ),
 
           //* 설정 버튼
           CupertinoButton(

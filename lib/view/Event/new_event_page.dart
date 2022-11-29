@@ -1,6 +1,4 @@
-import 'package:care_square_assignment/data/accounts.dart';
-import 'package:care_square_assignment/model/account.dart';
-import 'package:care_square_assignment/model/calendar_event.dart';
+import 'package:care_square_assignment/components/basic_scaffold.dart';
 import 'package:care_square_assignment/model/repeat_enum.dart';
 import 'package:care_square_assignment/provider/dates.dart';
 import 'package:care_square_assignment/provider/events_list.dart';
@@ -11,12 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../model/alarm._enum.dart';
-import 'widgets/accounts.dart';
-import 'widgets/alarm.dart';
+import '../../model/event_model.dart';
 import 'widgets/date.dart';
-import 'widgets/location.dart';
-import 'widgets/repeat.dart';
-import 'widgets/url.dart';
 
 class AddNewEventPage extends ConsumerStatefulWidget {
   final DateTime date;
@@ -35,7 +29,7 @@ class _AddNewEventPageState extends ConsumerState<AddNewEventPage> {
   bool allDay = false;
 
   // the default account is 개인
-  Account account = accounts[0];
+  // Account account = accounts[0];
 
   // default is no repeat
   Repeat repeat = Repeat.none;
@@ -52,45 +46,66 @@ class _AddNewEventPageState extends ConsumerState<AddNewEventPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).primaryColor,
-          onPressed: () {
-            // create event instance
-            CalendarEvent event = CalendarEvent(
-                title: title,
-                startTime: startDate,
-                // endTime: endDate,
-                allDay: allDay,
-                repeat: repeat,
-                account: account,
-                alarm: alarm,
-                memo: memo);
+    return BasicScaffold(
+      // backgroundColor: Colors.grey,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // create event instance
+          final CalendarEventModel event = CalendarEventModel(
+            title: title,
+            startTime: startDate,
+            endTime: endDate,
+            allDay: allDay,
 
-            // add to the events list
-            ref.watch(eventListProvider.notifier).addEvent = event;
+            // account: account,
+            // repeat: repeat,
+            // alarm: alarm,
+            // location: location,
+            // url: url,
+            memo: memo,
+          );
 
-            Navigator.of(context).pop();
-          },
-          child: const Icon(Icons.check),
+          // CalendarEventModel event = CalendarEventModel(
+          //   title: title,
+          //   startTime: startDate,
+          //   // endTime: endDate,
+          //   allDay: allDay,
+          //   repeat: repeat,
+          //   account: account,
+          //   alarm: alarm,
+          //   memo: memo,
+          // );
+
+          // add to the events list
+          ref.watch(eventListProvider.notifier).addEvent = event;
+
+          Navigator.of(context).pop();
+        },
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+        child: const Icon(
+          Icons.check,
         ),
+      ),
 
-        //
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.only(left: 20, right: 0, top: 10),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      //
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.only(left: 20, right: 0, top: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
             //
             //* Add to Template
             Align(
               alignment: Alignment.centerRight,
               child: CupertinoButton(
-                  padding: const EdgeInsets.all(0),
-                  child: const Icon(
-                    Icons.more_horiz,
-                    color: Colors.black,
-                    size: 35,
-                  ),
-                  onPressed: () {}),
+                padding: const EdgeInsets.all(0),
+                child: const Icon(
+                  Icons.more_horiz,
+                  color: Colors.black,
+                  size: 35,
+                ),
+                onPressed: () {},
+              ),
             ),
 
             //* Title
@@ -109,7 +124,7 @@ class _AddNewEventPageState extends ConsumerState<AddNewEventPage> {
                 DateTime day = ref.watch(selectedDateProvider);
                 return TimePick(
                   startDate: DateTime(day.year, day.month, day.day, 0, 0),
-                  // endDate: DateTime(day.year, day.month, day.day, 23, 59),
+                  endDate: DateTime(day.year, day.month, day.day, 23, 59),
                   allDay: allDay,
                   getDate: (startDate, allDay) => setState(() {
                     this.startDate = startDate;
@@ -121,56 +136,56 @@ class _AddNewEventPageState extends ConsumerState<AddNewEventPage> {
             ),
 
             //* Repeat
-            RepeatWidget(
-              repeat: repeat,
-              getRepeat: (repeat) => setState(() {
-                this.repeat = repeat;
-              }),
-            ),
+            // RepeatWidget(
+            //   repeat: repeat,
+            //   getRepeat: (repeat) => setState(() {
+            //     this.repeat = repeat;
+            //   }),
+            // ),
 
             //
-            const SizedBox(
-              height: 30,
-            ),
+            // const SizedBox(
+            //   height: 30,
+            // ),
 
-            //* Account⌚️
-            AccountWidget(
-              account: account,
-            ),
+            // //* Account⌚️
+            // // AccountWidget(
+            // //   account: account,
+            // // ),
 
-            //
-            const SizedBox(
-              height: 15,
-            ),
+            // //
+            // const SizedBox(
+            //   height: 15,
+            // ),
 
-            //* Alarm before
-            AlarmWidget(
-              alarmList: alarm,
-              getAlarmList: (alarmList) => setState(() {
-                alarm = alarmList;
-              }),
-            ),
+            // //* Alarm before
+            // AlarmWidget(
+            //   alarmList: alarm,
+            //   getAlarmList: (alarmList) => setState(() {
+            //     alarm = alarmList;
+            //   }),
+            // ),
 
-            //
-            const SizedBox(
-              height: 30,
-            ),
+            // //
+            // const SizedBox(
+            //   height: 30,
+            // ),
 
-            //* Location
-            LocationWidget(
-              location: location,
-              getLocation: (location) => setState(() {
-                this.location = location;
-              }),
-            ),
+            // //* Location
+            // LocationWidget(
+            //   location: location,
+            //   getLocation: (location) => setState(() {
+            //     this.location = location;
+            //   }),
+            // ),
 
-            //* url
-            UrlWidget(
-              url: url,
-              getUrl: (url) => setState(() {
-                this.url = url;
-              }),
-            ),
+            // //* url
+            // UrlWidget(
+            //   url: url,
+            //   getUrl: (url) => setState(() {
+            //     this.url = url;
+            //   }),
+            // ),
 
             //
             const SizedBox(
@@ -184,7 +199,9 @@ class _AddNewEventPageState extends ConsumerState<AddNewEventPage> {
                 this.memo = memo;
               }),
             )
-          ]),
-        ));
+          ],
+        ),
+      ),
+    );
   }
 }

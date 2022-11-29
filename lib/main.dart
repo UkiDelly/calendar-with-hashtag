@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
       // Theme
       theme: lightTheme,
       darkTheme: darkTheme,
+      
       //
       home: const MainView(),
     );
@@ -34,9 +35,9 @@ class MyApp extends StatelessWidget {
 // theme data
 // text theme
 final TextTheme textTheme = const TextTheme().copyWith(
-    titleLarge: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-    titleMedium: const TextStyle(fontWeight: FontWeight.w700, fontSize: 22),
-    titleSmall: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
-    bodySmall: const TextStyle(fontSize: 17)
-    // headline2: const TextStyle(fontSize: 20)
-    );
+  titleLarge: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+  titleMedium: const TextStyle(fontWeight: FontWeight.w700, fontSize: 22),
+  titleSmall: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
+  bodySmall: const TextStyle(fontSize: 17),
+  // headline2: const TextStyle(fontSize: 20)
+);
