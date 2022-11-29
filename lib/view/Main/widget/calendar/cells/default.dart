@@ -1,15 +1,16 @@
+import 'package:care_square_assignment/constant/themes.dart';
 import 'package:care_square_assignment/model/calendar_event.dart';
-
 import 'package:flutter/material.dart';
 
 class DefaultCell extends StatelessWidget {
   final DateTime day;
   final List<CalendarEvent>? events;
-  const DefaultCell({Key? key, required this.day, this.events})
-      : super(key: key);
+  const DefaultCell({Key? key, required this.day, this.events}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Brightness brightness = MediaQuery.of(context).platformBrightness;
+
     return SizedBox(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -26,8 +27,10 @@ class DefaultCell extends StatelessWidget {
 
                 // 주말일 경우 색변경
                 color: day.weekday == 6 || day.weekday == 7
-                    ? Colors.red
-                    : const Color(0xff313131)),
+                    ? AppColor.holidayColor
+                    : brightness == Brightness.light
+                        ? AppColor.defaultCellLightText
+                        : AppColor.defaultCellDarkText),
           ),
 
           //
@@ -38,8 +41,7 @@ class DefaultCell extends StatelessWidget {
             Container(
               width: 10,
               height: 10,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: events?.first.account.color),
+              decoration: BoxDecoration(shape: BoxShape.circle, color: events?.first.account.color),
             ),
 
           //

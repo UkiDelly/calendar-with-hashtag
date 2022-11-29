@@ -4,7 +4,8 @@ import 'repeat_enum.dart';
 
 class CalendarEvent {
   final String title;
-  final DateTime startTime, endTime;
+  final DateTime startTime;
+  // final DateTime endTime;
   final bool allDay;
   final Account account;
   Repeat repeat;
@@ -14,7 +15,7 @@ class CalendarEvent {
   CalendarEvent(
       {required this.title,
       required this.startTime,
-      required this.endTime,
+      // required this.endTime,
       required this.account,
       required this.alarm,
       required this.allDay,
@@ -25,7 +26,7 @@ class CalendarEvent {
 
   @override
   String toString() {
-    return "CalendarEvent(title: $title, startTime: $startTime, endTime: $endTime repeat: $repeat, account: ${account.name}, alarm: $alarm , location: $location, url: $url, memo: $memo,)";
+    return "CalendarEvent(title: $title, startTime: $startTime, repeat: $repeat, account: ${account.name}, alarm: $alarm , location: $location, url: $url, memo: $memo,)";
   }
 
   CalendarEvent copyWith({
@@ -43,7 +44,7 @@ class CalendarEvent {
     return CalendarEvent(
       title: title ?? this.title,
       startTime: startTime ?? this.startTime,
-      endTime: endTime ?? this.endTime,
+      // endTime: endTime ?? this.endTime,
       allDay: allDay ?? this.allDay,
       account: account ?? this.account,
       repeat: repeat ?? this.repeat,

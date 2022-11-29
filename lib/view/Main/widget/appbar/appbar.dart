@@ -1,13 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../provider/dates.dart';
-
 import '../../Search/search_page.dart';
-import 'back_to_now.dart';
 
 class CalendarAppBar extends ConsumerWidget {
   const CalendarAppBar({
@@ -16,20 +13,24 @@ class CalendarAppBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SizedBox(
-      height: 75,
+    return PreferredSize(
+      preferredSize: const Size(double.infinity, 75),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           //
           //* 월 표시
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 15, 10, 0),
+            child: Text(ref.watch(currentMonthProvider).month.toString(),
+                style: Theme.of(context).appBarTheme.titleTextStyle?.copyWith(fontSize: 50)),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 15, 0, 10),
             child: Text(
-              ref.watch(currentMonthProvider).toString(),
-              style: const TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff313131)),
+              ref.watch(currentMonthProvider).year.toString(),
+              style: Theme.of(context).appBarTheme.titleTextStyle,
             ),
           ),
 
@@ -37,15 +38,15 @@ class CalendarAppBar extends ConsumerWidget {
           const Spacer(),
 
           //* 오늘로 돌아가기 버튼
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 500),
-            child: ref.watch(currentMonthProvider) != DateTime.now().month
-                ? const Padding(
-                    padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                    child: BackToNow(),
-                  )
-                : null,
-          ),
+          // AnimatedContainer(
+          //   duration: const Duration(milliseconds: 300),
+          //   child: ref.watch(currentMonthProvider) != DateTime.now().month
+          //       ? const Padding(
+          //           padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+          //           child: BackToNow(),
+          //         )
+          //       : null,
+          // ),
 
           //* 검색 버튼
           CupertinoButton(
@@ -54,27 +55,27 @@ class CalendarAppBar extends ConsumerWidget {
                     context: context,
                     builder: (context) => const SearchPage(),
                   ),
-              child: const Icon(
+              child: Icon(
                 CupertinoIcons.search,
-                color: Color(0xff313131),
                 size: 25,
+                color: Theme.of(context).iconTheme.color,
               )),
 
           //* 계정 선택 버튼
-          const CupertinoButton(
-              padding: EdgeInsets.all(0),
+          CupertinoButton(
+              padding: const EdgeInsets.all(0),
               onPressed: null,
               // () => showCupertinoModalBottomSheet(
               //     context: context, builder: (context) => const AccountPage()),
               child: Icon(
                 CupertinoIcons.calendar,
-                color: Color(0xff313131),
+                color: Theme.of(context).iconTheme.color,
                 size: 25,
               )),
 
           //* 설정 버튼
-          const CupertinoButton(
-            padding: EdgeInsets.all(0),
+          CupertinoButton(
+            padding: const EdgeInsets.all(0),
             onPressed: null,
             // () => showCupertinoModalBottomSheet(
             //     useRootNavigator: true,
@@ -82,7 +83,7 @@ class CalendarAppBar extends ConsumerWidget {
             //     builder: (context) => const SettingPage()),
             child: Icon(
               Icons.settings,
-              color: Color(0xff313131),
+              color: Theme.of(context).iconTheme.color,
               size: 25,
             ),
           )

@@ -1,7 +1,10 @@
+import 'package:care_square_assignment/constant/themes.dart';
 import 'package:care_square_assignment/view/Main/main_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -13,20 +16,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // only light mode
-    SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(statusBarBrightness: Brightness.light));
+    // get the brightness of the device
+    Brightness brightness = SchedulerBinding.instance.window.platformBrightness;
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarBrightness: brightness));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
       // Theme
-      themeMode: ThemeMode.light,
-      theme: ThemeData(
-          brightness: Brightness.light,
-          textTheme: textTheme,
-          primaryColor: Colors.black,
-          iconTheme: const IconThemeData(color: Colors.black)),
-
+      theme: lightTheme,
+      darkTheme: darkTheme,
       //
       home: const MainView(),
     );

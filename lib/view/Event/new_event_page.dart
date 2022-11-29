@@ -6,7 +6,6 @@ import 'package:care_square_assignment/provider/dates.dart';
 import 'package:care_square_assignment/provider/events_list.dart';
 import 'package:care_square_assignment/view/Event/widgets/memo.dart';
 import 'package:care_square_assignment/view/Event/widgets/title.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,10 +46,8 @@ class _AddNewEventPageState extends ConsumerState<AddNewEventPage> {
   @override
   void initState() {
     super.initState();
-    startDate =
-        DateTime(widget.date.year, widget.date.month, widget.date.day, 0, 0);
-    endDate =
-        DateTime(widget.date.year, widget.date.month, widget.date.day, 23, 59);
+    startDate = DateTime(widget.date.year, widget.date.month, widget.date.day, 0, 0);
+    endDate = DateTime(widget.date.year, widget.date.month, widget.date.day, 23, 59);
   }
 
   @override
@@ -63,7 +60,7 @@ class _AddNewEventPageState extends ConsumerState<AddNewEventPage> {
             CalendarEvent event = CalendarEvent(
                 title: title,
                 startTime: startDate,
-                endTime: endDate,
+                // endTime: endDate,
                 allDay: allDay,
                 repeat: repeat,
                 account: account,
@@ -81,8 +78,7 @@ class _AddNewEventPageState extends ConsumerState<AddNewEventPage> {
         //
         body: SingleChildScrollView(
           padding: const EdgeInsets.only(left: 20, right: 0, top: 10),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
             //
             //* Add to Template
             Align(
@@ -113,11 +109,11 @@ class _AddNewEventPageState extends ConsumerState<AddNewEventPage> {
                 DateTime day = ref.watch(selectedDateProvider);
                 return TimePick(
                   startDate: DateTime(day.year, day.month, day.day, 0, 0),
-                  endDate: DateTime(day.year, day.month, day.day, 23, 59),
+                  // endDate: DateTime(day.year, day.month, day.day, 23, 59),
                   allDay: allDay,
-                  getDate: (startDate, endDate, allDay) => setState(() {
+                  getDate: (startDate, allDay) => setState(() {
                     this.startDate = startDate;
-                    this.endDate = endDate;
+                    // this.endDate = endDate;
                     this.allDay = allDay;
                   }),
                 );
@@ -137,7 +133,7 @@ class _AddNewEventPageState extends ConsumerState<AddNewEventPage> {
               height: 30,
             ),
 
-            //* Account
+            //* Account⌚️
             AccountWidget(
               account: account,
             ),

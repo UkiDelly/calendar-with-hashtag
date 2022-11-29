@@ -19,8 +19,7 @@ class EventsNotifier extends StateNotifier<List<CalendarEvent>> {
 
     // search for matching events
     for (var element in state) {
-      if (element.startTime.month == day.month &&
-          element.startTime.day == day.day) {
+      if (element.startTime.month == day.month && element.startTime.day == day.day) {
         temp.add(element);
       }
     }
@@ -30,15 +29,13 @@ class EventsNotifier extends StateNotifier<List<CalendarEvent>> {
 
   // update Event
   void updateEvent(CalendarEvent oldEvent, CalendarEvent newEvent) {
-    // remove the old event
-    state.remove(oldEvent);
-
-    // add the updated event
-    state.add(newEvent);
+    // remove the old event and add updated event
+    state
+      ..remove(oldEvent)
+      ..add(newEvent);
   }
 }
 
 // provider for listen the state notifier
 final eventListProvider =
-    StateNotifierProvider<EventsNotifier, List<CalendarEvent>>(
-        (ref) => EventsNotifier());
+    StateNotifierProvider<EventsNotifier, List<CalendarEvent>>((ref) => EventsNotifier());

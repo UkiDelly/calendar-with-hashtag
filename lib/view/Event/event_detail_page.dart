@@ -51,7 +51,6 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
             CalendarEvent event = CalendarEvent(
               title: title ?? widget.event.title,
               startTime: startDate ?? widget.event.startTime,
-              endTime: endDate ?? widget.event.endTime,
               allDay: allDay ?? widget.event.allDay,
               repeat: repeat ?? widget.event.repeat,
               account: account ?? widget.event.account,
@@ -62,9 +61,7 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
             );
 
             //* 이벤트 업데이트
-            ref
-                .watch(eventListProvider.notifier)
-                .updateEvent(widget.event, event);
+            ref.watch(eventListProvider.notifier).updateEvent(widget.event, event);
           },
           child: const Icon(Icons.check)),
 
@@ -78,14 +75,12 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
                 alignment: Alignment.centerRight,
                 child: Consumer(
                   builder: (context, ref, child) {
-                    EventsNotifier eventsNotifier =
-                        ref.watch(eventListProvider.notifier);
+                    EventsNotifier eventsNotifier = ref.watch(eventListProvider.notifier);
                     // 삭제 버튼
                     return IconButton(
 
                         // alert dialog 띄우기
-                        onPressed: () => _showAlertDialog(
-                            context, eventsNotifier, widget.event),
+                        onPressed: () => _showAlertDialog(context, eventsNotifier, widget.event),
                         icon: const Icon(
                           Icons.delete_forever,
                           color: Colors.red,
@@ -106,15 +101,14 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
             //* 시간
             TimePick(
               startDate: widget.event.startTime,
-              endDate: widget.event.endTime,
+              // endDate: widget.event.endTime,
               allDay: widget.event.allDay,
 
               // 시간 지정 콜백
-              getDate: (startDate, endDate, allDay) => setState(() {
-
+              getDate: (startDate, allDay) => setState(() {
                 // 받은 데이터로 업데이트
                 this.startDate = startDate;
-                this.endDate = endDate;
+                // endDate = endDate;
                 this.allDay = allDay;
               }),
             ),
@@ -191,8 +185,7 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
 }
 
 //
-_showAlertDialog(
-    BuildContext context, EventsNotifier eventsNotifier, CalendarEvent event) {
+_showAlertDialog(BuildContext context, EventsNotifier eventsNotifier, CalendarEvent event) {
   //* Ok 버튼
   Widget okButton = ElevatedButton(
       onPressed: () {
@@ -213,8 +206,8 @@ _showAlertDialog(
   );
 
   //* alert dialog 생성
-  AlertDialog alertDialog = AlertDialog(
-      content: const Text("정말 삭제 할까요?"), actions: [cancelButton, okButton]);
+  AlertDialog alertDialog =
+      AlertDialog(content: const Text("정말 삭제 할까요?"), actions: [cancelButton, okButton]);
 
   //* alertDialog 호출
   showDialog(

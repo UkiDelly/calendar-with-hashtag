@@ -1,18 +1,18 @@
 import 'package:care_square_assignment/model/calendar_event.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../constant/themes.dart';
+
 class SelectedCell extends StatefulWidget {
   final DateTime day;
   final List<CalendarEvent>? events;
-  const SelectedCell({Key? key, required this.day, this.events})
-      : super(key: key);
+  const SelectedCell({Key? key, required this.day, this.events}) : super(key: key);
 
   @override
   State<SelectedCell> createState() => _SelectedCellState();
 }
 
-class _SelectedCellState extends State<SelectedCell>
-    with TickerProviderStateMixin {
+class _SelectedCellState extends State<SelectedCell> with TickerProviderStateMixin {
   //
   late AnimationController _animationController;
   late Animation _opacity;
@@ -21,7 +21,7 @@ class _SelectedCellState extends State<SelectedCell>
   void initState() {
     // 애니메이션 컨트롤러
     _animationController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 1))
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 500))
           ..forward()
           ..addListener(() {
             setState(() {});
@@ -41,16 +41,17 @@ class _SelectedCellState extends State<SelectedCell>
 
   @override
   Widget build(BuildContext context) {
-    // _animationController.forward();
+    Brightness brightness = MediaQuery.of(context).platformBrightness;
 
-    //
     return Opacity(
       opacity: _opacity.value,
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: const Color(0xff313131)),
+            color: brightness == Brightness.light
+                ? AppColor.selectedCellLight
+                : AppColor.selectedCellDark),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -61,8 +62,11 @@ class _SelectedCellState extends State<SelectedCell>
             //* 날짜
             Text(
               widget.day.day.toString(),
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold, color: Colors.white),
+              style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                  color: brightness == Brightness.light
+                      ? AppColor.selectedCellTextLight
+                      : AppColor.selectedCellTextDark,
+                  fontWeight: FontWeight.w700),
             ),
 
             //
@@ -74,8 +78,7 @@ class _SelectedCellState extends State<SelectedCell>
                 width: 10,
                 height: 10,
                 decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: widget.events?.first.account.color),
+                    shape: BoxShape.circle, color: widget.events?.first.account.color),
               ),
 
             const Spacer()

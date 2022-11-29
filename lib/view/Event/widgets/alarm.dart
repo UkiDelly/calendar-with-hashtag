@@ -71,7 +71,6 @@ class _AlarmWidgetState extends State<AlarmWidget> {
               }).whenComplete(() => null),
 
               // 알림 Set가 비었을때 "없음" 표시하고, 있으면 선택한 알람들을 디스플레이
-
               child: alarmList.isEmpty
                   ? Text("없음",
                       style: Theme.of(context)

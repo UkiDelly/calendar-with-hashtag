@@ -25,16 +25,11 @@ class EventList extends ConsumerWidget {
       children: [
         //
         //* 날짜
-        Consumer(
-            child: null,
-            builder: (context, ref, child) {
-              final selectedDate = ref.watch(selectedDateProvider);
-              return Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
-                  child: Text(
-                      "${selectedDate.year}년 ${selectedDate.month}월 ${selectedDate.day}일 (${weekDay(selectedDate.weekday)})",
-                      style: Theme.of(context).textTheme.titleMedium));
-            }),
+        Padding(
+            padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+            child: Text(
+                "${selectedDate.year}년 ${selectedDate.month}월 ${selectedDate.day}일 (${weekDay(selectedDate.weekday)})",
+                style: Theme.of(context).textTheme.titleMedium)),
 
         //* 이벤트 리스트
         ListView.builder(

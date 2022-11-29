@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // listen for the months when calendar pages are chagnge
-final currentMonthProvider = StateProvider<int>((ref) {
-  return DateTime.now().month;
+final currentMonthProvider = StateProvider<DateTime>((ref) {
+  return DateTime.now();
 });
 
 // listen when the calendar page is not the current month

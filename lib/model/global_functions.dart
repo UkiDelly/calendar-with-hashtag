@@ -24,7 +24,7 @@ String weekDay(int day) {
 
 // format time to am and pm
 String formatTime(DateTime day) {
-  var time = DateFormat.jm().format(day);
+  String time = DateFormat.jm().format(day);
 
-  return time.toString();
+  return time;
 }

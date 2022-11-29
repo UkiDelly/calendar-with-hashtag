@@ -5,8 +5,7 @@ import 'package:care_square_assignment/model/repeat_enum.dart';
 List<CalendarEvent> events = [
   CalendarEvent(
       title: "귀국",
-      startTime: DateTime(2022, 8, 2, 0, 0),
-      endTime: DateTime(2022, 8, 2, 23, 59),
+      startTime: DateTime(2022, 11, 18, 0, 0),
       allDay: true,
       repeat: Repeat.none,
       memo: "드디어 귀국하는 날",
@@ -15,7 +14,6 @@ List<CalendarEvent> events = [
   CalendarEvent(
     title: "광복절",
     startTime: DateTime(2022, 8, 15, 0, 0),
-    endTime: DateTime(2022, 8, 15, 0, 0),
     account: accounts[1],
     repeat: Repeat.year,
     alarm: {},
