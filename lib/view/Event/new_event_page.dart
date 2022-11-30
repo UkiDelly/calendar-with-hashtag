@@ -4,7 +4,6 @@ import 'package:care_square_assignment/provider/dates.dart';
 import 'package:care_square_assignment/provider/events_list.dart';
 import 'package:care_square_assignment/view/Event/widgets/memo.dart';
 import 'package:care_square_assignment/view/Event/widgets/title.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -48,6 +47,27 @@ class _AddNewEventPageState extends ConsumerState<AddNewEventPage> {
   Widget build(BuildContext context) {
     return BasicScaffold(
       // backgroundColor: Colors.grey,
+      appBar: AppBar(
+        leading:
+            // 취소 버튼
+            TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          style: const ButtonStyle(
+            splashFactory: NoSplash.splashFactory,
+            overlayColor: MaterialStatePropertyAll(Colors.transparent),
+          ),
+          child: Text(
+            '취소',
+            style: Theme.of(context).primaryTextTheme.displayMedium!.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+        ),
+      ),
+      // ,
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // create event instance
@@ -89,25 +109,10 @@ class _AddNewEventPageState extends ConsumerState<AddNewEventPage> {
 
       //
       body: SingleChildScrollView(
-        padding: const EdgeInsets.only(left: 20, right: 0, top: 10),
+        padding: const EdgeInsets.only(left: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            //
-            //* Add to Template
-            Align(
-              alignment: Alignment.centerRight,
-              child: CupertinoButton(
-                padding: const EdgeInsets.all(0),
-                child: const Icon(
-                  Icons.more_horiz,
-                  color: Colors.black,
-                  size: 35,
-                ),
-                onPressed: () {},
-              ),
-            ),
-
             //* Title
             TitleWidget(
               getTitle: (title) {

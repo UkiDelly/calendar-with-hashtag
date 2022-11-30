@@ -1,9 +1,6 @@
-import 'dart:math' as math;
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../../../provider/dates.dart';
 
@@ -42,56 +39,61 @@ class _BackToNowState extends State<BackToNow> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return AnimatedOpacity(
-        opacity: _opacityController.value,
-        curve: Curves.ease,
-        duration: const Duration(seconds: 1),
-        child: Consumer(
-          builder: ((context, ref, child) => CupertinoButton(
-                padding: const EdgeInsets.all(0),
-                onPressed: () {
-                  // go back to today
-                  ref.watch(selectedDateProvider.notifier).update((state) => DateTime.now());
+      opacity: _opacityController.value,
+      curve: Curves.ease,
+      duration: const Duration(seconds: 1),
+      child: Consumer(
+        builder: ((context, ref, child) => CupertinoButton(
+              padding: const EdgeInsets.all(0),
+              onPressed: () {
+                // go back to today
+                ref.watch(selectedDateProvider.notifier).update((state) => DateTime.now());
 
-                  ref.watch(currentMonthProvider.notifier).update((state) => DateTime.now());
-                },
-                child: Container(
-                  height: 25,
-                  padding: const EdgeInsets.only(right: 10),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: const Color(0xff313131), width: 3),
-                      borderRadius: BorderRadius.circular(25)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Icon
-                      Center(
-                        child: Consumer(
-                          builder: (context, ref, child) {
-                            if (ref.watch(goBackTodayProvider) == 1) {
-                              // go back icon
-                              return SvgPicture.asset('assets/icon/undo.svg');
-                            } else if (ref.watch(goBackTodayProvider) == -1) {
-                              // go forward icon
-                              return Transform(
-                                  alignment: Alignment.center,
-                                  transform: Matrix4.rotationY(math.pi),
-                                  child: SvgPicture.asset('assets/icon/undo.svg'));
-                            }
-                            return const SizedBox();
-                          },
-                        ),
-                      ),
-
-                      // Today
-                      const Text(
-                        "TODAY",
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),
-                      ),
-                    ],
-                  ),
+                ref.watch(currentMonthProvider.notifier).update((state) => DateTime.now());
+              },
+              child: Container(
+                height: 25,
+                padding: const EdgeInsets.only(right: 10),
+                decoration: BoxDecoration(
+                  border: Border.all(color: const Color(0xff313131), width: 3),
+                  borderRadius: BorderRadius.circular(25),
                 ),
-              )),
-        ));
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Icon
+                    Center(
+                      child: Consumer(
+                        builder: (context, ref, child) {
+                          // if (ref.watch(goBackTodayProvider) == 1) {
+                          //   // go back icon
+                          //   return SvgPicture.asset('assets/icon/undo.svg');
+                          // } else if (ref.watch(goBackTodayProvider) == -1) {
+                          //   // go forward icon
+                          //   return Transform(
+                          //       alignment: Alignment.center,
+                          //       transform: Matrix4.rotationY(math.pi),
+                          //       child: SvgPicture.asset('assets/icon/undo.svg'));
+                          // }
+                          return const SizedBox();
+                        },
+                      ),
+                    ),
+
+                    // Today
+                    const Text(
+                      'TODAY',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )),
+      ),
+    );
   }
 }

@@ -3,7 +3,7 @@ import 'package:care_square_assignment/view/Main/main_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../Event/new_event_page.dart';
 
@@ -37,20 +37,31 @@ class _AddNewEventState extends State<AddNewEvent> {
           return CupertinoButton(
             //
             //* 새로운 이벤트 추가 페이지로 이동
-            onPressed: () => showCupertinoModalBottomSheet(
-              // enableDrag: false,
-              isDismissible: false,
-              enableDrag: false,
-              context: context,
-              shape: RoundedRectangleBorder(
-                side: BorderSide(color: Theme.of(context).textTheme.bodyLarge!.color!),
-              ),
-              builder: (context) => AddNewEventPage(
-                date: date,
-              ),
-            ).then(
-              (value) => {eventListKey.currentState!.setState(() {})},
-            ),
+            onPressed: () => Navigator.of(context)
+                .push(
+                  PageTransition(
+                    child: AddNewEventPage(date: date),
+                    duration: const Duration(milliseconds: 300),
+                    type: PageTransitionType.bottomToTop,
+                  ),
+                )
+                .then(
+                  (value) => eventListKey.currentState!.setState(() {}),
+                ),
+            // showCupertinoModalBottomSheet(
+            //   // enableDrag: false,
+            //   isDismissible: false,
+            //   enableDrag: false,
+            //   context: context,
+            //   shape: RoundedRectangleBorder(
+            //     side: BorderSide(color: Theme.of(context).textTheme.bodyLarge!.color!),
+            //   ),
+            //   builder: (context) => AddNewEventPage(
+            //     date: date,
+            //   ),
+            // ).then(
+            //   (value) => {eventListKey.currentState!.setState(() {})},
+            // ),
 
             //
             child: Row(

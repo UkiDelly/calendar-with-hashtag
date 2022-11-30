@@ -80,13 +80,13 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
         _focusedDay = focusedDay;
 
         // 현재 날짜보다 앞으로 간 경우
-        if (focusedDay.month > DateTime.now().month) {
-          ref.watch(goBackTodayProvider.notifier).update((state) => 1);
-        }
-        // 현재 날짜보다 뒤로 간 경우
-        else {
-          ref.watch(goBackTodayProvider.notifier).update((state) => -1);
-        }
+        // if (focusedDay.month > DateTime.now().month) {
+        //   ref.watch(goBackTodayProvider.notifier).update((state) => 1);
+        // }
+        // // 현재 날짜보다 뒤로 간 경우
+        // else {
+        //   ref.watch(goBackTodayProvider.notifier).update((state) => -1);
+        // }
 
         // 월 바꾸기
         ref.watch(currentMonthProvider.notifier).update((state) => focusedDay);
