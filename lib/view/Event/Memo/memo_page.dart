@@ -38,9 +38,9 @@ class _MemoInputPageState extends State<MemoInputPage> {
               ),
 
               // Memo
-              const Text(
+              Text(
                 '메모',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                style: Theme.of(context).primaryTextTheme.labelMedium,
               ),
 
               // ok button

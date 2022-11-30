@@ -22,7 +22,7 @@ class OutSideCell extends StatelessWidget {
           //* 날짜
           Text(
             day.day.toString(),
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+            style: Theme.of(context).primaryTextTheme.bodySmall!.copyWith(
                   color: day.weekday == 6 || day.weekday == 7
                       ? AppColor.holidayColor.withOpacity(0.5)
                       : Colors.grey.withOpacity(0.5),

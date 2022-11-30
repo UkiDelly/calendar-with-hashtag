@@ -75,10 +75,14 @@ class _TimePickState extends State<TimePick> {
               const Spacer(),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: allDay
-                      ? Theme.of(context).backgroundColor
-                      : Theme.of(context).scaffoldBackgroundColor,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                  backgroundColor: allDay ? Theme.of(context).backgroundColor : Colors.transparent,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    side: BorderSide(
+                      color: Theme.of(context).backgroundColor,
+                    ),
+                  ),
                 ),
                 onPressed: () {
                   allDay = !allDay;

@@ -5,6 +5,7 @@ import 'package:care_square_assignment/view/Event/widgets/memo.dart';
 import 'package:care_square_assignment/view/Event/widgets/tags.dart';
 import 'package:care_square_assignment/view/Event/widgets/title.dart';
 import 'package:care_square_assignment/view/Main/main_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -42,6 +43,46 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
 
     return BasicScaffold(
       //* 저장 버튼
+      appBar: AppBar(
+        leading:
+            // 취소 버튼
+            Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: CupertinoButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            padding: EdgeInsets.zero,
+
+            // padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              '취소',
+              style: Theme.of(context)
+                  .primaryTextTheme
+                  .displayMedium!
+                  .copyWith(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+        toolbarHeight: 50,
+        actions: [
+          //* 이벤트 삭제
+          Consumer(
+            builder: (context, ref, child) {
+              EventsNotifier eventsNotifier = ref.watch(eventListProvider.notifier);
+              // 삭제 버튼
+              return IconButton(
+                // alert dialog 띄우기
+                onPressed: () => _showAlertDialog(context, eventsNotifier, widget.event),
+                icon: const Icon(
+                  Icons.delete_forever,
+                  color: Colors.red,
+                ),
+              );
+            },
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         // backgroundColor: Theme.of(context).backgroundColor,
         onPressed: () {
@@ -89,42 +130,8 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
         padding: const EdgeInsets.only(left: 20, right: 0, top: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Consumer(
-                  builder: (context, ref, child) {
-                    EventsNotifier eventsNotifier = ref.watch(eventListProvider.notifier);
-                    // 삭제 버튼
-                    return IconButton(
-                      // alert dialog 띄우기
-                      onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(
-                        Icons.delete_forever,
-                        color: Colors.red,
-                      ),
-                    );
-                  },
-                ),
-                //* 이벤트 삭제
-                Consumer(
-                  builder: (context, ref, child) {
-                    EventsNotifier eventsNotifier = ref.watch(eventListProvider.notifier);
-                    // 삭제 버튼
-                    return IconButton(
-                      // alert dialog 띄우기
-                      onPressed: () => _showAlertDialog(context, eventsNotifier, widget.event),
-                      icon: const Icon(
-                        Icons.delete_forever,
-                        color: Colors.red,
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
-
             //* 제목
             TitleWidget(
               event: widget.event,

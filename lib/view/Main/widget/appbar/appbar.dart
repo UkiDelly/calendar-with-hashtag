@@ -60,7 +60,7 @@ class CalendarAppBar extends ConsumerWidget {
             child: Icon(
               CupertinoIcons.search,
               size: 25,
-              color: Theme.of(context).iconTheme.color,
+              color: Theme.of(context).primaryIconTheme.color,
             ),
           ),
 
@@ -72,7 +72,7 @@ class CalendarAppBar extends ConsumerWidget {
             //     context: context, builder: (context) => const AccountPage()),
             child: Icon(
               CupertinoIcons.calendar,
-              color: Theme.of(context).iconTheme.color,
+              color: Theme.of(context).primaryIconTheme.color,
               size: 25,
             ),
           ),
@@ -87,7 +87,7 @@ class CalendarAppBar extends ConsumerWidget {
             //     builder: (context) => const SettingPage()),
             child: Icon(
               Icons.settings,
-              color: Theme.of(context).iconTheme.color,
+              color: Theme.of(context).primaryIconTheme.color,
               size: 25,
             ),
           )

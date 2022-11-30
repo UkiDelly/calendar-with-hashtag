@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 ThemeData lightTheme = ThemeData(
   primaryColor: Colors.white,
   primarySwatch: createMaterialColor(Colors.black),
-  useMaterial3: true,
   scaffoldBackgroundColor: Colors.white,
   primaryIconTheme: const IconThemeData(color: Colors.black),
   iconTheme: const IconThemeData(color: Colors.white),
@@ -105,7 +104,7 @@ ThemeData lightTheme = ThemeData(
     ),
   ),
   cardTheme: CardTheme(
-    color: Colors.grey.shade100,
+    color: Colors.grey.shade200,
     elevation: 0,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10),
@@ -113,13 +112,16 @@ ThemeData lightTheme = ThemeData(
   ),
   textButtonTheme: TextButtonThemeData(
     style: TextButton.styleFrom(
-      backgroundColor: const Color(0xff212529),
+      // backgroundColor: const Color(0xff212529),
       padding: EdgeInsets.zero,
       textStyle: const TextStyle(
-        color: Colors.white,
-        fontSize: 15,
+        color: Colors.black,
+        fontSize: 17,
+        fontWeight: FontWeight.w500,
       ),
-      foregroundColor: Colors.white,
+      splashFactory: NoSplash.splashFactory,
+
+      // foregroundColor: Colors.white,
     ),
   ),
   splashFactory: NoSplash.splashFactory,
@@ -130,7 +132,6 @@ ThemeData darkTheme = ThemeData(
   // colors for dark theme
   primaryColor: Colors.black,
   primarySwatch: createMaterialColor(Colors.white),
-  useMaterial3: true,
   scaffoldBackgroundColor: const Color(0xff212529),
   primaryIconTheme: const IconThemeData(color: Colors.white),
   backgroundColor: Colors.white,
@@ -238,6 +239,18 @@ ThemeData darkTheme = ThemeData(
     ),
   ),
   splashFactory: NoSplash.splashFactory,
+  textButtonTheme: TextButtonThemeData(
+    style: TextButton.styleFrom(
+      // backgroundColor: const Color(0xff212529),
+      padding: EdgeInsets.zero,
+      textStyle: const TextStyle(
+        color: Colors.black,
+        fontSize: 17,
+      ),
+      splashFactory: NoSplash.splashFactory,
+      // foregroundColor: Colors.white,
+    ),
+  ),
 );
 
 class AppColor {

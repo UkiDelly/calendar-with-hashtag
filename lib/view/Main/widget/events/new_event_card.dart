@@ -40,7 +40,7 @@ class _AddNewEventState extends State<AddNewEvent> {
             onPressed: () => showCupertinoModalBottomSheet(
               // enableDrag: false,
               isDismissible: false,
-
+              enableDrag: false,
               context: context,
               shape: RoundedRectangleBorder(
                 side: BorderSide(color: Theme.of(context).textTheme.bodyLarge!.color!),
