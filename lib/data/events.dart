@@ -8,6 +8,7 @@ List<CalendarEventModel> events = [
     allDay: true,
     // repeat: Repeat.none,
     memo: '드디어 귀국하는 날',
+    tags: ['여행', '귀국'],
     // alarm: {},
     // account: accounts[0]),
   ),

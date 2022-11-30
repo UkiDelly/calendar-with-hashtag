@@ -2,6 +2,7 @@ import 'package:care_square_assignment/components/basic_scaffold.dart';
 import 'package:care_square_assignment/provider/events_list.dart';
 import 'package:care_square_assignment/view/Event/widgets/date.dart';
 import 'package:care_square_assignment/view/Event/widgets/memo.dart';
+import 'package:care_square_assignment/view/Event/widgets/tags.dart';
 import 'package:care_square_assignment/view/Event/widgets/title.dart';
 import 'package:care_square_assignment/view/Main/main_view.dart';
 import 'package:flutter/material.dart';
@@ -87,24 +88,41 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(left: 20, right: 0, top: 10),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //* 이벤트 삭제
-            Align(
-              alignment: Alignment.centerRight,
-              child: Consumer(
-                builder: (context, ref, child) {
-                  EventsNotifier eventsNotifier = ref.watch(eventListProvider.notifier);
-                  // 삭제 버튼
-                  return IconButton(
-                    // alert dialog 띄우기
-                    onPressed: () => _showAlertDialog(context, eventsNotifier, widget.event),
-                    icon: const Icon(
-                      Icons.delete_forever,
-                      color: Colors.red,
-                    ),
-                  );
-                },
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Consumer(
+                  builder: (context, ref, child) {
+                    EventsNotifier eventsNotifier = ref.watch(eventListProvider.notifier);
+                    // 삭제 버튼
+                    return IconButton(
+                      // alert dialog 띄우기
+                      onPressed: () => Navigator.of(context).pop(),
+                      icon: const Icon(
+                        Icons.delete_forever,
+                        color: Colors.red,
+                      ),
+                    );
+                  },
+                ),
+                //* 이벤트 삭제
+                Consumer(
+                  builder: (context, ref, child) {
+                    EventsNotifier eventsNotifier = ref.watch(eventListProvider.notifier);
+                    // 삭제 버튼
+                    return IconButton(
+                      // alert dialog 띄우기
+                      onPressed: () => _showAlertDialog(context, eventsNotifier, widget.event),
+                      icon: const Icon(
+                        Icons.delete_forever,
+                        color: Colors.red,
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
 
             //* 제목
@@ -187,7 +205,12 @@ class _EventDetailPageState extends ConsumerState<EventDetailPage> {
             //     this.url = url;
             //   }),
             // ),
+            //
+            const SizedBox(
+              height: 10,
+            ),
 
+            Tags(tagList: widget.event.tags),
             //
             const SizedBox(
               height: 10,

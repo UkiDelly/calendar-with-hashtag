@@ -20,7 +20,8 @@ mixin _$CalendarEventModel {
   String get title => throw _privateConstructorUsedError;
   DateTime get startTime => throw _privateConstructorUsedError;
   DateTime get endTime => throw _privateConstructorUsedError;
-  String? get description =>
+  String? get description => throw _privateConstructorUsedError;
+  List<String>? get tags =>
       throw _privateConstructorUsedError; // required Account account,
 // required Repeat repeat,
 // required Alarm alarm,
@@ -43,6 +44,7 @@ abstract class $CalendarEventModelCopyWith<$Res> {
       DateTime startTime,
       DateTime endTime,
       String? description,
+      List<String>? tags,
       bool allDay,
       String? memo});
 }
@@ -64,6 +66,7 @@ class _$CalendarEventModelCopyWithImpl<$Res, $Val extends CalendarEventModel>
     Object? startTime = null,
     Object? endTime = null,
     Object? description = freezed,
+    Object? tags = freezed,
     Object? allDay = null,
     Object? memo = freezed,
   }) {
@@ -84,6 +87,10 @@ class _$CalendarEventModelCopyWithImpl<$Res, $Val extends CalendarEventModel>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      tags: freezed == tags
+          ? _value.tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       allDay: null == allDay
           ? _value.allDay
           : allDay // ignore: cast_nullable_to_non_nullable
@@ -109,6 +116,7 @@ abstract class _$$_CalendarEventModelCopyWith<$Res>
       DateTime startTime,
       DateTime endTime,
       String? description,
+      List<String>? tags,
       bool allDay,
       String? memo});
 }
@@ -128,6 +136,7 @@ class __$$_CalendarEventModelCopyWithImpl<$Res>
     Object? startTime = null,
     Object? endTime = null,
     Object? description = freezed,
+    Object? tags = freezed,
     Object? allDay = null,
     Object? memo = freezed,
   }) {
@@ -148,6 +157,10 @@ class __$$_CalendarEventModelCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      tags: freezed == tags
+          ? _value._tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       allDay: null == allDay
           ? _value.allDay
           : allDay // ignore: cast_nullable_to_non_nullable
@@ -168,8 +181,10 @@ class _$_CalendarEventModel implements _CalendarEventModel {
       required this.startTime,
       required this.endTime,
       this.description,
+      final List<String>? tags,
       required this.allDay,
-      this.memo});
+      this.memo})
+      : _tags = tags;
 
 // required String id,
   @override
@@ -180,6 +195,15 @@ class _$_CalendarEventModel implements _CalendarEventModel {
   final DateTime endTime;
   @override
   final String? description;
+  final List<String>? _tags;
+  @override
+  List<String>? get tags {
+    final value = _tags;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
 // required Account account,
 // required Repeat repeat,
 // required Alarm alarm,
@@ -190,7 +214,7 @@ class _$_CalendarEventModel implements _CalendarEventModel {
 
   @override
   String toString() {
-    return 'CalendarEventModel(title: $title, startTime: $startTime, endTime: $endTime, description: $description, allDay: $allDay, memo: $memo)';
+    return 'CalendarEventModel(title: $title, startTime: $startTime, endTime: $endTime, description: $description, tags: $tags, allDay: $allDay, memo: $memo)';
   }
 
   @override
@@ -204,13 +228,14 @@ class _$_CalendarEventModel implements _CalendarEventModel {
             (identical(other.endTime, endTime) || other.endTime == endTime) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            const DeepCollectionEquality().equals(other._tags, _tags) &&
             (identical(other.allDay, allDay) || other.allDay == allDay) &&
             (identical(other.memo, memo) || other.memo == memo));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, title, startTime, endTime, description, allDay, memo);
+  int get hashCode => Object.hash(runtimeType, title, startTime, endTime,
+      description, const DeepCollectionEquality().hash(_tags), allDay, memo);
 
   @JsonKey(ignore: true)
   @override
@@ -226,6 +251,7 @@ abstract class _CalendarEventModel implements CalendarEventModel {
       required final DateTime startTime,
       required final DateTime endTime,
       final String? description,
+      final List<String>? tags,
       required final bool allDay,
       final String? memo}) = _$_CalendarEventModel;
 
@@ -237,6 +263,8 @@ abstract class _CalendarEventModel implements CalendarEventModel {
   DateTime get endTime;
   @override
   String? get description;
+  @override
+  List<String>? get tags;
   @override // required Account account,
 // required Repeat repeat,
 // required Alarm alarm,

@@ -6,6 +6,7 @@ ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   scaffoldBackgroundColor: Colors.white,
   primaryIconTheme: const IconThemeData(color: Colors.black),
+  iconTheme: const IconThemeData(color: Colors.white),
   backgroundColor: const Color(0xff212529),
   buttonTheme: const ButtonThemeData(
     colorScheme: ColorScheme.light(),
@@ -104,7 +105,7 @@ ThemeData lightTheme = ThemeData(
     ),
   ),
   cardTheme: CardTheme(
-    color: Colors.white,
+    color: Colors.grey.shade100,
     elevation: 0,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10),
@@ -121,6 +122,7 @@ ThemeData lightTheme = ThemeData(
       foregroundColor: Colors.white,
     ),
   ),
+  splashFactory: NoSplash.splashFactory,
 );
 
 // dark theme
@@ -229,23 +231,13 @@ ThemeData darkTheme = ThemeData(
     ),
   ),
   cardTheme: CardTheme(
-    color: Colors.black,
+    color: Colors.grey.shade700,
     elevation: 0,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10),
     ),
   ),
-  // textButtonTheme: TextButtonThemeData(
-  //   style: TextButton.styleFrom(
-  //     backgroundColor: const Color(0xff212529),
-  //     padding: EdgeInsets.zero,
-  //     textStyle: const TextStyle(
-  //       color: Colors.white,
-  //       fontSize: 15,
-  //     ),
-  //     foregroundColor: Colors.black,
-  //   ),
-  // ),
+  splashFactory: NoSplash.splashFactory,
 );
 
 class AppColor {

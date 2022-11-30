@@ -48,6 +48,8 @@ class _TimePickState extends State<TimePick> {
 
   @override
   Widget build(BuildContext context) {
+    // get the brightness of the device
+    final Brightness brightnessValue = MediaQuery.of(context).platformBrightness;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       child: Column(
@@ -73,7 +75,9 @@ class _TimePickState extends State<TimePick> {
               const Spacer(),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).backgroundColor,
+                  backgroundColor: allDay
+                      ? Theme.of(context).backgroundColor
+                      : Theme.of(context).scaffoldBackgroundColor,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
                 ),
                 onPressed: () {
@@ -83,14 +87,16 @@ class _TimePickState extends State<TimePick> {
                     allDay;
                   });
                 },
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  child: Text(
+                child: DefaultTextStyle(
+                  // duration: const Duration(milliseconds: 300),
+                  style: allDay
+                      ? Theme.of(context)
+                          .primaryTextTheme
+                          .labelMedium!
+                          .copyWith(color: Theme.of(context).primaryColor)
+                      : Theme.of(context).primaryTextTheme.labelMedium!,
+                  child: const Text(
                     '하루종일',
-                    style: Theme.of(context)
-                        .primaryTextTheme
-                        .labelMedium!
-                        .copyWith(color: Colors.white),
                   ),
                 ),
               ),
@@ -101,8 +107,8 @@ class _TimePickState extends State<TimePick> {
           ),
           AnimatedContainer(
             duration: const Duration(milliseconds: 200),
-            height: pressedDatePicker ? 120 : 0.0001,
-            child: datePick(),
+            height: pressedDatePicker ? 200 : 0.0001,
+            child: datePick(brightnessValue),
           ),
         ],
       ),
@@ -207,46 +213,51 @@ class _TimePickState extends State<TimePick> {
   }
 
   // DatePicker
-  Widget datePick() {
+  Widget datePick(Brightness brightness) {
     return SizedBox(
       //
-      child: CupertinoDatePicker(
-        // 날짜 초기화
-        initialDateTime: selected == _DatePressed.startDate
-            ? startDate //: DateTime.now(),
-            : DateTime(endDate.year, endDate.month, endDate.day, endDate.hour, 55),
+      child: CupertinoTheme(
+        data: CupertinoThemeData(
+          brightness: brightness,
+        ),
+        child: CupertinoDatePicker(
+          // 날짜 초기화
+          initialDateTime: selected == _DatePressed.startDate
+              ? startDate //: DateTime.now(),
+              : DateTime(endDate.year, endDate.month, endDate.day, endDate.hour, 55),
 
-        dateOrder: DatePickerDateOrder.ymd,
-        minuteInterval: 5,
+          dateOrder: DatePickerDateOrder.ymd,
+          minuteInterval: 5,
 
-        // 날짜가 바뀔때
-        onDateTimeChanged: (date) {
-          // 시작 날짜를 바꿀시,
-          if (selected == _DatePressed.startDate) {
-            //
-            startDate = date;
+          // 날짜가 바뀔때
+          onDateTimeChanged: (date) {
+            // 시작 날짜를 바꿀시,
+            if (selected == _DatePressed.startDate) {
+              //
+              startDate = date;
 
-            // 끝나는 날짜를 시작하는 날짜와 맞추기
-            endDate = DateTime(
-              startDate.year,
-              startDate.month,
-              startDate.day,
-              endDate.hour,
-              endDate.minute,
-            );
-          } else {
-            endDate = date;
-          }
+              // 끝나는 날짜를 시작하는 날짜와 맞추기
+              endDate = DateTime(
+                startDate.year,
+                startDate.month,
+                startDate.day,
+                endDate.hour,
+                endDate.minute,
+              );
+            } else {
+              endDate = date;
+            }
 
-          // 날짜 업데이트
-          setState(() {
-            startDate;
-            // endDate;
-          });
+            // 날짜 업데이트
+            setState(() {
+              startDate;
+              // endDate;
+            });
 
-          // 콜백 함수
-          widget.getDate(startDate, allDay);
-        },
+            // 콜백 함수
+            widget.getDate(startDate, allDay);
+          },
+        ),
       ),
     );
   }

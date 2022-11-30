@@ -27,6 +27,7 @@ class _EventCardTileState extends State<EventCardTile> {
 
       //* 이벤트 상세 페이지로 이동
       onPressed: () => showCupertinoModalBottomSheet(
+        enableDrag: false,
         context: context,
         builder: (context) => EventDetailPage(
           event: widget.event,
@@ -41,16 +42,16 @@ class _EventCardTileState extends State<EventCardTile> {
         child: Container(
           padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).cardTheme.color,
             borderRadius: BorderRadius.circular(10),
             // border: Border.all(),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black38,
-                offset: Offset(3, 3),
-                blurRadius: 5,
-              )
-            ],
+            // boxShadow: const [
+            //   BoxShadow(
+            //     color: Colors.black38,
+            //     offset: Offset(3, 3),
+            //     blurRadius: 5,
+            //   )
+            // ],
           ),
           child: Row(
             children: [

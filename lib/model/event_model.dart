@@ -10,6 +10,7 @@ class CalendarEventModel with _$CalendarEventModel {
     required DateTime startTime,
     required DateTime endTime,
     String? description,
+    List<String>? tags,
     // required Account account,
     // required Repeat repeat,
     // required Alarm alarm,

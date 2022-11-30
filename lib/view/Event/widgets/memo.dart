@@ -91,7 +91,10 @@ class _MemoWidgetState extends State<MemoWidget> {
     } else {
       return Row(
         children: [
-          const Icon(CupertinoIcons.doc_text),
+          Icon(
+            CupertinoIcons.doc_text,
+            color: Theme.of(context).primaryIconTheme.color,
+          ),
           //
           const SizedBox(
             width: 10,
@@ -118,6 +121,7 @@ class _MemoWidgetState extends State<MemoWidget> {
 
               //
               placeholder: '메모',
+              placeholderStyle: Theme.of(context).textTheme.titleMedium,
             ),
           ),
         ],
